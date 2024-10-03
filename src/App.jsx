@@ -12,6 +12,38 @@ export default function App() {
   const [room, setRoom] = useState("");
   const [token, setToken] = useState("");
 
+  const connectRoomWs = () => {
+    const backendUrl = new URL("http://localhost:8000");
+    const ws_scheme = backendUrl.protocol == "https:" ? "wss" : "ws";
+    const path =
+      ws_scheme +
+      "://" +
+      backendUrl.hostname +
+      ":" +
+      backendUrl.port +
+      "/ws/room/?token=" +
+      token;
+    const roomWs = new WebSocket(path);
+    roomWs.onopen = () => {
+      console.log("Room WebSocket open");
+      if (room) {
+        roomWs.send(
+          JSON.stringify({
+            command: "connect",
+            room: room,
+          })
+        );
+      }
+    };
+    roomWs.onerror = (e) => {
+      console.log(e.message);
+    };
+    roomWs.onclose = () => {
+      console.log("Room WebSocket closed");
+      connectRoomWs();
+    };
+  };
+
   useEffect(() => {
     const firebaseConfig = {
       apiKey: "AIzaSyD6HWYS1hbYXR7xvKgq7hQW-T4wSECWnss",
@@ -47,6 +79,11 @@ export default function App() {
       setRoom(currentRoom);
     }
   }, [room]);
+  useEffect(() => {
+    if (room && token) {
+      connectRoomWs();
+    }
+  }, [room, token]);
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
