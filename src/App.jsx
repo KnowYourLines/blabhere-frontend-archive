@@ -13,7 +13,7 @@ export default function App() {
   const [token, setToken] = useState("");
 
   const connectRoomWs = () => {
-    const backendUrl = new URL("http://localhost:8000");
+    const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
     const ws_scheme = backendUrl.protocol == "https:" ? "wss" : "ws";
     const path =
       ws_scheme +
