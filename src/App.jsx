@@ -127,12 +127,19 @@ export default function App() {
                   message: elt,
                 }}
               >
-                <Message.Header><b>SomeRandomPersonNamedBilly</b></Message.Header>
+                <Message.Header>
+                  <b>SomeRandomPersonNamedBilly</b>
+                </Message.Header>
                 <Message.Footer>5 minutes ago</Message.Footer>
               </Message>
             ))}
           </MessageList>
-          <MessageInput placeholder="Type message here" attachButton={false} autoFocus={false} fancyScroll={true} />
+          <MessageInput
+            placeholder="Type message here"
+            attachButton={false}
+            autoFocus={false}
+            fancyScroll={true}
+          />
         </ChatContainer>
       </MainContainer>
     </div>
