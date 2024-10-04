@@ -132,7 +132,7 @@ export default function App() {
               </Message>
             ))}
           </MessageList>
-          <MessageInput placeholder="Type message here" attachButton={false} />
+          <MessageInput placeholder="Type message here" attachButton={false} autoFocus={false} fancyScroll={true} />
         </ChatContainer>
       </MainContainer>
     </div>
