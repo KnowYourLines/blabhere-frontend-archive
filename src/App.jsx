@@ -114,7 +114,7 @@ export default function App() {
     "i am fine, thanks. How you doing",
     "im doing great.",
   ];
-  
+
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer>
@@ -125,10 +125,11 @@ export default function App() {
                 key={i}
                 model={{
                   message: elt,
-                  sentTime: "just now",
-                  sender: "Joe",
                 }}
-              />
+              >
+                <Message.Header>Custom header content</Message.Header>
+                <Message.Footer>Custom footer content</Message.Footer>
+              </Message>
             ))}
           </MessageList>
           <MessageInput placeholder="Type message here" attachButton={false} />
