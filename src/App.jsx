@@ -140,7 +140,7 @@ export default function App() {
             ))}
           </MessageList>
           <MessageInput
-            style={{ fontSize: "16px" }}
+            style={{ fontSize: "18px" }}
             placeholder="Type message here"
             attachButton={false}
             fancyScroll={true}
