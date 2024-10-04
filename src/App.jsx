@@ -116,7 +116,7 @@ export default function App() {
   ];
 
   return (
-    <div style={{ position: "relative", height: "500px" }}>
+    <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>
         <ChatContainer>
           <MessageList>
