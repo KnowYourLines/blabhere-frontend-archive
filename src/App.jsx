@@ -106,11 +106,11 @@ export default function App() {
     "hi",
     "hi",
     "how are you",
-    "i am fine, thanks. How you doing",
+    "i am fine, thanks. How you doing How you doingHow you doingHow you doingHow you doingHow you doing\n\nHow you doingHow you doing",
     "im doing great.",
     "hi",
     "hi",
-    "how are you",
+    "how are you https://chatscope.io ",
     "i am fine, thanks. How you doing",
     "im doing great.",
   ];
@@ -127,8 +127,8 @@ export default function App() {
                   message: elt,
                 }}
               >
-                <Message.Header>Custom header content</Message.Header>
-                <Message.Footer>Custom footer content</Message.Footer>
+                <Message.Header><b>SomeRandomPersonNamedBilly</b></Message.Header>
+                <Message.Footer>5 minutes ago</Message.Footer>
               </Message>
             ))}
           </MessageList>
