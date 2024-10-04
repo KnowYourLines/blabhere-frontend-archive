@@ -9,6 +9,7 @@ import {
   MessageList,
   Message,
   MessageInput,
+  ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
 export default function App() {
@@ -119,6 +120,10 @@ export default function App() {
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>
         <ChatContainer>
+          <ConversationHeader>
+            <ConversationHeader.Content info={"hello world"} />
+          </ConversationHeader>
+
           <MessageList>
             {chatHistory.map((elt, i) => (
               <Message
@@ -135,9 +140,9 @@ export default function App() {
             ))}
           </MessageList>
           <MessageInput
+            style={{ fontSize: "16px" }}
             placeholder="Type message here"
             attachButton={false}
-            autoFocus={false}
             fancyScroll={true}
           />
         </ChatContainer>
