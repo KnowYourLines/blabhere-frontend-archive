@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import ProTip from "./ProTip";
-import Copyright from "./Copyright";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import {
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+} from "@chatscope/chat-ui-kit-react";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -84,15 +87,53 @@ export default function App() {
       connectRoomWs();
     }
   }, [room, token]);
+  const chatHistory = [
+    "hi",
+    "hi",
+    "how are you",
+    "i am fine, thanks. How you doing",
+    "im doing great.",
+    "hi",
+    "hi",
+    "how are you",
+    "i am fine, thanks. How you doing",
+    "im doing great.",
+    "hi",
+    "hi",
+    "how are you",
+    "i am fine, thanks. How you doing",
+    "im doing great.",
+    "hi",
+    "hi",
+    "how are you",
+    "i am fine, thanks. How you doing",
+    "im doing great.",
+    "hi",
+    "hi",
+    "how are you",
+    "i am fine, thanks. How you doing",
+    "im doing great.",
+  ];
+  
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Material UI Vite.js example
-        </Typography>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
+    <div style={{ position: "relative", height: "500px" }}>
+      <MainContainer>
+        <ChatContainer>
+          <MessageList>
+            {chatHistory.map((elt, i) => (
+              <Message
+                key={i}
+                model={{
+                  message: elt,
+                  sentTime: "just now",
+                  sender: "Joe",
+                }}
+              />
+            ))}
+          </MessageList>
+          <MessageInput placeholder="Type message here" attachButton={false} />
+        </ChatContainer>
+      </MainContainer>
+    </div>
   );
 }
