@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { SwitchTextTrack } from "./SwitchTextTrack";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -136,6 +137,11 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
+                <SwitchTextTrack
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                  }}
+                ></SwitchTextTrack>
                 <Button
                   icon={
                     <FontAwesomeIcon
