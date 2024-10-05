@@ -17,6 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faCommentMedical } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -135,7 +136,7 @@ export default function App() {
                   fontSize: "16pt"
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faRocket} />}>
+                <Button icon={<FontAwesomeIcon icon={faCommentMedical} />}>
                   Icon button
                 </Button>
                 <AddUserButton />
