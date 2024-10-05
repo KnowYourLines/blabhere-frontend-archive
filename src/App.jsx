@@ -10,7 +10,12 @@ import {
   Message,
   MessageInput,
   ConversationHeader,
+  InfoButton,
+  AddUserButton,
+  Button,
 } from "@chatscope/chat-ui-kit-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRocket } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -121,7 +126,24 @@ export default function App() {
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>
-            <ConversationHeader.Content info={"hello world"} />
+            <ConversationHeader.Content
+              key="3"
+              userName="Group: name"
+              info="Username: username"
+            />
+            <ConversationHeader.Actions key="4">
+              <Button icon={<FontAwesomeIcon icon={faRocket} />}>
+                Icon button
+              </Button>
+              <AddUserButton />
+              <InfoButton
+                key="8"
+                title="Show info"
+                onClick={() => {
+                  console.log("hello world");
+                }}
+              />
+            </ConversationHeader.Actions>
           </ConversationHeader>
 
           <MessageList>
