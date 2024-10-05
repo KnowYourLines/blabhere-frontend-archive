@@ -17,7 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
-import { faCommentMedical } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -133,12 +133,20 @@ export default function App() {
                 style={{
                   alignSelf: "flex-center",
                   color: "#ec1212",
-                  fontSize: "16pt"
+                  fontSize: "16pt",
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faCommentMedical} />}>
-                  Icon button
-                </Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      onClick={() => {
+                        const url = new URL(window.location.href);
+                        window.open(url.origin, "_blank");
+                      }}
+                    />
+                  }
+                ></Button>
                 <AddUserButton />
                 <InfoButton
                   key="8"
@@ -153,12 +161,10 @@ export default function App() {
                 style={{
                   alignSelf: "right",
                   color: "#ec1212",
-                  fontSize: "16pt"
+                  fontSize: "16pt",
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faUserPen} />}>
-                  Icon button
-                </Button>
+                <Button icon={<FontAwesomeIcon icon={faUserPen} />}></Button>
                 <AddUserButton />
                 <InfoButton
                   key="8"
@@ -171,9 +177,7 @@ export default function App() {
               </span>
             </ConversationHeader.Content>
             <ConversationHeader.Actions key="4">
-              <Button icon={<FontAwesomeIcon icon={faRocket} />}>
-                Icon button
-              </Button>
+              <Button icon={<FontAwesomeIcon icon={faRocket} />}></Button>
               <AddUserButton />
               <InfoButton
                 key="8"
