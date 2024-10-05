@@ -16,6 +16,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -126,11 +127,48 @@ export default function App() {
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>
-            <ConversationHeader.Content
-              key="3"
-              userName="Group: name"
-              info="Username: username"
-            />
+            <ConversationHeader.Content>
+              <span
+                style={{
+                  alignSelf: "flex-center",
+                  color: "#ec1212",
+                  fontSize: "16pt"
+                }}
+              >
+                <Button icon={<FontAwesomeIcon icon={faRocket} />}>
+                  Icon button
+                </Button>
+                <AddUserButton />
+                <InfoButton
+                  key="8"
+                  title="Show info"
+                  onClick={() => {
+                    console.log("hello world");
+                  }}
+                />
+                Group name: room
+              </span>
+              <span
+                style={{
+                  alignSelf: "right",
+                  color: "#ec1212",
+                  fontSize: "16pt"
+                }}
+              >
+                <Button icon={<FontAwesomeIcon icon={faUserPen} />}>
+                  Icon button
+                </Button>
+                <AddUserButton />
+                <InfoButton
+                  key="8"
+                  title="Show info"
+                  onClick={() => {
+                    console.log("hello world");
+                  }}
+                />
+                Username: User
+              </span>
+            </ConversationHeader.Content>
             <ConversationHeader.Actions key="4">
               <Button icon={<FontAwesomeIcon icon={faRocket} />}>
                 Icon button
