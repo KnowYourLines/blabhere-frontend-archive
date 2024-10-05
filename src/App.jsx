@@ -15,7 +15,6 @@ import {
   Button,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { SwitchTextTrack } from "./SwitchTextTrack";
@@ -182,17 +181,6 @@ export default function App() {
                 Username: User
               </span>
             </ConversationHeader.Content>
-            {/* <ConversationHeader.Actions key="4">
-              <Button icon={<FontAwesomeIcon icon={faRocket} />}></Button>
-              <AddUserButton />
-              <InfoButton
-                key="8"
-                title="Show info"
-                onClick={() => {
-                  console.log("hello world");
-                }}
-              />
-            </ConversationHeader.Actions> */}
           </ConversationHeader>
 
           <MessageList>
