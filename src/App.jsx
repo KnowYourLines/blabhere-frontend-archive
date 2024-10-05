@@ -132,7 +132,7 @@ export default function App() {
             <ConversationHeader.Content>
               <span
                 style={{
-                  alignSelf: "flex-center",
+                  alignSelf: "center",
                   color: "#ec1212",
                   fontSize: "16pt",
                 }}
@@ -153,23 +153,6 @@ export default function App() {
                     />
                   }
                 ></Button>
-                <AddUserButton />
-                <InfoButton
-                  key="8"
-                  title="Show info"
-                  onClick={() => {
-                    console.log("hello world");
-                  }}
-                />
-                Group name: room
-              </span>
-              <span
-                style={{
-                  alignSelf: "right",
-                  color: "#ec1212",
-                  fontSize: "16pt",
-                }}
-              >
                 <Button icon={<FontAwesomeIcon icon={faUserPen} />}></Button>
                 <AddUserButton />
                 <InfoButton
@@ -179,10 +162,27 @@ export default function App() {
                     console.log("hello world");
                   }}
                 />
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "#ec1212",
+                  fontSize: "16pt",
+                }}
+              >
+                Group Name: User
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "#ec1212",
+                  fontSize: "16pt",
+                }}
+              >
                 Username: User
               </span>
             </ConversationHeader.Content>
-            <ConversationHeader.Actions key="4">
+            {/* <ConversationHeader.Actions key="4">
               <Button icon={<FontAwesomeIcon icon={faRocket} />}></Button>
               <AddUserButton />
               <InfoButton
@@ -192,7 +192,7 @@ export default function App() {
                   console.log("hello world");
                 }}
               />
-            </ConversationHeader.Actions>
+            </ConversationHeader.Actions> */}
           </ConversationHeader>
 
           <MessageList>
