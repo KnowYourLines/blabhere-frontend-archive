@@ -13,12 +13,15 @@ import {
   Button,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faUserGroup } from "@fortawesome/free-solid-svg-icons";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faUserGroup,
+  faUserPen,
+  faComments,
+  faCommentMedical,
+} from "@fortawesome/free-solid-svg-icons";
 import { SwitchTextTrack } from "./SwitchTextTrack";
 import Conversations from "./Conversations.jsx";
-import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -154,7 +157,7 @@ export default function App() {
                 <Button
                   icon={
                     <FontAwesomeIcon
-                      icon={faArrowUpRightFromSquare}
+                      icon={faCommentMedical}
                       onClick={() => {
                         const url = new URL(window.location.href);
                         window.open(url.origin, "_blank");
