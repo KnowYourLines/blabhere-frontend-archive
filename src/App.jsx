@@ -10,21 +10,22 @@ import {
   Message,
   MessageInput,
   ConversationHeader,
-  InfoButton,
   AddUserButton,
   Button,
-  Conversation,
-  ConversationList,
-  Sidebar,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { SwitchTextTrack } from "./SwitchTextTrack";
+import Conversations from "./Conversations.jsx";
+import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
 
 export default function App() {
   const [room, setRoom] = useState("");
   const [token, setToken] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
   const connectRoomWs = () => {
     const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
@@ -128,107 +129,8 @@ export default function App() {
 
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <Conversations setOpen={setOpen} open={open}></Conversations>
       <MainContainer>
-        <Sidebar position="left">
-          <ConversationList
-            style={{
-              height: "100%",
-            }}
-          >
-            <ConversationHeader
-              style={{
-                backgroundColor: "#43cea2",
-              }}
-            >
-              <ConversationHeader.Content>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  Your other chats
-                </span>
-              </ConversationHeader.Content>
-            </ConversationHeader>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Lilly"
-              name="Other group"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Joe"
-              name="Joe"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Emily"
-              name="Emily"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Kai"
-              name="Kai"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Akane"
-              name="Akane"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Eliot"
-              name="Eliot"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Zoe"
-              name="Zoe"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Patrik"
-              name="Patrik"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Joe"
-              name="Joe"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Emily"
-              name="Emily"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Kai"
-              name="Kai"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Akane"
-              name="Akane"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Eliot"
-              name="Eliot"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Zoe"
-              name="Zoe"
-            ></Conversation>
-            <Conversation
-              info="Yes i can do it for you"
-              lastSenderName="Patrik"
-              name="Patrik"
-            ></Conversation>
-          </ConversationList>
-        </Sidebar>
         <ChatContainer>
           <ConversationHeader>
             <ConversationHeader.Content>
@@ -243,6 +145,13 @@ export default function App() {
                     console.log(e.target.checked);
                   }}
                 ></SwitchTextTrack>
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  fontSize: "16pt",
+                }}
+              >
                 <Button
                   icon={
                     <FontAwesomeIcon
@@ -254,15 +163,17 @@ export default function App() {
                     />
                   }
                 ></Button>
-                <Button icon={<FontAwesomeIcon icon={faUserPen} />}></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon icon={faComments} onClick={handleOpen} />
+                  }
+                ></Button>
                 <AddUserButton />
-                <InfoButton
-                  key="8"
-                  title="Show info"
-                  onClick={() => {
-                    console.log("hello world");
-                  }}
-                />
+                <Button
+                  icon={
+                    <FontAwesomeIcon icon={faUserGroup} onClick={handleOpen} />
+                  }
+                ></Button>
               </span>
               <span
                 style={{
@@ -271,7 +182,9 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                Group Name: User
+                <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
+                  Group Name: User
+                </Button>{" "}
               </span>
               <span
                 style={{
@@ -280,7 +193,9 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                Your Name: User
+                <Button icon={<FontAwesomeIcon icon={faUserPen} />}>
+                  Your Name: User
+                </Button>{" "}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
