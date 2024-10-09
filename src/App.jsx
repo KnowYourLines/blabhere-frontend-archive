@@ -22,12 +22,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { SwitchTextTrack } from "./SwitchTextTrack";
 import Conversations from "./Conversations.jsx";
+import Members from "./Members.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
   const [token, setToken] = useState("");
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [members, setMembers] = useState([]);
+  const [openMembers, setOpenMembers] = useState(false);
+  const handleOpenMembers = () => setOpenMembers(true);
+  const [openConvos, setOpenConvos] = useState(false);
+  const handleOpenConvos = () => setOpenConvos(true);
 
   const connectRoomWs = () => {
     const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
@@ -50,6 +54,12 @@ export default function App() {
             room: room,
           })
         );
+      }
+    };
+    roomWs.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      if ("members" in data) {
+        setMembers(data.members);
       }
     };
     roomWs.onerror = (e) => {
@@ -129,9 +139,21 @@ export default function App() {
     "im doing great.",
   ];
 
+  if (openMembers) {
+    return (
+      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+        <Members
+          setOpen={setOpenMembers}
+          open={openMembers}
+          members={members}
+        ></Members>
+      </div>
+    );
+  }
+
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <Conversations setOpen={setOpen} open={open}></Conversations>
+      <Conversations setOpen={setOpenConvos} open={openConvos}></Conversations>
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>
@@ -167,10 +189,20 @@ export default function App() {
                 ></Button>
                 <Button
                   icon={
-                    <FontAwesomeIcon icon={faComments} onClick={handleOpen} />
+                    <FontAwesomeIcon
+                      icon={faComments}
+                      onClick={handleOpenConvos}
+                    />
                   }
                 ></Button>
-                <Button icon={<FontAwesomeIcon icon={faUserGroup} />}></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserGroup}
+                      onClick={handleOpenMembers}
+                    />
+                  }
+                ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon icon={faPersonCircleQuestion} size="lg" />
