@@ -140,20 +140,15 @@ export default function App() {
   ];
 
   if (openMembers) {
-    return (
-      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-        <Members
-          setOpen={setOpenMembers}
-          open={openMembers}
-          members={members}
-        ></Members>
-      </div>
-    );
+    return <Members setOpen={setOpenMembers} members={members}></Members>;
+  }
+
+  if (openConvos) {
+    return <Conversations setOpen={setOpenConvos}></Conversations>;
   }
 
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <Conversations setOpen={setOpenConvos} open={openConvos}></Conversations>
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>

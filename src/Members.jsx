@@ -9,7 +9,7 @@ import {
 export default function Members({ setOpen, members }) {
   const handleClose = () => setOpen(false);
   return (
-    <div>
+    <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
         <ConversationHeader.Back key="1" onClick={handleClose} />
         <ConversationHeader.Content>
