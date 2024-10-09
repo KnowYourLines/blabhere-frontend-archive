@@ -10,7 +10,6 @@ import {
   Message,
   MessageInput,
   ConversationHeader,
-  AddUserButton,
   Button,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -168,12 +167,7 @@ export default function App() {
                     <FontAwesomeIcon icon={faComments} onClick={handleOpen} />
                   }
                 ></Button>
-                <AddUserButton />
-                <Button
-                  icon={
-                    <FontAwesomeIcon icon={faUserGroup} onClick={handleOpen} />
-                  }
-                ></Button>
+                <Button icon={<FontAwesomeIcon icon={faUserGroup} />}></Button>
               </span>
               <span
                 style={{
