@@ -144,7 +144,7 @@ export default function App() {
                 <span
                   style={{
                     alignSelf: "center",
-                    color: "#ec1212",
+                    color: "black",
                     fontSize: "16pt",
                   }}
                 >
@@ -235,7 +235,6 @@ export default function App() {
               <span
                 style={{
                   alignSelf: "center",
-                  color: "#ec1212",
                   fontSize: "16pt",
                 }}
               >
@@ -268,7 +267,7 @@ export default function App() {
               <span
                 style={{
                   alignSelf: "center",
-                  color: "#ec1212",
+                  color: "black",
                   fontSize: "16pt",
                 }}
               >
@@ -277,11 +276,11 @@ export default function App() {
               <span
                 style={{
                   alignSelf: "center",
-                  color: "#ec1212",
+                  color: "black",
                   fontSize: "16pt",
                 }}
               >
-                Username: User
+                Your Name: User
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
