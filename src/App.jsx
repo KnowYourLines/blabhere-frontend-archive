@@ -20,7 +20,6 @@ import {
   faCommentMedical,
   faPersonCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
-import { SwitchTextTrack } from "./SwitchTextTrack";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 
@@ -162,18 +161,6 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                <SwitchTextTrack
-                  onChange={(e) => {
-                    console.log(e.target.checked);
-                  }}
-                ></SwitchTextTrack>
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  fontSize: "16pt",
-                }}
-              >
                 <Button
                   icon={
                     <FontAwesomeIcon
@@ -199,11 +186,6 @@ export default function App() {
                       icon={faUserGroup}
                       onClick={handleOpenMembers}
                     />
-                  }
-                ></Button>
-                <Button
-                  icon={
-                    <FontAwesomeIcon icon={faPersonCircleQuestion} size="lg" />
                   }
                 ></Button>
               </span>
