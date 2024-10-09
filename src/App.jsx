@@ -13,6 +13,9 @@ import {
   InfoButton,
   AddUserButton,
   Button,
+  Conversation,
+  ConversationList,
+  Sidebar,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
@@ -126,6 +129,106 @@ export default function App() {
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>
+        <Sidebar position="left">
+          <ConversationList
+            style={{
+              height: "100%",
+            }}
+          >
+            <ConversationHeader
+              style={{
+                backgroundColor: "#43cea2",
+              }}
+            >
+              <ConversationHeader.Content>
+                <span
+                  style={{
+                    alignSelf: "center",
+                    color: "#ec1212",
+                    fontSize: "16pt",
+                  }}
+                >
+                  Your other chats
+                </span>
+              </ConversationHeader.Content>
+            </ConversationHeader>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Lilly"
+              name="Other group"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Joe"
+              name="Joe"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Emily"
+              name="Emily"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Kai"
+              name="Kai"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Akane"
+              name="Akane"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Eliot"
+              name="Eliot"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Zoe"
+              name="Zoe"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Patrik"
+              name="Patrik"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Joe"
+              name="Joe"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Emily"
+              name="Emily"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Kai"
+              name="Kai"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Akane"
+              name="Akane"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Eliot"
+              name="Eliot"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Zoe"
+              name="Zoe"
+            ></Conversation>
+            <Conversation
+              info="Yes i can do it for you"
+              lastSenderName="Patrik"
+              name="Patrik"
+            ></Conversation>
+          </ConversationList>
+        </Sidebar>
         <ChatContainer>
           <ConversationHeader>
             <ConversationHeader.Content>
