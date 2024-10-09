@@ -26,6 +26,7 @@ import Members from "./Members.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
+  const [roomName, setRoomName] = useState("");
   const [token, setToken] = useState("");
   const [members, setMembers] = useState([]);
   const [openMembers, setOpenMembers] = useState(false);
@@ -60,6 +61,8 @@ export default function App() {
       const data = JSON.parse(message.data);
       if ("members" in data) {
         setMembers(data.members);
+      } else if ("display_name" in data) {
+        setRoomName(data.display_name);
       }
     };
     roomWs.onerror = (e) => {
@@ -212,7 +215,7 @@ export default function App() {
                 }}
               >
                 <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
-                  Group Name: User
+                  Room Name: {roomName}
                 </Button>{" "}
               </span>
               <span
