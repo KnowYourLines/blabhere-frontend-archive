@@ -16,9 +16,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faUserGroup,
-  faUserPen,
   faComments,
   faCommentMedical,
+  faPersonCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { SwitchTextTrack } from "./SwitchTextTrack";
 import Conversations from "./Conversations.jsx";
@@ -171,6 +171,11 @@ export default function App() {
                   }
                 ></Button>
                 <Button icon={<FontAwesomeIcon icon={faUserGroup} />}></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon icon={faPersonCircleQuestion} size="lg" />
+                  }
+                ></Button>
               </span>
               <span
                 style={{
@@ -190,7 +195,7 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faUserPen} />}>
+                <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
                   Your Name: User
                 </Button>{" "}
               </span>
