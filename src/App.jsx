@@ -28,6 +28,8 @@ export default function App() {
   const [roomName, setRoomName] = useState("");
   const [token, setToken] = useState("");
   const [members, setMembers] = useState([]);
+  const [chatHistory, setChatHistory] = useState([]);
+  const [roomWs, setRoomWs] = useState(null);
   const [openMembers, setOpenMembers] = useState(false);
   const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
@@ -62,6 +64,11 @@ export default function App() {
         setMembers(data.members);
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
+      } else if ("new_message" in data) {
+        setChatHistory((oldChatHistory) => [
+          ...oldChatHistory,
+          data.new_message,
+        ]);
       }
     };
     roomWs.onerror = (e) => {
@@ -71,6 +78,7 @@ export default function App() {
       console.log("Room WebSocket closed");
       connectRoomWs();
     };
+    setRoomWs(roomWs);
   };
 
   useEffect(() => {
@@ -109,37 +117,10 @@ export default function App() {
     }
   }, [room]);
   useEffect(() => {
-    if (room && token) {
+    if (room && token && !roomWs) {
       connectRoomWs();
     }
-  }, [room, token]);
-  const chatHistory = [
-    "hi",
-    "hi",
-    "how are you",
-    "i am fine, thanks. How you doing",
-    "im doing great.",
-    "hi",
-    "hi",
-    "how are you",
-    "i am fine, thanks. How you doing",
-    "im doing great.",
-    "hi",
-    "hi",
-    "how are you",
-    "i am fine, thanks. How you doing",
-    "im doing great.",
-    "hi",
-    "hi",
-    "how are you",
-    "i am fine, thanks. How you doing How you doingHow you doingHow you doingHow you doingHow you doing\n\nHow you doingHow you doing",
-    "im doing great.",
-    "hi",
-    "hi",
-    "how are you https://chatscope.io ",
-    "i am fine, thanks. How you doing",
-    "im doing great.",
-  ];
+  }, [room, token, roomWs]);
 
   if (openMembers) {
     return <Members setOpen={setOpenMembers} members={members}></Members>;
@@ -216,17 +197,17 @@ export default function App() {
           </ConversationHeader>
 
           <MessageList>
-            {chatHistory.map((elt, i) => (
+            {chatHistory.map((msg, i) => (
               <Message
-                key={i}
+                key={msg.id}
                 model={{
-                  message: elt,
+                  message: msg.content,
                 }}
               >
                 <Message.Header>
-                  <b>SomeRandomPersonNamedBilly</b>
+                  <b>{msg.creator_display_name}</b>
                 </Message.Header>
-                <Message.Footer>5 minutes ago</Message.Footer>
+                <Message.Footer>{msg.created_at}</Message.Footer>
               </Message>
             ))}
           </MessageList>
@@ -234,7 +215,12 @@ export default function App() {
             style={{ fontSize: "18px" }}
             placeholder="Type message here"
             attachButton={false}
-            fancyScroll={true}
+            fancyScroll={false}
+            onSend={(innerHtml, textContent, innerText, nodes) => {
+              roomWs.send(
+                JSON.stringify({ command: "send_message", message: innerText })
+              );
+            }}
           />
         </ChatContainer>
       </MainContainer>
