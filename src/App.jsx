@@ -203,7 +203,16 @@ export default function App() {
             </ConversationHeader.Content>
           </ConversationHeader>
 
-          <MessageList>
+          <MessageList
+            onYReachStart={() => {
+              roomWs.send(
+                JSON.stringify({
+                  command: "fetch_prev_messages",
+                  oldest_message_id: chatHistory[0].id,
+                })
+              );
+            }}
+          >
             {chatHistory.map((msg, i) => (
               <Message key={msg.id} model={{}}>
                 <Message.CustomContent>
