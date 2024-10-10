@@ -24,6 +24,7 @@ import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
+import { isMobile } from "react-device-detect";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -247,6 +248,7 @@ export default function App() {
             placeholder="Type message here"
             attachButton={false}
             fancyScroll={false}
+            sendOnReturnDisabled={isMobile}
             onSend={(innerHtml, textContent, innerText, nodes) => {
               roomWs.send(
                 JSON.stringify({ command: "send_message", message: innerText })

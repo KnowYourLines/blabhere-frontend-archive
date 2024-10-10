@@ -21,6 +21,7 @@
     "firebase": "^10.14.0",
     "moment": "^2.30.1",
     "react": "latest",
+    "react-device-detect": "^2.2.3",
     "react-dom": "latest",
     "react-linkify": "^1.0.0-alpha",
     "react-moment": "^1.1.3",
