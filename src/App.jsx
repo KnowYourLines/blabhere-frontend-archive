@@ -30,6 +30,7 @@ export default function App() {
   const [room, setRoom] = useState("");
   const [roomName, setRoomName] = useState("");
   const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
@@ -105,6 +106,7 @@ export default function App() {
       if (user) {
         const token = await user.getIdToken();
         setToken(token);
+        setUsername(user.uid);
       } else {
         signInAnonymously(auth);
       }
@@ -215,7 +217,14 @@ export default function App() {
             }}
           >
             {chatHistory.map((msg, i) => (
-              <Message key={msg.id} model={{}}>
+              <Message
+                key={msg.id}
+                model={{
+                  position: "last",
+                  direction:
+                    username == msg.creator_username ? "outgoing" : "incoming",
+                }}
+              >
                 <Message.CustomContent>
                   <Linkify
                     componentDecorator={(decoratedHref, decoratedText, key) => (
