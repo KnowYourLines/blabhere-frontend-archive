@@ -30,11 +30,13 @@ import { isMobile } from "react-device-detect";
 export default function App() {
   const [room, setRoom] = useState("");
   const [roomName, setRoomName] = useState("");
+  const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
+  const [userWs, setUserWs] = useState(null);
   const [openRoomName, setOpenRoomName] = useState(false);
   const handleOpenRoomName = () => setOpenRoomName(true);
   const [openMembers, setOpenMembers] = useState(false);
@@ -93,6 +95,39 @@ export default function App() {
     setRoomWs(roomWs);
   };
 
+  const connectUserWs = () => {
+    const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
+    const ws_scheme = backendUrl.protocol == "https:" ? "wss" : "ws";
+    const path =
+      ws_scheme +
+      "://" +
+      backendUrl.hostname +
+      ":" +
+      backendUrl.port +
+      "/ws/user/" +
+      username +
+      "/?token=" +
+      token;
+    const userWs = new WebSocket(path);
+    userWs.onopen = () => {
+      console.log("User WebSocket open");
+    };
+    userWs.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      if ("display_name" in data) {
+        setYourName(data.display_name);
+      }
+    };
+    userWs.onerror = (e) => {
+      console.log(e.message);
+    };
+    userWs.onclose = () => {
+      console.log("User WebSocket closed");
+      connectUserWs();
+    };
+    setUserWs(userWs);
+  };
+
   useEffect(() => {
     const firebaseConfig = {
       apiKey: "AIzaSyD6HWYS1hbYXR7xvKgq7hQW-T4wSECWnss",
@@ -134,6 +169,11 @@ export default function App() {
       connectRoomWs();
     }
   }, [room, token, roomWs]);
+  useEffect(() => {
+    if (username && token && !userWs) {
+      connectUserWs();
+    }
+  }, [username, token, userWs]);
 
   if (openRoomName) {
     return (
@@ -216,7 +256,7 @@ export default function App() {
                 }}
               >
                 <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
-                  Your Name: User
+                  Your Name: {yourName}
                 </Button>{" "}
               </span>
             </ConversationHeader.Content>
