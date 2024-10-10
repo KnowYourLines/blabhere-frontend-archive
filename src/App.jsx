@@ -23,6 +23,7 @@ import {
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import Moment from "react-moment";
+import Linkify from "react-linkify";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -199,12 +200,23 @@ export default function App() {
 
           <MessageList>
             {chatHistory.map((msg, i) => (
-              <Message
-                key={msg.id}
-                model={{
-                  message: msg.content,
-                }}
-              >
+              <Message key={msg.id} model={{}}>
+                <Message.CustomContent>
+                  <Linkify
+                    componentDecorator={(decoratedHref, decoratedText, key) => (
+                      <a
+                        target="blank"
+                        rel="noopener"
+                        href={decoratedHref}
+                        key={key}
+                      >
+                        {decoratedText}
+                      </a>
+                    )}
+                  >
+                    {msg.content}
+                  </Linkify>
+                </Message.CustomContent>
                 <Message.Header>
                   <b>{msg.creator_display_name}</b>
                 </Message.Header>
