@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
+import Moment from "react-moment";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -207,7 +208,11 @@ export default function App() {
                 <Message.Header>
                   <b>{msg.creator_display_name}</b>
                 </Message.Header>
-                <Message.Footer>{msg.created_at}</Message.Footer>
+                <Message.Footer>
+                  <Moment unix fromNow>
+                    {msg.created_at}
+                  </Moment>
+                </Message.Footer>
               </Message>
             ))}
           </MessageList>
