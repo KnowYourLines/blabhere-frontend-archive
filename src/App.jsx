@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
+import RoomName from "./RoomName.jsx";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
@@ -34,6 +35,8 @@ export default function App() {
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
+  const [openRoomName, setOpenRoomName] = useState(false);
+  const handleOpenRoomName = () => setOpenRoomName(true);
   const [openMembers, setOpenMembers] = useState(false);
   const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
@@ -132,6 +135,16 @@ export default function App() {
     }
   }, [room, token, roomWs]);
 
+  if (openRoomName) {
+    return (
+      <RoomName
+        setOpen={setOpenRoomName}
+        oldRoomName={roomName}
+        roomWs={roomWs}
+      ></RoomName>
+    );
+  }
+
   if (openMembers) {
     return <Members setOpen={setOpenMembers} members={members}></Members>;
   }
@@ -188,7 +201,10 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenRoomName}
+                >
                   Room Name: {roomName}
                 </Button>{" "}
               </span>
