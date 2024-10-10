@@ -71,6 +71,11 @@ export default function App() {
           ...oldChatHistory,
           data.new_message,
         ]);
+      } else if ("messages" in data) {
+        setChatHistory((oldChatHistory) => [
+          ...data.messages,
+          ...oldChatHistory,
+        ]);
       }
     };
     roomWs.onerror = (e) => {
