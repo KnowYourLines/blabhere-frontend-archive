@@ -55,6 +55,7 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
           />
           <Button
             variant="contained"
+            type="submit"
             onClick={() => {
               if (!newRoomName || !newRoomName.trim()) {
                 alert("No name entered!");
