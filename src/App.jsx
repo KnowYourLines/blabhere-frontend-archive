@@ -18,7 +18,7 @@ import {
   faUserGroup,
   faComments,
   faCommentMedical,
-  faPersonCircleQuestion,
+  faUserLock,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -188,6 +188,7 @@ export default function App() {
                     />
                   }
                 ></Button>
+                <Button icon={<FontAwesomeIcon icon={faUserLock} />}></Button>
               </span>
               <span
                 style={{
