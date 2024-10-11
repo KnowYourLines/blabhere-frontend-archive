@@ -26,9 +26,13 @@ import EditName from "./EditName.jsx";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
+import EditMemberLimit from "./EditMemberLimit.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
+  const [isRoomFull, setIsRoomFull] = useState(false);
+  const [isRoomCreator, setIsRoomCreator] = useState(false);
+  const [memberLimit, setMemberLimit] = useState(null);
   const [roomName, setRoomName] = useState("");
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
@@ -45,6 +49,8 @@ export default function App() {
   const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
   const handleOpenConvos = () => setOpenConvos(true);
+  const [openMemberLimit, setOpenMemberLimit] = useState(false);
+  const handleOpenMemberLimit = () => setOpenMemberLimit(true);
 
   const connectRoomWs = () => {
     const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
@@ -87,6 +93,12 @@ export default function App() {
         ]);
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
+      } else if ("is_room_full" in data) {
+        setIsRoomFull(data.is_room_full);
+      } else if ("is_room_creator" in data) {
+        setIsRoomCreator(data.is_room_creator);
+      } else if ("member_limit" in data) {
+        setMemberLimit(data.member_limit);
       }
     };
     roomWs.onerror = (e) => {
@@ -179,6 +191,17 @@ export default function App() {
     }
   }, [username, token, userWs]);
 
+  if (openMemberLimit) {
+    return (
+      <EditMemberLimit
+        setOpen={setOpenMemberLimit}
+        oldLimit={memberLimit}
+        ws={roomWs}
+        numMembers={members.length}
+      ></EditMemberLimit>
+    );
+  }
+
   if (openYourName) {
     return (
       <EditName
@@ -248,7 +271,16 @@ export default function App() {
                     />
                   }
                 ></Button>
-                <Button icon={<FontAwesomeIcon icon={faUserLock} />}></Button>
+                {isRoomCreator && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserLock}
+                        onClick={handleOpenMemberLimit}
+                      />
+                    }
+                  ></Button>
+                )}
               </span>
               <span
                 style={{

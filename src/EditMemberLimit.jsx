@@ -6,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function EditName({ setOpen, oldName, ws, title }) {
-  const [newName, setNewName] = useState(oldName);
+export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
+  const [newLimit, setNewLimit] = useState(oldLimit);
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -21,7 +21,7 @@ export default function EditName({ setOpen, oldName, ws, title }) {
               fontSize: "16pt",
             }}
           >
-            {title}
+            New Member Limit
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
@@ -39,13 +39,13 @@ export default function EditName({ setOpen, oldName, ws, title }) {
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
-            if (!newName || !newName.trim()) {
-              alert("No name entered!");
+            if (!newLimit || !newLimit.trim()) {
+              alert("No limit entered!");
             } else {
               ws.send(
                 JSON.stringify({
-                  command: "update_display_name",
-                  new_display_name: newName,
+                  command: "update_member_limit",
+                  max_num_members: newLimit,
                 })
               );
             }
@@ -56,13 +56,14 @@ export default function EditName({ setOpen, oldName, ws, title }) {
             required
             id="outlined-required"
             label="Required"
-            value={newName}
+            value={newLimit}
             onChange={(e) => {
-              setNewName(e.target.value);
+              setNewLimit(e.target.value);
             }}
             onFocus={(event) => {
               event.target.select();
             }}
+            slotProps={{ htmlInput: { type: "number", min: numMembers } }}
           />
           <Button variant="contained" type="submit">
             Submit
