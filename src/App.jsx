@@ -23,6 +23,7 @@ import {
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import RoomName from "./RoomName.jsx";
+import YourName from "./YourName.jsx";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
@@ -37,6 +38,8 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [openYourName, setOpenYourName] = useState(false);
+  const handleOpenYourName = () => setOpenYourName(true);
   const [openRoomName, setOpenRoomName] = useState(false);
   const handleOpenRoomName = () => setOpenRoomName(true);
   const [openMembers, setOpenMembers] = useState(false);
@@ -175,6 +178,16 @@ export default function App() {
     }
   }, [username, token, userWs]);
 
+  if (openYourName) {
+    return (
+      <YourName
+        setOpen={setOpenYourName}
+        oldName={yourName}
+        userWs={userWs}
+      ></YourName>
+    );
+  }
+
   if (openRoomName) {
     return (
       <RoomName
@@ -255,7 +268,10 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
-                <Button icon={<FontAwesomeIcon icon={faPenToSquare} />}>
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenYourName}
+                >
                   Your Name: {yourName}
                 </Button>{" "}
               </span>
