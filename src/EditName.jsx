@@ -37,7 +37,8 @@ export default function YourName({ setOpen, oldName, ws, title }) {
           spacing={2}
           noValidate
           autoComplete="off"
-          onSubmit={() => {
+          onSubmit={(event) => {
+            event.preventDefault();
             if (!newName || !newName.trim()) {
               alert("No name entered!");
             } else {
@@ -47,8 +48,8 @@ export default function YourName({ setOpen, oldName, ws, title }) {
                   new_display_name: newName,
                 })
               );
-              handleClose();
             }
+            handleClose();
           }}
         >
           <TextField
