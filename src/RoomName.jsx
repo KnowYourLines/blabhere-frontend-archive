@@ -33,7 +33,7 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
       >
         <Stack
           component="form"
-          sx={{ width: "20%" }}
+          sx={{ width: "50%", marginTop: "5%"}}
           spacing={2}
           noValidate
           autoComplete="off"
@@ -45,12 +45,6 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
             value={newRoomName}
             onChange={(e) => {
               setNewRoomName(e.target.value);
-              roomWs.send(
-                JSON.stringify({
-                  command: "update_display_name",
-                  new_display_name: newRoomName,
-                })
-              );
             }}
           />
           <Button
