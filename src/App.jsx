@@ -86,6 +86,8 @@ export default function App() {
           ...data.messages,
           ...oldChatHistory,
         ]);
+      } else if ("refreshed_messages" in data) {
+        setChatHistory(() => [...data.refreshed_messages]);
       }
     };
     roomWs.onerror = (e) => {
