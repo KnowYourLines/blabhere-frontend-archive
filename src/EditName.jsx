@@ -6,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function RoomName({ setOpen, oldRoomName, roomWs }) {
-  const [newRoomName, setNewRoomName] = useState(oldRoomName);
+export default function YourName({ setOpen, oldName, ws, title }) {
+  const [newName, setNewName] = useState(oldName);
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -21,7 +21,7 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
               fontSize: "16pt",
             }}
           >
-            New Room Name
+            {title}
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
@@ -38,13 +38,13 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
           noValidate
           autoComplete="off"
           onSubmit={() => {
-            if (!newRoomName || !newRoomName.trim()) {
+            if (!newName || !newName.trim()) {
               alert("No name entered!");
             } else {
-              roomWs.send(
+              ws.send(
                 JSON.stringify({
                   command: "update_display_name",
-                  new_display_name: newRoomName,
+                  new_display_name: newName,
                 })
               );
               handleClose();
@@ -55,9 +55,12 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
             required
             id="outlined-required"
             label="Required"
-            value={newRoomName}
+            value={newName}
             onChange={(e) => {
-              setNewRoomName(e.target.value);
+              setNewName(e.target.value);
+            }}
+            onFocus={(event) => {
+              event.target.select();
             }}
           />
           <Button variant="contained" type="submit">

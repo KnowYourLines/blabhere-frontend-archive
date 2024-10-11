@@ -22,8 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
-import RoomName from "./RoomName.jsx";
-import YourName from "./YourName.jsx";
+import EditName from "./EditName.jsx";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
@@ -182,21 +181,23 @@ export default function App() {
 
   if (openYourName) {
     return (
-      <YourName
+      <EditName
         setOpen={setOpenYourName}
         oldName={yourName}
-        userWs={userWs}
-      ></YourName>
+        ws={userWs}
+        title={"Your New Name"}
+      ></EditName>
     );
   }
 
   if (openRoomName) {
     return (
-      <RoomName
+      <EditName
         setOpen={setOpenRoomName}
-        oldRoomName={roomName}
-        roomWs={roomWs}
-      ></RoomName>
+        oldName={roomName}
+        ws={roomWs}
+        title={"New Room Name"}
+      ></EditName>
     );
   }
 
