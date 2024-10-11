@@ -37,6 +37,19 @@ export default function YourName({ setOpen, oldName, userWs }) {
           spacing={2}
           noValidate
           autoComplete="off"
+          onSubmit={() => {
+            if (!newName || !newName.trim()) {
+              alert("No name entered!");
+            } else {
+              userWs.send(
+                JSON.stringify({
+                  command: "update_display_name",
+                  new_display_name: newName,
+                })
+              );
+              handleClose();
+            }
+          }}
         >
           <TextField
             required
@@ -50,19 +63,6 @@ export default function YourName({ setOpen, oldName, userWs }) {
           <Button
             variant="contained"
             type="submit"
-            onClick={() => {
-              if (!newName || !newName.trim()) {
-                alert("No name entered!");
-              } else {
-                userWs.send(
-                  JSON.stringify({
-                    command: "update_display_name",
-                    new_display_name: newName,
-                  })
-                );
-                handleClose();
-              }
-            }}
           >
             Submit
           </Button>

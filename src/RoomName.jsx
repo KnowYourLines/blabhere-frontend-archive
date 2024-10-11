@@ -33,10 +33,23 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
       >
         <Stack
           component="form"
-          sx={{ width: "50%", marginTop: "5%"}}
+          sx={{ width: "50%", marginTop: "5%" }}
           spacing={2}
           noValidate
           autoComplete="off"
+          onSubmit={() => {
+            if (!newRoomName || !newRoomName.trim()) {
+              alert("No name entered!");
+            } else {
+              roomWs.send(
+                JSON.stringify({
+                  command: "update_display_name",
+                  new_display_name: newRoomName,
+                })
+              );
+              handleClose();
+            }
+          }}
         >
           <TextField
             required
@@ -47,23 +60,7 @@ export default function RoomName({ setOpen, oldRoomName, roomWs }) {
               setNewRoomName(e.target.value);
             }}
           />
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={() => {
-              if (!newRoomName || !newRoomName.trim()) {
-                alert("No name entered!");
-              } else {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "update_display_name",
-                    new_display_name: newRoomName,
-                  })
-                );
-                handleClose();
-              }
-            }}
-          >
+          <Button variant="contained" type="submit">
             Submit
           </Button>
         </Stack>
