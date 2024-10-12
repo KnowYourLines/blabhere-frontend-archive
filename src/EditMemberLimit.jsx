@@ -41,6 +41,8 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
             event.preventDefault();
             if (!newLimit || !newLimit.trim()) {
               alert("Invalid: no limit entered");
+            } else if (!Number.isInteger(newLimit)) {
+              alert("Invalid: limit must be a whole number");
             } else if (newLimit < numMembers) {
               alert("Invalid: limit less than number of chat members");
             } else {
