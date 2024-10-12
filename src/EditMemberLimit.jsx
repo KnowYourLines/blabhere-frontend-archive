@@ -39,7 +39,7 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
-            if (!newLimit || !newLimit.trim()) {
+            if (!newLimit && newLimit !== 0) {
               alert("Invalid: no limit entered");
             } else if (!Number.isInteger(newLimit)) {
               alert("Invalid: limit must be a whole number");
@@ -62,7 +62,7 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
             label="Required"
             value={newLimit}
             onChange={(e) => {
-              setNewLimit(e.target.value);
+              setNewLimit(Number(e.target.value));
             }}
             onFocus={(event) => {
               event.target.select();
