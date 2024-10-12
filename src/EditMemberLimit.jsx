@@ -21,7 +21,7 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
               fontSize: "16pt",
             }}
           >
-            New Member Limit
+            Maximum Chat Members
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
