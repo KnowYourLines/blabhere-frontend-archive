@@ -238,7 +238,9 @@ export default function App() {
       <MainContainer>
         {isRoomFull ? (
           <ChatContainer>
-            <ConversationHeader style={{ position: "fixed", height: "100%", width: "100%" }}>
+            <ConversationHeader
+              style={{ position: "fixed", height: "100%", width: "100%" }}
+            >
               <ConversationHeader.Content>
                 <span
                   style={{
