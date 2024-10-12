@@ -40,7 +40,7 @@ export default function EditName({ setOpen, oldName, ws, title }) {
           onSubmit={(event) => {
             event.preventDefault();
             if (!newName || !newName.trim()) {
-              alert("No name entered!");
+              alert("Invalid: no name entered");
             } else {
               ws.send(
                 JSON.stringify({

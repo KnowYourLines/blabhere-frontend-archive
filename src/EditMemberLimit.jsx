@@ -40,7 +40,9 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
           onSubmit={(event) => {
             event.preventDefault();
             if (!newLimit || !newLimit.trim()) {
-              alert("No limit entered!");
+              alert("Invalid: no limit entered");
+            } else if (newLimit < numMembers) {
+              alert("Invalid: limit less than number of chat members");
             } else {
               ws.send(
                 JSON.stringify({
