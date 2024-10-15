@@ -20,7 +20,9 @@ export default function Conversations({
   setRoomName,
   setMembers,
   setChatHistory,
-  ws,
+  roomWs,
+  userWs,
+  currentRoom,
 }) {
   const handleClose = () => setOpen(false);
 
@@ -80,7 +82,7 @@ export default function Conversations({
                 setRoomName("");
                 setMembers([]);
                 setChatHistory([]);
-                ws.send(
+                roomWs.send(
                   JSON.stringify({
                     command: "connect",
                     room: newRoom,
@@ -98,7 +100,20 @@ export default function Conversations({
                   <FontAwesomeIcon
                     icon={faTrash}
                     onClick={() => {
-                      console.log("hello world");
+                      userWs.send(
+                        JSON.stringify({
+                          command: "exit_room",
+                          room_id: convo.room__id,
+                        })
+                      );
+                      if (currentRoom == convo.room__id) {
+                        setIsRoomFull(false);
+                        setIsRoomCreator(false);
+                        setMemberLimit(null);
+                        setRoomName("");
+                        setMembers([]);
+                        setChatHistory([]);
+                      }
                     }}
                   />
                 }

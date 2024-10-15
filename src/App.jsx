@@ -28,9 +28,11 @@ import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 import EditMemberLimit from "./EditMemberLimit.jsx";
 import RoomFull from "./RoomFull.jsx";
+import LeftRoom from "./LeftRoom.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
+  const [leftRoom, setLeftRoom] = useState(false);
   const [isRoomFull, setIsRoomFull] = useState(false);
   const [isRoomCreator, setIsRoomCreator] = useState(false);
   const [memberLimit, setMemberLimit] = useState(null);
@@ -108,6 +110,8 @@ export default function App() {
         setIsRoomCreator(data.is_room_creator);
       } else if ("member_limit" in data) {
         setMemberLimit(data.member_limit);
+      } else if ("user_left_room" in data) {
+        setLeftRoom(true);
       }
     };
     roomWs.onerror = (e) => {
@@ -209,6 +213,10 @@ export default function App() {
     }
   }, [username, token, userWs]);
 
+  if (leftRoom) {
+    return <LeftRoom></LeftRoom>;
+  }
+
   if (openMemberLimit) {
     return (
       <EditMemberLimit
@@ -249,6 +257,7 @@ export default function App() {
   if (openConvos) {
     return (
       <Conversations
+        currentRoom={room}
         setOpen={setOpenConvos}
         conversations={conversations}
         setRoom={setRoom}
@@ -258,7 +267,8 @@ export default function App() {
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        ws={roomWs}
+        roomWs={roomWs}
+        userWs={userWs}
       ></Conversations>
     );
   }
