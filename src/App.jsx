@@ -251,6 +251,14 @@ export default function App() {
       <Conversations
         setOpen={setOpenConvos}
         conversations={conversations}
+        setRoom={setRoom}
+        setIsRoomFull={setIsRoomFull}
+        setIsRoomCreator={setIsRoomCreator}
+        setMemberLimit={setMemberLimit}
+        setRoomName={setRoomName}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        ws={roomWs}
       ></Conversations>
     );
   }

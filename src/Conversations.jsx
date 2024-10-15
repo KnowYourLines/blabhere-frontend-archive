@@ -7,7 +7,18 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import Moment from "react-moment";
 
-export default function Conversations({ setOpen, conversations }) {
+export default function Conversations({
+  setOpen,
+  conversations,
+  setRoom,
+  setIsRoomFull,
+  setIsRoomCreator,
+  setMemberLimit,
+  setRoomName,
+  setMembers,
+  setChatHistory,
+  ws,
+}) {
   const handleClose = () => setOpen(false);
 
   return (
@@ -49,6 +60,27 @@ export default function Conversations({ setOpen, conversations }) {
             lastSenderName={convo.latest_message__creator__display_name}
             name={convo.room__display_name}
             info={convo.latest_message__content}
+            onClick={() => {
+              const newRoom = convo.room__id;
+              const url = new URL(window.location.href.split("?")[0]);
+              url.searchParams.set("room", newRoom);
+              window.history.replaceState("", "", url);
+              const newUrlParams = new URLSearchParams(window.location.search);
+              setRoom(newUrlParams.get("room"));
+              setIsRoomFull(false);
+              setIsRoomCreator(false);
+              setMemberLimit(null);
+              setRoomName("");
+              setMembers([]);
+              setChatHistory([]);
+              ws.send(
+                JSON.stringify({
+                  command: "connect",
+                  room: newRoom,
+                })
+              );
+              handleClose();
+            }}
           ></Conversation>
         ))}
       </ConversationList>
