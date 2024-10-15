@@ -4,8 +4,11 @@ import {
   ConversationHeader,
   Conversation,
   ConversationList,
+  Button,
 } from "@chatscope/chat-ui-kit-react";
 import Moment from "react-moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Conversations({
   setOpen,
@@ -45,7 +48,6 @@ export default function Conversations({
         {conversations.map((convo, i) => (
           <Conversation
             unreadDot={!convo.read}
-            key={convo.room__id}
             lastActivityTime={
               <span
                 style={{
@@ -57,31 +59,52 @@ export default function Conversations({
                 </Moment>
               </span>
             }
-            lastSenderName={convo.latest_message__creator__display_name}
-            name={convo.room__display_name}
-            info={convo.latest_message__content}
-            onClick={() => {
-              const newRoom = convo.room__id;
-              const url = new URL(window.location.href.split("?")[0]);
-              url.searchParams.set("room", newRoom);
-              window.history.replaceState("", "", url);
-              const newUrlParams = new URLSearchParams(window.location.search);
-              setRoom(newUrlParams.get("room"));
-              setIsRoomFull(false);
-              setIsRoomCreator(false);
-              setMemberLimit(null);
-              setRoomName("");
-              setMembers([]);
-              setChatHistory([]);
-              ws.send(
-                JSON.stringify({
-                  command: "connect",
-                  room: newRoom,
-                })
-              );
-              handleClose();
-            }}
-          ></Conversation>
+            key={convo.room__id}
+          >
+            <Conversation.Content
+              lastSenderName={convo.latest_message__creator__display_name}
+              name={convo.room__display_name}
+              info={convo.latest_message__content}
+              onClick={() => {
+                const newRoom = convo.room__id;
+                const url = new URL(window.location.href.split("?")[0]);
+                url.searchParams.set("room", newRoom);
+                window.history.replaceState("", "", url);
+                const newUrlParams = new URLSearchParams(
+                  window.location.search
+                );
+                setRoom(newUrlParams.get("room"));
+                setIsRoomFull(false);
+                setIsRoomCreator(false);
+                setMemberLimit(null);
+                setRoomName("");
+                setMembers([]);
+                setChatHistory([]);
+                ws.send(
+                  JSON.stringify({
+                    command: "connect",
+                    room: newRoom,
+                  })
+                );
+                handleClose();
+              }}
+            />
+            <Conversation.Operations visible>
+              <Button
+                style={{
+                  color: "red",
+                }}
+                icon={
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={() => {
+                      console.log("hello world");
+                    }}
+                  />
+                }
+              ></Button>
+            </Conversation.Operations>
+          </Conversation>
         ))}
       </ConversationList>
     </div>
