@@ -5,8 +5,9 @@ import {
   Conversation,
   ConversationList,
 } from "@chatscope/chat-ui-kit-react";
+import Moment from "react-moment";
 
-export default function Conversations({ setOpen }) {
+export default function Conversations({ setOpen, conversations }) {
   const handleClose = () => setOpen(false);
 
   return (
@@ -30,81 +31,26 @@ export default function Conversations({ setOpen }) {
           height: "100%",
         }}
       >
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Lilly"
-          name="Other group"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Joe"
-          name="Joe"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Emily"
-          name="Emily"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Kai"
-          name="Kai"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Akane"
-          name="Akane"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Eliot"
-          name="Eliot"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Zoe"
-          name="Zoe"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Patrik"
-          name="Patrik"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Joe"
-          name="Joe"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Emily"
-          name="Emily"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Kai"
-          name="Kai"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Akane"
-          name="Akane"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Eliot"
-          name="Eliot"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Zoe"
-          name="Zoe"
-        ></Conversation>
-        <Conversation
-          info="Yes i can do it for you"
-          lastSenderName="Patrik"
-          name="Patrik"
-        ></Conversation>
+        {conversations.map((convo, i) => (
+          <Conversation
+            unreadDot={!convo.read}
+            key={convo.room__id}
+            lastActivityTime={
+              <span
+                style={{
+                  marginRight: "1em",
+                }}
+              >
+                <Moment unix fromNow>
+                  {convo.latest_message__created_at || convo.created_at}
+                </Moment>
+              </span>
+            }
+            lastSenderName={convo.latest_message__creator__display_name}
+            name={convo.room__display_name}
+            info={convo.latest_message__content}
+          ></Conversation>
+        ))}
       </ConversationList>
     </div>
   );

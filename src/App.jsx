@@ -35,6 +35,7 @@ export default function App() {
   const [isRoomCreator, setIsRoomCreator] = useState(false);
   const [memberLimit, setMemberLimit] = useState(null);
   const [roomName, setRoomName] = useState("");
+  const [conversations, setConversations] = useState([]);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
@@ -140,6 +141,8 @@ export default function App() {
       const data = JSON.parse(message.data);
       if ("display_name" in data) {
         setYourName(data.display_name);
+      } else if ("conversations" in data) {
+        setConversations(data.conversations);
       }
     };
     userWs.onerror = (e) => {
@@ -244,7 +247,12 @@ export default function App() {
   }
 
   if (openConvos) {
-    return <Conversations setOpen={setOpenConvos}></Conversations>;
+    return (
+      <Conversations
+        setOpen={setOpenConvos}
+        conversations={conversations}
+      ></Conversations>
+    );
   }
 
   return (
