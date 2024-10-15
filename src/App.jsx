@@ -52,6 +52,12 @@ export default function App() {
   const handleOpenConvos = () => setOpenConvos(true);
   const [openMemberLimit, setOpenMemberLimit] = useState(false);
   const handleOpenMemberLimit = () => setOpenMemberLimit(true);
+  const [isOnline, setOnline] = useState(true);
+  const updateNetworkStatus = () => {
+    setOnline(navigator.onLine);
+  };
+  window.addEventListener("offline", updateNetworkStatus);
+  window.addEventListener("online", updateNetworkStatus);
 
   const connectRoomWs = () => {
     const backendUrl = new URL(import.meta.env.VITE_BACKEND_URL);
@@ -144,7 +150,14 @@ export default function App() {
     };
     setUserWs(userWs);
   };
-
+  useEffect(() => {
+    updateNetworkStatus();
+  }, []);
+  useEffect(() => {
+    if (!isOnline) {
+      alert("No internet connection!");
+    }
+  }, [isOnline]);
   useEffect(() => {
     const firebaseConfig = {
       apiKey: "AIzaSyD6HWYS1hbYXR7xvKgq7hQW-T4wSECWnss",
@@ -419,6 +432,7 @@ export default function App() {
             </MessageList>
             <MessageInput
               style={{ fontSize: "18px" }}
+              disabled={!isOnline}
               placeholder="Type message here"
               attachButton={false}
               fancyScroll={false}
