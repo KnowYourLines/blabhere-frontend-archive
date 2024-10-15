@@ -73,6 +73,7 @@ export default function App() {
     const roomWs = new WebSocket(path);
     roomWs.onopen = () => {
       console.log("Room WebSocket open");
+      setChatHistory([]);
       if (room) {
         roomWs.send(
           JSON.stringify({
