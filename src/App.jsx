@@ -28,8 +28,7 @@ import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 import EditMemberLimit from "./EditMemberLimit.jsx";
-import RoomFull from "./RoomFull.jsx";
-import LeftRoom from "./LeftRoom.jsx";
+import OutlinedCard from "./OutlinedCard.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -244,7 +243,7 @@ export default function App() {
                     Rejoin
                   </Button>
                 </span>
-                <LeftRoom></LeftRoom>
+                <OutlinedCard text={"You have left this room."}></OutlinedCard>
               </ConversationHeader.Content>
             </ConversationHeader>
           </ChatContainer>
@@ -358,7 +357,7 @@ export default function App() {
                     Your Name: {yourName}
                   </Button>{" "}
                 </span>
-                <RoomFull></RoomFull>
+                <OutlinedCard text={"Sorry, this room is full."}></OutlinedCard>
               </ConversationHeader.Content>
             </ConversationHeader>
           </ChatContainer>
