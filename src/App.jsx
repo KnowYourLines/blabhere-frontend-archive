@@ -19,6 +19,7 @@ import {
   faComments,
   faCommentMedical,
   faUserLock,
+  faRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -214,7 +215,42 @@ export default function App() {
   }, [username, token, userWs]);
 
   if (leftRoom) {
-    return <LeftRoom></LeftRoom>;
+    return (
+      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+        <MainContainer>
+          <ChatContainer>
+            <ConversationHeader
+              style={{ position: "fixed", height: "100%", width: "100%" }}
+            >
+              <ConversationHeader.Content>
+                <span
+                  style={{
+                    alignSelf: "center",
+                    fontSize: "16pt",
+                  }}
+                >
+                  <Button
+                    icon={<FontAwesomeIcon icon={faRotateRight} />}
+                    onClick={() => {
+                      roomWs.send(
+                        JSON.stringify({
+                          command: "connect",
+                          room: room,
+                        })
+                      );
+                      setLeftRoom(false);
+                    }}
+                  >
+                    Rejoin
+                  </Button>
+                </span>
+                <LeftRoom></LeftRoom>
+              </ConversationHeader.Content>
+            </ConversationHeader>
+          </ChatContainer>
+        </MainContainer>
+      </div>
+    );
   }
 
   if (openMemberLimit) {
@@ -273,10 +309,10 @@ export default function App() {
     );
   }
 
-  return (
-    <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <MainContainer>
-        {isRoomFull ? (
+  if (isRoomFull) {
+    return (
+      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+        <MainContainer>
           <ChatContainer>
             <ConversationHeader
               style={{ position: "fixed", height: "100%", width: "100%" }}
@@ -326,155 +362,155 @@ export default function App() {
               </ConversationHeader.Content>
             </ConversationHeader>
           </ChatContainer>
-        ) : (
-          <ChatContainer>
-            <ConversationHeader>
-              <ConversationHeader.Content>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faCommentMedical}
-                        onClick={() => {
-                          const url = new URL(window.location.href);
-                          window.open(url.origin, "_blank");
-                        }}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faComments}
-                        onClick={handleOpenConvos}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserGroup}
-                        onClick={handleOpenMembers}
-                      />
-                    }
-                  ></Button>
-                  {isRoomCreator && (
-                    <Button
-                      icon={
-                        <FontAwesomeIcon
-                          icon={faUserLock}
-                          onClick={handleOpenMemberLimit}
-                        />
-                      }
-                    ></Button>
-                  )}
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenRoomName}
-                  >
-                    Room Name: {roomName}
-                  </Button>{" "}
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenYourName}
-                  >
-                    Your Name: {yourName}
-                  </Button>{" "}
-                </span>
-              </ConversationHeader.Content>
-            </ConversationHeader>
+        </MainContainer>
+      </div>
+    );
+  }
 
-            <MessageList
-              onYReachStart={() => {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "fetch_prev_messages",
-                    oldest_message_id: chatHistory[0].id,
-                  })
-                );
-              }}
-            >
-              {chatHistory.map((msg, i) => (
-                <Message
-                  key={msg.id}
-                  model={{
-                    position: "last",
-                    direction:
-                      username == msg.creator_username
-                        ? "outgoing"
-                        : "incoming",
-                  }}
+  return (
+    <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <MainContainer>
+        <ChatContainer>
+          <ConversationHeader>
+            <ConversationHeader.Content>
+              <span
+                style={{
+                  alignSelf: "center",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faCommentMedical}
+                      onClick={() => {
+                        const url = new URL(window.location.href);
+                        window.open(url.origin, "_blank");
+                      }}
+                    />
+                  }
+                ></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faComments}
+                      onClick={handleOpenConvos}
+                    />
+                  }
+                ></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserGroup}
+                      onClick={handleOpenMembers}
+                    />
+                  }
+                ></Button>
+                {isRoomCreator && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserLock}
+                        onClick={handleOpenMemberLimit}
+                      />
+                    }
+                  ></Button>
+                )}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenRoomName}
                 >
-                  <Message.CustomContent>
-                    <Linkify
-                      componentDecorator={(
-                        decoratedHref,
-                        decoratedText,
-                        key
-                      ) => (
-                        <a
-                          target="blank"
-                          rel="noopener"
-                          href={decoratedHref}
-                          key={key}
-                        >
-                          {decoratedText}
-                        </a>
-                      )}
-                    >
-                      {msg.content}
-                    </Linkify>
-                  </Message.CustomContent>
-                  <Message.Header>
-                    <b>{msg.creator_display_name}</b>
-                  </Message.Header>
-                  <Message.Footer>
-                    <Moment unix fromNow>
-                      {msg.created_at}
-                    </Moment>
-                  </Message.Footer>
-                </Message>
-              ))}
-            </MessageList>
-            <MessageInput
-              style={{ fontSize: "18px" }}
-              disabled={!isOnline}
-              placeholder="Type message here"
-              attachButton={false}
-              fancyScroll={false}
-              sendOnReturnDisabled={isMobile}
-              onSend={(innerHtml, textContent, innerText, nodes) => {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "send_message",
-                    message: innerText,
-                  })
-                );
-              }}
-            />
-          </ChatContainer>
-        )}
+                  Room Name: {roomName}
+                </Button>{" "}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenYourName}
+                >
+                  Your Name: {yourName}
+                </Button>{" "}
+              </span>
+            </ConversationHeader.Content>
+          </ConversationHeader>
+
+          <MessageList
+            onYReachStart={() => {
+              roomWs.send(
+                JSON.stringify({
+                  command: "fetch_prev_messages",
+                  oldest_message_id: chatHistory[0].id,
+                })
+              );
+            }}
+          >
+            {chatHistory.map((msg, i) => (
+              <Message
+                key={msg.id}
+                model={{
+                  position: "last",
+                  direction:
+                    username == msg.creator_username ? "outgoing" : "incoming",
+                }}
+              >
+                <Message.CustomContent>
+                  <Linkify
+                    componentDecorator={(decoratedHref, decoratedText, key) => (
+                      <a
+                        target="blank"
+                        rel="noopener"
+                        href={decoratedHref}
+                        key={key}
+                      >
+                        {decoratedText}
+                      </a>
+                    )}
+                  >
+                    {msg.content}
+                  </Linkify>
+                </Message.CustomContent>
+                <Message.Header>
+                  <b>{msg.creator_display_name}</b>
+                </Message.Header>
+                <Message.Footer>
+                  <Moment unix fromNow>
+                    {msg.created_at}
+                  </Moment>
+                </Message.Footer>
+              </Message>
+            ))}
+          </MessageList>
+          <MessageInput
+            style={{ fontSize: "18px" }}
+            disabled={!isOnline}
+            placeholder="Type message here"
+            attachButton={false}
+            fancyScroll={false}
+            sendOnReturnDisabled={isMobile}
+            onSend={(innerHtml, textContent, innerText, nodes) => {
+              roomWs.send(
+                JSON.stringify({
+                  command: "send_message",
+                  message: innerText,
+                })
+              );
+            }}
+          />
+        </ChatContainer>
       </MainContainer>
     </div>
   );
