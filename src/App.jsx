@@ -413,6 +413,7 @@ export default function App() {
                         icon={faUserPlus}
                         onClick={() => {
                           const shareData = {
+                            title: 'BlabHere - chat anonymously',
                             url: window.location.href,
                           };
                           if (navigator.canShare(shareData)) {
