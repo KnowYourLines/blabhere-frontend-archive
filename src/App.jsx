@@ -20,6 +20,7 @@ import {
   faCommentMedical,
   faUserLock,
   faRotateRight,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -405,6 +406,25 @@ export default function App() {
                     />
                   }
                 ></Button>
+                {navigator.canShare && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserPlus}
+                        onClick={() => {
+                          const shareData = {
+                            url: window.location.href,
+                          };
+                          if (navigator.canShare(shareData)) {
+                            navigator
+                              .share(shareData)
+                              .catch((e) => console.log(e));
+                          }
+                        }}
+                      />
+                    }
+                  ></Button>
+                )}
                 {isRoomCreator && (
                   <Button
                     icon={
