@@ -406,7 +406,7 @@ export default function App() {
                     />
                   }
                 ></Button>
-                {navigator.canShare && (
+                {isMobile && navigator.canShare ? (
                   <Button
                     icon={
                       <FontAwesomeIcon
@@ -421,6 +421,21 @@ export default function App() {
                               .share(shareData)
                               .catch((e) => console.log(e));
                           }
+                        }}
+                      />
+                    }
+                  ></Button>
+                ) : (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserPlus}
+                        onClick={() => {
+                          navigator.clipboard
+                            .writeText(window.location.href)
+                            .then(() => {
+                              alert("Copied link to room");
+                            });
                         }}
                       />
                     }
