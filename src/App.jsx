@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { auth } from "./firebase.js";
+import { onAuthStateChanged, signInAnonymously, signOut } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -20,7 +20,6 @@ import {
   faCommentMedical,
   faUserLock,
   faRotateRight,
-  faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -30,11 +29,13 @@ import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 import EditMemberLimit from "./EditMemberLimit.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
+import SignIn from "./SignIn.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
   const [leftRoom, setLeftRoom] = useState(false);
   const [isRoomFull, setIsRoomFull] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(true);
   const [isRoomCreator, setIsRoomCreator] = useState(false);
   const [memberLimit, setMemberLimit] = useState(null);
   const [roomName, setRoomName] = useState("");
@@ -56,6 +57,8 @@ export default function App() {
   const handleOpenConvos = () => setOpenConvos(true);
   const [openMemberLimit, setOpenMemberLimit] = useState(false);
   const handleOpenMemberLimit = () => setOpenMemberLimit(true);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const handleOpenSignIn = () => setOpenSignIn(true);
   const [isOnline, setOnline] = useState(true);
   const updateNetworkStatus = () => {
     setOnline(navigator.onLine);
@@ -172,22 +175,12 @@ export default function App() {
     }
   }, [isOnline]);
   useEffect(() => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyD6HWYS1hbYXR7xvKgq7hQW-T4wSECWnss",
-      authDomain: "blabhere-29279.firebaseapp.com",
-      projectId: "blabhere-29279",
-      storageBucket: "blabhere-29279.appspot.com",
-      messagingSenderId: "304567083706",
-      appId: "1:304567083706:web:25db98d0c4edb2326e9883",
-      measurementId: "G-V5JWXF119M",
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
         setToken(token);
         setUsername(user.uid);
+        setIsAnonymous(user.isAnonymous);
       } else {
         signInAnonymously(auth);
       }
@@ -294,6 +287,10 @@ export default function App() {
     return <Members setOpen={setOpenMembers} members={members}></Members>;
   }
 
+  if (openSignIn) {
+    return <SignIn setOpen={setOpenSignIn}></SignIn>;
+  }
+
   if (openConvos) {
     return (
       <Conversations
@@ -322,6 +319,39 @@ export default function App() {
               style={{ position: "fixed", height: "100%", width: "100%" }}
             >
               <ConversationHeader.Content>
+                <span
+                  style={{
+                    alignSelf: "center",
+                    fontSize: "16pt",
+                  }}
+                >
+                  {isAnonymous ? (
+                    <Button
+                      style={{
+                        border: "2px solid #6ea9d7",
+                        backgroundColor: "#6ea9d7",
+                        color: "#f6fbff",
+                      }}
+                      onClick={handleOpenSignIn}
+                    >
+                      Sign In
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        border: "2px solid #6ea9d7",
+                        backgroundColor: "#6ea9d7",
+                        color: "#f6fbff",
+                      }}
+                      onClick={() => {
+                        signOut(auth);
+                        window.location.reload();
+                      }}
+                    >
+                      Sign Out
+                    </Button>
+                  )}
+                </span>
                 <span
                   style={{
                     alignSelf: "center",
@@ -383,6 +413,39 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
+                {isAnonymous ? (
+                  <Button
+                    style={{
+                      border: "2px solid #6ea9d7",
+                      backgroundColor: "#6ea9d7",
+                      color: "#f6fbff",
+                    }}
+                    onClick={handleOpenSignIn}
+                  >
+                    Sign In
+                  </Button>
+                ) : (
+                  <Button
+                    style={{
+                      border: "2px solid #6ea9d7",
+                      backgroundColor: "#6ea9d7",
+                      color: "#f6fbff",
+                    }}
+                    onClick={() => {
+                      signOut(auth);
+                      window.location.reload();
+                    }}
+                  >
+                    Sign Out
+                  </Button>
+                )}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  fontSize: "16pt",
+                }}
+              >
                 <Button
                   icon={
                     <FontAwesomeIcon
@@ -402,6 +465,24 @@ export default function App() {
                     />
                   }
                 ></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserGroup}
+                      onClick={handleOpenMembers}
+                    />
+                  }
+                ></Button>
+                {isRoomCreator && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserLock}
+                        onClick={handleOpenMemberLimit}
+                      />
+                    }
+                  ></Button>
+                )}
               </span>
               <span
                 style={{
@@ -430,66 +511,6 @@ export default function App() {
                 >
                   Your Name: {yourName}
                 </Button>{" "}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faUserGroup}
-                      onClick={handleOpenMembers}
-                    />
-                  }
-                ></Button>
-                {isRoomCreator && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserLock}
-                        onClick={handleOpenMemberLimit}
-                      />
-                    }
-                  ></Button>
-                )}
-                {isMobile && navigator.canShare ? (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faLink}
-                        onClick={() => {
-                          const shareData = {
-                            title: "BlabHere - chat anonymously",
-                            url: window.location.href,
-                          };
-                          if (navigator.canShare(shareData)) {
-                            navigator
-                              .share(shareData)
-                              .catch((e) => console.log(e));
-                          }
-                        }}
-                      />
-                    }
-                  ></Button>
-                ) : (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faLink}
-                        onClick={() => {
-                          navigator.clipboard
-                            .writeText(window.location.href)
-                            .then(() => {
-                              alert("Copied link to room");
-                            });
-                        }}
-                      />
-                    }
-                  ></Button>
-                )}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>

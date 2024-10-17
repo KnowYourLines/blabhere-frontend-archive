@@ -48,8 +48,8 @@ export default function EditName({ setOpen, oldName, ws, title }) {
                   new_display_name: newName,
                 })
               );
+              handleClose();
             }
-            handleClose();
           }}
         >
           <TextField

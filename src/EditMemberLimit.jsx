@@ -53,8 +53,8 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
                   max_num_members: newLimit,
                 })
               );
+              handleClose();
             }
-            handleClose();
           }}
         >
           <Typography variant="h5" component="div" align="center">
