@@ -30,7 +30,6 @@ export default function SignIn({ setOpen }) {
           });
           alert("Verification email sent. Check your inbox or spam.");
         }
-        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
@@ -47,7 +46,6 @@ export default function SignIn({ setOpen }) {
           console.error(error.message);
         });
         alert("Verification email sent. Check your inbox or spam.");
-        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
@@ -93,7 +91,7 @@ export default function SignIn({ setOpen }) {
               } else {
                 signUp();
               }
-              handleClose();
+              window.location.reload();
             }
           }}
         >
