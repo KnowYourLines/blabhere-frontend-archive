@@ -28,6 +28,7 @@ export default function SignIn({ setOpen }) {
           sendEmailVerification(user).catch((error) => {
             console.error(error.message);
           });
+          alert("Verification email sent");
         }
         window.location.reload();
       })
@@ -45,6 +46,7 @@ export default function SignIn({ setOpen }) {
         sendEmailVerification(user).catch((error) => {
           console.error(error.message);
         });
+        alert("Verification email sent");
         window.location.reload();
       })
       .catch((error) => {
