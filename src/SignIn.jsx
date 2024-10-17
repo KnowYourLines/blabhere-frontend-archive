@@ -28,7 +28,7 @@ export default function SignIn({ setOpen }) {
           sendEmailVerification(user).catch((error) => {
             console.error(error.message);
           });
-          alert("Verification email sent");
+          alert("Verification email sent. Check your inbox or spam.");
         }
         window.location.reload();
       })
@@ -46,7 +46,7 @@ export default function SignIn({ setOpen }) {
         sendEmailVerification(user).catch((error) => {
           console.error(error.message);
         });
-        alert("Verification email sent");
+        alert("Verification email sent. Check your inbox or spam.");
         window.location.reload();
       })
       .catch((error) => {
