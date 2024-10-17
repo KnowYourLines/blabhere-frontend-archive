@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
   const [newLimit, setNewLimit] = useState(oldLimit);
@@ -56,6 +57,9 @@ export default function EditMemberLimit({ setOpen, oldLimit, ws, numMembers }) {
             handleClose();
           }}
         >
+          <Typography variant="h5" component="div" align="center">
+            {oldLimit ? `Current limit: ${oldLimit}` : "No limit set"}
+          </Typography>
           <TextField
             required
             id="outlined-required"
