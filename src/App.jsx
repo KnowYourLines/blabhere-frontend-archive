@@ -113,6 +113,8 @@ export default function App() {
         setMemberLimit(data.member_limit);
       } else if ("user_left_room" in data) {
         setLeftRoom(true);
+      } else if ("display_name_taken" in data) {
+        alert(`Sorry! ${data.display_name_taken} is another room's name`);
       }
     };
     roomWs.onerror = (e) => {
@@ -148,6 +150,8 @@ export default function App() {
         setYourName(data.display_name);
       } else if ("conversations" in data) {
         setConversations(data.conversations);
+      } else if ("display_name_taken" in data) {
+        alert(`Sorry! ${data.display_name_taken} is another user's name`);
       }
     };
     userWs.onerror = (e) => {
