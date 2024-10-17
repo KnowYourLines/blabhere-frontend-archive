@@ -398,6 +398,41 @@ export default function App() {
                     />
                   }
                 ></Button>
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenRoomName}
+                >
+                  Room Name: {roomName}
+                </Button>{" "}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenYourName}
+                >
+                  Your Name: {yourName}
+                </Button>{" "}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  fontSize: "16pt",
+                }}
+              >
                 <Button
                   icon={
                     <FontAwesomeIcon
@@ -451,34 +486,6 @@ export default function App() {
                     }
                   ></Button>
                 )}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  color: "black",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  onClick={handleOpenRoomName}
-                >
-                  Room Name: {roomName}
-                </Button>{" "}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  color: "black",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  onClick={handleOpenYourName}
-                >
-                  Your Name: {yourName}
-                </Button>{" "}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
