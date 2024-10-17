@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   linkWithCredential,
   EmailAuthProvider,
-  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "./firebase.js";
 import Button from "@mui/material/Button";
@@ -22,14 +21,8 @@ export default function SignIn({ setOpen }) {
 
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((usercred) => {
-        const user = usercred.user;
-        if (!user.emailVerified) {
-          sendEmailVerification(user).catch((error) => {
-            console.error(error.message);
-          });
-          alert("Verification email sent. Check your inbox or spam.");
-        }
+      .then(() => {
+        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
@@ -40,12 +33,8 @@ export default function SignIn({ setOpen }) {
     const anonUser = auth.currentUser;
     const credential = EmailAuthProvider.credential(email, password);
     linkWithCredential(anonUser, credential)
-      .then((usercred) => {
-        const user = usercred.user;
-        sendEmailVerification(user).catch((error) => {
-          console.error(error.message);
-        });
-        alert("Verification email sent. Check your inbox or spam.");
+      .then(() => {
+        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
@@ -91,7 +80,6 @@ export default function SignIn({ setOpen }) {
               } else {
                 signUp();
               }
-              window.location.reload();
             }
           }}
         >
