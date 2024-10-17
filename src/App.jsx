@@ -20,7 +20,7 @@ import {
   faCommentMedical,
   faUserLock,
   faRotateRight,
-  faUserPlus,
+  faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -406,11 +406,21 @@ export default function App() {
                     />
                   }
                 ></Button>
+                {isRoomCreator && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserLock}
+                        onClick={handleOpenMemberLimit}
+                      />
+                    }
+                  ></Button>
+                )}
                 {isMobile && navigator.canShare ? (
                   <Button
                     icon={
                       <FontAwesomeIcon
-                        icon={faUserPlus}
+                        icon={faLink}
                         onClick={() => {
                           const shareData = {
                             title: "BlabHere - chat anonymously",
@@ -429,7 +439,7 @@ export default function App() {
                   <Button
                     icon={
                       <FontAwesomeIcon
-                        icon={faUserPlus}
+                        icon={faLink}
                         onClick={() => {
                           navigator.clipboard
                             .writeText(window.location.href)
@@ -437,16 +447,6 @@ export default function App() {
                               alert("Copied link to room");
                             });
                         }}
-                      />
-                    }
-                  ></Button>
-                )}
-                {isRoomCreator && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserLock}
-                        onClick={handleOpenMemberLimit}
                       />
                     }
                   ></Button>
