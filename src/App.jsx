@@ -351,6 +351,20 @@ export default function App() {
                       Sign Out
                     </Button>
                   )}
+                </span>{" "}
+                <span
+                  style={{
+                    alignSelf: "center",
+                    color: "black",
+                    fontSize: "16pt",
+                  }}
+                >
+                  <Button
+                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                    onClick={handleOpenYourName}
+                  >
+                    Your Name: {yourName}
+                  </Button>{" "}
                 </span>
                 <span
                   style={{
@@ -377,20 +391,6 @@ export default function App() {
                       />
                     }
                   ></Button>
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenYourName}
-                  >
-                    Your Name: {yourName}
-                  </Button>{" "}
                 </span>
                 <OutlinedCard text={"Sorry, this room is full."}></OutlinedCard>
               </ConversationHeader.Content>
@@ -440,6 +440,35 @@ export default function App() {
                   </Button>
                 )}
               </span>
+
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenYourName}
+                >
+                  Your Name: {yourName}
+                </Button>{" "}
+              </span>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                <Button
+                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                  onClick={handleOpenRoomName}
+                >
+                  Room Name: {roomName}
+                </Button>{" "}
+              </span>
               <span
                 style={{
                   alignSelf: "center",
@@ -483,34 +512,6 @@ export default function App() {
                     }
                   ></Button>
                 )}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  color: "black",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  onClick={handleOpenRoomName}
-                >
-                  Room Name: {roomName}
-                </Button>{" "}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  color: "black",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  onClick={handleOpenYourName}
-                >
-                  Your Name: {yourName}
-                </Button>{" "}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
