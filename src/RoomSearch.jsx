@@ -23,7 +23,7 @@ export default function RoomSearch({
   setChatHistory,
   roomWs,
 }) {
-  const [newLimit, setNewLimit] = useState(undefined);
+  const [newLimit, setNewLimit] = useState("");
   const [nameQuery, setNameQuery] = useState("");
   const handleClose = () => setOpen(false);
 
@@ -54,12 +54,12 @@ export default function RoomSearch({
           component="form"
           direction="row"
           spacing={2}
-          sx={{ width: "75%" }}
+          sx={{ width: "95%" }}
           noValidate
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
-            if (newLimit !== undefined && !Number.isInteger(newLimit)) {
+            if (newLimit && !Number.isInteger(newLimit)) {
               alert("Invalid: limit must be a whole number");
             } else if (Number.isInteger(newLimit) && newLimit < 2) {
               alert("Invalid: limit is too small");
