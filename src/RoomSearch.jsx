@@ -10,9 +10,9 @@ import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export default function Conversations({
+export default function RoomSearch({
   setOpen,
-  conversations,
+  rooms,
   setRoom,
   setIsRoomFull,
   setIsRoomCreator,
@@ -38,7 +38,7 @@ export default function Conversations({
               fontSize: "16pt",
             }}
           >
-            Your Chats
+            Search Chats
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
@@ -47,9 +47,8 @@ export default function Conversations({
           height: "100%",
         }}
       >
-        {conversations.map((convo, i) => (
+        {rooms.map((room, i) => (
           <Conversation
-            unreadDot={!convo.read}
             lastActivityTime={
               <span
                 style={{
@@ -57,18 +56,17 @@ export default function Conversations({
                 }}
               >
                 <Moment unix fromNow>
-                  {convo.latest_message__created_at || convo.created_at}
+                  {room.latest_message__created_at || room.created_at}
                 </Moment>
               </span>
             }
-            key={convo.room__id}
+            key={room.id}
           >
             <Conversation.Content
-              lastSenderName={convo.latest_message__creator__display_name}
-              name={convo.room__display_name}
-              info={convo.latest_message__content}
+              name={room.display_name}
+              info={room.latest_message__content}
               onClick={() => {
-                const newRoom = convo.room__id;
+                const newRoom = room.id;
                 const url = new URL(window.location.href.split("?")[0]);
                 url.searchParams.set("room", newRoom);
                 window.history.replaceState("", "", url);
@@ -103,10 +101,10 @@ export default function Conversations({
                       userWs.send(
                         JSON.stringify({
                           command: "exit_room",
-                          room_id: convo.room__id,
+                          room_id: room.id,
                         })
                       );
-                      if (currentRoom == convo.room__id) {
+                      if (currentRoom == room.id) {
                         setIsRoomFull(false);
                         setIsRoomCreator(false);
                         setMemberLimit(null);

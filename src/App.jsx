@@ -20,6 +20,7 @@ import {
   faCommentMedical,
   faUserLock,
   faRotateRight,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
@@ -30,6 +31,7 @@ import { isMobile } from "react-device-detect";
 import EditMemberLimit from "./EditMemberLimit.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import SignIn from "./SignIn.jsx";
+import RoomSearch from "./RoomSearch.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -40,6 +42,7 @@ export default function App() {
   const [memberLimit, setMemberLimit] = useState(null);
   const [roomName, setRoomName] = useState("");
   const [conversations, setConversations] = useState([]);
+  const [roomSearchResults, setRoomSearchResults] = useState([]);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
@@ -47,6 +50,8 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [openRoomSearch, setOpenRoomSearch] = useState(false);
+  const handleOpenRoomSearch = () => setOpenRoomSearch(true);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
   const [openRoomName, setOpenRoomName] = useState(false);
@@ -310,6 +315,25 @@ export default function App() {
     );
   }
 
+  if (openRoomSearch) {
+    return (
+      <RoomSearch
+        currentRoom={room}
+        setOpen={setOpenRoomSearch}
+        rooms={roomSearchResults}
+        setRoom={setRoom}
+        setIsRoomFull={setIsRoomFull}
+        setIsRoomCreator={setIsRoomCreator}
+        setMemberLimit={setMemberLimit}
+        setRoomName={setRoomName}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        roomWs={roomWs}
+        userWs={userWs}
+      ></RoomSearch>
+    );
+  }
+
   if (isRoomFull) {
     return (
       <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -372,6 +396,14 @@ export default function App() {
                     fontSize: "16pt",
                   }}
                 >
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlass}
+                        onClick={handleOpenRoomSearch}
+                      />
+                    }
+                  ></Button>
                   <Button
                     icon={
                       <FontAwesomeIcon
@@ -475,6 +507,14 @@ export default function App() {
                   fontSize: "16pt",
                 }}
               >
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faMagnifyingGlass}
+                      onClick={handleOpenRoomSearch}
+                    />
+                  }
+                ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon
