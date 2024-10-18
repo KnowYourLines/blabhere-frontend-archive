@@ -1,14 +1,15 @@
-import * as React from "react";
+import React, { useState } from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   ConversationHeader,
   Conversation,
   ConversationList,
-  Button,
 } from "@chatscope/chat-ui-kit-react";
 import Moment from "react-moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 export default function RoomSearch({
   setOpen,
@@ -21,9 +22,9 @@ export default function RoomSearch({
   setMembers,
   setChatHistory,
   roomWs,
-  userWs,
-  currentRoom,
 }) {
+  const [newLimit, setNewLimit] = useState(undefined);
+  const [nameQuery, setNameQuery] = useState("");
   const handleClose = () => setOpen(false);
 
   return (
@@ -42,6 +43,61 @@ export default function RoomSearch({
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        marginTop="1%"
+        marginBottom="1%"
+      >
+        <Stack
+          component="form"
+          direction="row"
+          spacing={2}
+          sx={{ width: "75%" }}
+          noValidate
+          autoComplete="off"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (newLimit !== undefined && !Number.isInteger(newLimit)) {
+              alert("Invalid: limit must be a whole number");
+            } else if (Number.isInteger(newLimit) && newLimit < 2) {
+              alert("Invalid: limit is too small");
+            } else if (Number.isInteger(newLimit) || nameQuery) {
+              console.log(newLimit);
+              console.log(nameQuery);
+            }
+          }}
+        >
+          <TextField
+            id="outlined-required"
+            label="Max Members"
+            value={newLimit}
+            onChange={(e) => {
+              setNewLimit(Number(e.target.value));
+            }}
+            onFocus={(event) => {
+              event.target.select();
+            }}
+            slotProps={{ htmlInput: { type: "number", min: 2 } }}
+          />
+          <TextField
+            fullWidth
+            id="outlined-required"
+            label="Room Name"
+            value={nameQuery}
+            onChange={(e) => {
+              setNameQuery(e.target.value);
+            }}
+            onFocus={(event) => {
+              event.target.select();
+            }}
+          />
+          <Button variant="contained" type="submit">
+            Search
+          </Button>
+        </Stack>
+      </Box>
       <ConversationList
         style={{
           height: "100%",
@@ -89,34 +145,6 @@ export default function RoomSearch({
                 handleClose();
               }}
             />
-            <Conversation.Operations visible>
-              <Button
-                style={{
-                  color: "red",
-                }}
-                icon={
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={() => {
-                      userWs.send(
-                        JSON.stringify({
-                          command: "exit_room",
-                          room_id: room.id,
-                        })
-                      );
-                      if (currentRoom == room.id) {
-                        setIsRoomFull(false);
-                        setIsRoomCreator(false);
-                        setMemberLimit(null);
-                        setRoomName("");
-                        setMembers([]);
-                        setChatHistory([]);
-                      }
-                    }}
-                  />
-                }
-              ></Button>
-            </Conversation.Operations>
           </Conversation>
         ))}
       </ConversationList>

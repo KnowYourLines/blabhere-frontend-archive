@@ -318,7 +318,6 @@ export default function App() {
   if (openRoomSearch) {
     return (
       <RoomSearch
-        currentRoom={room}
         setOpen={setOpenRoomSearch}
         rooms={roomSearchResults}
         setRoom={setRoom}
@@ -329,7 +328,6 @@ export default function App() {
         setMembers={setMembers}
         setChatHistory={setChatHistory}
         roomWs={roomWs}
-        userWs={userWs}
       ></RoomSearch>
     );
   }
