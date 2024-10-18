@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function RoomSearch({
   setOpen,
@@ -93,9 +95,11 @@ export default function RoomSearch({
               event.target.select();
             }}
           />
-          <Button variant="contained" type="submit">
-            Search
-          </Button>
+          <Button
+            variant="contained"
+            type="submit"
+            startIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
+          ></Button>
         </Stack>
       </Box>
       <ConversationList
