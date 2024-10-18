@@ -19,6 +19,7 @@ export default function SignIn({ setOpen }) {
   const [password, setPassword] = useState("");
   const [toggleSignUp, setToggleSignUp] = useState(false);
   const [togglePasswordReset, setTogglePasswordReset] = useState(false);
+  const [passwordResetSent, setPasswordResetSent] = useState(false);
 
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -44,7 +45,7 @@ export default function SignIn({ setOpen }) {
   const resetPassword = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert("Check your email inbox or spam to reset your password.");
+        setPasswordResetSent(true);
       })
       .catch((error) => {
         alert(error.message);
@@ -110,6 +111,12 @@ export default function SignIn({ setOpen }) {
             onFocus={(event) => {
               event.target.select();
             }}
+            error={togglePasswordReset && !toggleSignUp && passwordResetSent}
+            helperText={
+              togglePasswordReset && !toggleSignUp && passwordResetSent
+                ? "Check your email inbox or spam to reset your password."
+                : ""
+            }
           />
           {!togglePasswordReset && (
             <TextField
@@ -127,7 +134,14 @@ export default function SignIn({ setOpen }) {
           )}
           <Button variant="contained" type="submit">
             {toggleSignUp && !togglePasswordReset && "Sign Up"}
-            {togglePasswordReset && !toggleSignUp && "Request password reset"}
+            {togglePasswordReset &&
+              !toggleSignUp &&
+              !passwordResetSent &&
+              "Request password reset"}
+            {togglePasswordReset &&
+              !toggleSignUp &&
+              passwordResetSent &&
+              "Resend password reset"}
             {!toggleSignUp && !togglePasswordReset && "Sign In"}
           </Button>
           {!togglePasswordReset && (
