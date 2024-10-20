@@ -4,17 +4,24 @@ import {
   ConversationHeader,
   Conversation,
   ConversationList,
+  Button,
 } from "@chatscope/chat-ui-kit-react";
 import Moment from "react-moment";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faComments,
+  faCommentMedical,
+} from "@fortawesome/free-solid-svg-icons";
+import SearchButton from "./SearchButton.jsx";
 
-export default function RoomSearch({
-  setOpen,
+export default function HomeSearch({
+  handleOpenConvos,
+  handleOpenSignIn,
+  isAnonymous,
   roomSearchResults,
   setRoom,
   setIsRoomFull,
@@ -27,18 +34,68 @@ export default function RoomSearch({
 }) {
   const [sizeQuery, setSizeQuery] = useState("");
   const [nameQuery, setNameQuery] = useState("");
-  const handleClose = () => setOpen(false);
 
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
-        <ConversationHeader.Back key="1" onClick={handleClose} />
         <ConversationHeader.Content>
+          <span
+            style={{
+              alignSelf: "center",
+              fontSize: "16pt",
+            }}
+          >
+            <Button
+              icon={
+                <FontAwesomeIcon
+                  icon={faCommentMedical}
+                  onClick={() => {
+                    const newRoom = uuidv4();
+                    const url = new URL(window.location.href.split("?")[0]);
+                    url.searchParams.set("room", newRoom);
+                    window.open(url, "_blank");
+                  }}
+                />
+              }
+            ></Button>
+            {isAnonymous ? (
+              <Button
+                style={{
+                  border: "2px solid #6ea9d7",
+                  backgroundColor: "#6ea9d7",
+                  color: "#f6fbff",
+                }}
+                onClick={handleOpenSignIn}
+              >
+                Sign In
+              </Button>
+            ) : (
+              <Button
+                style={{
+                  border: "2px solid #6ea9d7",
+                  backgroundColor: "#6ea9d7",
+                  color: "#f6fbff",
+                }}
+                onClick={() => {
+                  signOut(auth);
+                  window.location.reload();
+                }}
+              >
+                Sign Out
+              </Button>
+            )}
+            <Button
+              icon={
+                <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
+              }
+            ></Button>
+          </span>
           <span
             style={{
               alignSelf: "center",
               color: "black",
               fontSize: "16pt",
+              marginTop: "1%",
             }}
           >
             Search Chats
@@ -95,11 +152,11 @@ export default function RoomSearch({
               event.target.select();
             }}
           />
-          <Button
+          <SearchButton
             variant="contained"
             type="submit"
             startIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
-          ></Button>
+          ></SearchButton>
         </Stack>
       </Box>
       <ConversationList
@@ -146,7 +203,6 @@ export default function RoomSearch({
                     room: newRoom,
                   })
                 );
-                handleClose();
               }}
             />
           </Conversation>
