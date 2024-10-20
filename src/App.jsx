@@ -33,6 +33,7 @@ import OutlinedCard from "./OutlinedCard.jsx";
 import SignIn from "./SignIn.jsx";
 import RoomSearch from "./RoomSearch.jsx";
 import HomeSearch from "./HomeSearch.jsx";
+import ChatRoom from "./ChatRoom.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -428,203 +429,23 @@ export default function App() {
   }
   if (room) {
     return (
-      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-        <MainContainer>
-          <ChatContainer>
-            <ConversationHeader>
-              <ConversationHeader.Content>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  {isAnonymous ? (
-                    <Button
-                      style={{
-                        border: "2px solid #6ea9d7",
-                        backgroundColor: "#6ea9d7",
-                        color: "#f6fbff",
-                      }}
-                      onClick={handleOpenSignIn}
-                    >
-                      Sign In
-                    </Button>
-                  ) : (
-                    <Button
-                      style={{
-                        border: "2px solid #6ea9d7",
-                        backgroundColor: "#6ea9d7",
-                        color: "#f6fbff",
-                      }}
-                      onClick={() => {
-                        signOut(auth);
-                        window.location.reload();
-                      }}
-                    >
-                      Sign Out
-                    </Button>
-                  )}
-                </span>
-
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenYourName}
-                  >
-                    Your Name: {yourName}
-                  </Button>{" "}
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenRoomName}
-                  >
-                    Room Name: {roomName}
-                  </Button>{" "}
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faMagnifyingGlass}
-                        onClick={handleOpenRoomSearch}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faCommentMedical}
-                        onClick={() => {
-                          const newRoom = uuidv4();
-                          const url = new URL(
-                            window.location.href.split("?")[0]
-                          );
-                          url.searchParams.set("room", newRoom);
-                          window.open(url, "_blank");
-                        }}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faComments}
-                        onClick={handleOpenConvos}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserGroup}
-                        onClick={handleOpenMembers}
-                      />
-                    }
-                  ></Button>
-                  {isRoomCreator && (
-                    <Button
-                      icon={
-                        <FontAwesomeIcon
-                          icon={faUserLock}
-                          onClick={handleOpenMemberLimit}
-                        />
-                      }
-                    ></Button>
-                  )}
-                </span>
-              </ConversationHeader.Content>
-            </ConversationHeader>
-
-            <MessageList
-              onYReachStart={() => {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "fetch_prev_messages",
-                    oldest_message_id: chatHistory[0].id,
-                  })
-                );
-              }}
-            >
-              {chatHistory.map((msg, i) => (
-                <Message
-                  key={msg.id}
-                  model={{
-                    position: "last",
-                    direction:
-                      username == msg.creator_username
-                        ? "outgoing"
-                        : "incoming",
-                  }}
-                >
-                  <Message.CustomContent>
-                    <Linkify
-                      componentDecorator={(
-                        decoratedHref,
-                        decoratedText,
-                        key
-                      ) => (
-                        <a
-                          target="blank"
-                          rel="noopener"
-                          href={decoratedHref}
-                          key={key}
-                        >
-                          {decoratedText}
-                        </a>
-                      )}
-                    >
-                      {msg.content}
-                    </Linkify>
-                  </Message.CustomContent>
-                  <Message.Header>
-                    <b>{msg.creator_display_name}</b>
-                  </Message.Header>
-                  <Message.Footer>
-                    <Moment unix fromNow>
-                      {msg.created_at}
-                    </Moment>
-                  </Message.Footer>
-                </Message>
-              ))}
-            </MessageList>
-            <MessageInput
-              style={{ fontSize: "18px" }}
-              disabled={!isOnline}
-              placeholder="Type message here"
-              attachButton={false}
-              fancyScroll={false}
-              sendOnReturnDisabled={isMobile}
-              onSend={(innerHtml, textContent, innerText, nodes) => {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "send_message",
-                    message: innerText,
-                  })
-                );
-              }}
-            />
-          </ChatContainer>
-        </MainContainer>
-      </div>
+      <ChatRoom
+        handleOpenConvos={handleOpenConvos}
+        handleOpenSignIn={handleOpenSignIn}
+        handleOpenYourName={handleOpenYourName}
+        handleOpenRoomName={handleOpenRoomName}
+        handleOpenRoomSearch={handleOpenRoomSearch}
+        handleOpenMembers={handleOpenMembers}
+        handleOpenMemberLimit={handleOpenMemberLimit}
+        isAnonymous={isAnonymous}
+        isOnline={isOnline}
+        yourName={yourName}
+        roomName={roomName}
+        chatHistory={chatHistory}
+        isRoomCreator={isRoomCreator}
+        username={username}
+        roomWs={roomWs}
+      ></ChatRoom>
     );
   }
 
