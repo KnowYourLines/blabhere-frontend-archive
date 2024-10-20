@@ -22,6 +22,7 @@ export default function HomeSearch({
   setRoomName,
   setMembers,
   setChatHistory,
+  setRoomSearchResults,
   roomWs,
 }) {
   const [sizeQuery, setSizeQuery] = useState("");
@@ -109,6 +110,7 @@ export default function HomeSearch({
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
+        setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
       ></SearchResults>
     </div>

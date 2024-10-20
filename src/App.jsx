@@ -104,7 +104,10 @@ export default function App() {
       } else if ("display_name_taken" in data) {
         alert(`Sorry! ${data.display_name_taken} is another room's name`);
       } else if ("room_search_results" in data) {
-        setRoomSearchResults(data.room_search_results);
+        setRoomSearchResults((oldResults) => [
+          ...oldResults,
+          ...data.room_search_results,
+        ]);
       }
     };
     roomWs.onerror = (e) => {
@@ -271,6 +274,7 @@ export default function App() {
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
+        setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
       ></RoomSearch>
     );
@@ -309,21 +313,23 @@ export default function App() {
       ></ChatRoom>
     );
   }
-
-  return (
-    <HomeSearch
-      handleOpenConvos={handleOpenConvos}
-      handleOpenSignIn={handleOpenSignIn}
-      isAnonymous={isAnonymous}
-      roomSearchResults={roomSearchResults}
-      setRoom={setRoom}
-      setIsRoomFull={setIsRoomFull}
-      setIsRoomCreator={setIsRoomCreator}
-      setMemberLimit={setMemberLimit}
-      setRoomName={setRoomName}
-      setMembers={setMembers}
-      setChatHistory={setChatHistory}
-      roomWs={roomWs}
-    ></HomeSearch>
-  );
+  if (roomWs) {
+    return (
+      <HomeSearch
+        handleOpenConvos={handleOpenConvos}
+        handleOpenSignIn={handleOpenSignIn}
+        isAnonymous={isAnonymous}
+        roomSearchResults={roomSearchResults}
+        setRoom={setRoom}
+        setIsRoomFull={setIsRoomFull}
+        setIsRoomCreator={setIsRoomCreator}
+        setMemberLimit={setMemberLimit}
+        setRoomName={setRoomName}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        setRoomSearchResults={setRoomSearchResults}
+        roomWs={roomWs}
+      ></HomeSearch>
+    );
+  }
 }
