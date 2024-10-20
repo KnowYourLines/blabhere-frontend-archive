@@ -103,6 +103,8 @@ export default function App() {
         setLeftRoom(true);
       } else if ("display_name_taken" in data) {
         alert(`Sorry! ${data.display_name_taken} is another room's name`);
+      } else if ("room_search_results" in data) {
+        setRoomSearchResults(data.room_search_results);
       }
     };
     roomWs.onerror = (e) => {

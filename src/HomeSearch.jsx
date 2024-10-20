@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   ConversationHeader,
@@ -173,7 +174,7 @@ export default function HomeSearch({
                 }}
               >
                 <Moment unix fromNow>
-                  {room.latest_message__created_at || room.created_at}
+                  {room.latest_message_timestamp || room.created_at}
                 </Moment>
               </span>
             }

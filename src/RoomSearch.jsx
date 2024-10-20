@@ -116,7 +116,7 @@ export default function RoomSearch({
                 }}
               >
                 <Moment unix fromNow>
-                  {room.latest_message__created_at || room.created_at}
+                  {room.latest_message_timestamp || room.created_at}
                 </Moment>
               </span>
             }
@@ -124,7 +124,11 @@ export default function RoomSearch({
           >
             <Conversation.Content
               name={room.display_name}
-              info={room.latest_message__content}
+              info={
+                room.max_num_members
+                  ? `Capacity: ${room.num_members}/${room.max_num_members}`
+                  : `Size: ${room.num_members}`
+              }
               onClick={() => {
                 const newRoom = room.id;
                 const url = new URL(window.location.href.split("?")[0]);
