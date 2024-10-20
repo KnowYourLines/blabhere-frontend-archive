@@ -6,34 +6,26 @@ import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
   ChatContainer,
-  MessageList,
-  Message,
-  MessageInput,
   ConversationHeader,
   Button,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
-  faUserGroup,
   faComments,
   faCommentMedical,
-  faUserLock,
-  faRotateRight,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import EditName from "./EditName.jsx";
-import Moment from "react-moment";
-import Linkify from "react-linkify";
-import { isMobile } from "react-device-detect";
 import EditMemberLimit from "./EditMemberLimit.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import SignIn from "./SignIn.jsx";
 import RoomSearch from "./RoomSearch.jsx";
 import HomeSearch from "./HomeSearch.jsx";
 import ChatRoom from "./ChatRoom.jsx";
+import LeftChat from "./LeftChat.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -211,40 +203,11 @@ export default function App() {
 
   if (leftRoom) {
     return (
-      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-        <MainContainer>
-          <ChatContainer>
-            <ConversationHeader
-              style={{ position: "fixed", height: "100%", width: "100%" }}
-            >
-              <ConversationHeader.Content>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faRotateRight} />}
-                    onClick={() => {
-                      roomWs.send(
-                        JSON.stringify({
-                          command: "connect",
-                          room: room,
-                        })
-                      );
-                      setLeftRoom(false);
-                    }}
-                  >
-                    Rejoin
-                  </Button>
-                </span>
-                <OutlinedCard text={"You have left this room."}></OutlinedCard>
-              </ConversationHeader.Content>
-            </ConversationHeader>
-          </ChatContainer>
-        </MainContainer>
-      </div>
+      <LeftChat
+        roomWs={roomWs}
+        setLeftRoom={setLeftRoom}
+        room={room}
+      ></LeftChat>
     );
   }
 
