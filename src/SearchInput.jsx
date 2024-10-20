@@ -39,7 +39,6 @@ export default function SearchInput({
         }}
       >
         <TextField
-          id="outlined-required"
           label="Max Members"
           value={sizeQuery}
           onChange={(e) => {
@@ -52,7 +51,6 @@ export default function SearchInput({
         />
         <TextField
           fullWidth
-          id="outlined-required"
           label="Room Name"
           value={nameQuery}
           onChange={(e) => {
