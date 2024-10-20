@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { auth } from "./firebase.js";
-import { onAuthStateChanged, signInAnonymously, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {
-  MainContainer,
-  ChatContainer,
-  ConversationHeader,
-  Button,
-} from "@chatscope/chat-ui-kit-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPenToSquare,
-  faComments,
-  faCommentMedical,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import EditName from "./EditName.jsx";
 import EditMemberLimit from "./EditMemberLimit.jsx";
-import OutlinedCard from "./OutlinedCard.jsx";
 import SignIn from "./SignIn.jsx";
 import RoomSearch from "./RoomSearch.jsx";
 import HomeSearch from "./HomeSearch.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import LeftChat from "./LeftChat.jsx";
+import ChatFull from "./ChatFull.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -290,104 +276,14 @@ export default function App() {
 
   if (isRoomFull) {
     return (
-      <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-        <MainContainer>
-          <ChatContainer>
-            <ConversationHeader
-              style={{ position: "fixed", height: "100%", width: "100%" }}
-            >
-              <ConversationHeader.Content>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  {isAnonymous ? (
-                    <Button
-                      style={{
-                        border: "2px solid #6ea9d7",
-                        backgroundColor: "#6ea9d7",
-                        color: "#f6fbff",
-                      }}
-                      onClick={handleOpenSignIn}
-                    >
-                      Sign In
-                    </Button>
-                  ) : (
-                    <Button
-                      style={{
-                        border: "2px solid #6ea9d7",
-                        backgroundColor: "#6ea9d7",
-                        color: "#f6fbff",
-                      }}
-                      onClick={() => {
-                        signOut(auth);
-                        window.location.reload();
-                      }}
-                    >
-                      Sign Out
-                    </Button>
-                  )}
-                </span>{" "}
-                <span
-                  style={{
-                    alignSelf: "center",
-                    color: "black",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenYourName}
-                  >
-                    Your Name: {yourName}
-                  </Button>{" "}
-                </span>
-                <span
-                  style={{
-                    alignSelf: "center",
-                    fontSize: "16pt",
-                  }}
-                >
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faMagnifyingGlass}
-                        onClick={handleOpenRoomSearch}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faCommentMedical}
-                        onClick={() => {
-                          const newRoom = uuidv4();
-                          const url = new URL(
-                            window.location.href.split("?")[0]
-                          );
-                          url.searchParams.set("room", newRoom);
-                          window.open(url, "_blank");
-                        }}
-                      />
-                    }
-                  ></Button>
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faComments}
-                        onClick={handleOpenConvos}
-                      />
-                    }
-                  ></Button>
-                </span>
-                <OutlinedCard text={"Sorry, this room is full."}></OutlinedCard>
-              </ConversationHeader.Content>
-            </ConversationHeader>
-          </ChatContainer>
-        </MainContainer>
-      </div>
+      <ChatFull
+        handleOpenConvos={handleOpenConvos}
+        handleOpenSignIn={handleOpenSignIn}
+        handleOpenYourName={handleOpenYourName}
+        handleOpenRoomSearch={handleOpenRoomSearch}
+        isAnonymous={isAnonymous}
+        yourName={yourName}
+      ></ChatFull>
     );
   }
   if (room) {
