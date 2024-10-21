@@ -109,10 +109,16 @@ export default function App() {
         if (data.page == 1) {
           setRoomSearchResults(() => [...data.room_search_results]);
         } else {
-          setRoomSearchResults((oldResults) => [
-            ...oldResults,
-            ...data.room_search_results,
-          ]);
+          setRoomSearchResults((oldResults) => {
+            const newPage = data.room_search_results;
+            if (
+              oldResults[oldResults.length - 1].id ==
+              newPage[newPage.length - 1].id
+            ) {
+              return [...oldResults];
+            }
+            return [...oldResults, ...newPage];
+          });
         }
       }
     };

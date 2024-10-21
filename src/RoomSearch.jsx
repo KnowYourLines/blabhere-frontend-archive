@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader } from "@chatscope/chat-ui-kit-react";
 import SearchInput from "./SearchInput.jsx";

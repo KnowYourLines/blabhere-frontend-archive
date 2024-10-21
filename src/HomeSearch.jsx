@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
@@ -114,8 +114,6 @@ export default function HomeSearch({
         setChatHistory={setChatHistory}
         setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
-        nameQuery={nameQuery}
-        sizeQuery={sizeQuery}
       ></SearchResults>
     </div>
   );
