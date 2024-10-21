@@ -50,11 +50,9 @@ export default function SearchResults({
         >
           <Conversation.Content
             name={room.display_name}
-            info={
-              room.max_num_members
-                ? `Capacity: ${room.num_members}/${room.max_num_members}`
-                : `Number of members: ${room.num_members}`
-            }
+            info={`Members: ${room.num_members} ${
+              room.max_num_members ? `Capacity: ${room.max_num_members}` : ""
+            }`}
             onClick={() => {
               const newRoom = room.id;
               const url = new URL(window.location.href.split("?")[0]);
