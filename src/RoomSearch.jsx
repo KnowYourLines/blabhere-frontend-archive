@@ -16,9 +16,11 @@ export default function RoomSearch({
   setChatHistory,
   setRoomSearchResults,
   roomWs,
+  sizeQuery,
+  setSizeQuery,
+  nameQuery,
+  setNameQuery,
 }) {
-  const [sizeQuery, setSizeQuery] = useState("");
-  const [nameQuery, setNameQuery] = useState("");
   const handleClose = () => setOpen(false);
 
   return (

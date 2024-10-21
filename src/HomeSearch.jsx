@@ -24,10 +24,11 @@ export default function HomeSearch({
   setChatHistory,
   setRoomSearchResults,
   roomWs,
+  sizeQuery,
+  setSizeQuery,
+  nameQuery,
+  setNameQuery,
 }) {
-  const [sizeQuery, setSizeQuery] = useState("");
-  const [nameQuery, setNameQuery] = useState("");
-
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>

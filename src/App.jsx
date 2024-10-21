@@ -30,6 +30,8 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [sizeQuery, setSizeQuery] = useState("");
+  const [nameQuery, setNameQuery] = useState("");
   const [openRoomSearch, setOpenRoomSearch] = useState(false);
   const handleOpenRoomSearch = () => setOpenRoomSearch(true);
   const [openYourName, setOpenYourName] = useState(false);
@@ -276,6 +278,10 @@ export default function App() {
         setChatHistory={setChatHistory}
         setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
+        sizeQuery={sizeQuery}
+        setSizeQuery={setSizeQuery}
+        nameQuery={nameQuery}
+        setNameQuery={setNameQuery}
       ></RoomSearch>
     );
   }
@@ -329,6 +335,10 @@ export default function App() {
         setChatHistory={setChatHistory}
         setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
+        sizeQuery={sizeQuery}
+        setSizeQuery={setSizeQuery}
+        nameQuery={nameQuery}
+        setNameQuery={setNameQuery}
       ></HomeSearch>
     );
   }
