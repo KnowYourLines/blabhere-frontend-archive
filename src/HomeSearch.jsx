@@ -101,6 +101,7 @@ export default function HomeSearch({
         setSizeQuery={setSizeQuery}
         nameQuery={nameQuery}
         setNameQuery={setNameQuery}
+        roomWs={roomWs}
       ></SearchInput>
       <SearchResults
         roomSearchResults={roomSearchResults}
@@ -113,6 +114,8 @@ export default function HomeSearch({
         setChatHistory={setChatHistory}
         setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
+        nameQuery={nameQuery}
+        sizeQuery={sizeQuery}
       ></SearchResults>
     </div>
   );

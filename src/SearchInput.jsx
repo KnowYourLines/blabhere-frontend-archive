@@ -10,6 +10,7 @@ export default function SearchInput({
   setSizeQuery,
   nameQuery,
   setNameQuery,
+  roomWs,
 }) {
   return (
     <Box
@@ -30,11 +31,19 @@ export default function SearchInput({
           event.preventDefault();
           if (sizeQuery && !Number.isInteger(sizeQuery)) {
             alert("Invalid: limit must be a whole number");
-          } else if (Number.isInteger(sizeQuery) && sizeQuery < 2) {
+          } else if (Number.isInteger(sizeQuery) && sizeQuery < 1) {
             alert("Invalid: limit is too small");
-          } else if (Number.isInteger(sizeQuery) || nameQuery) {
-            console.log(sizeQuery);
-            console.log(nameQuery);
+          } else if (
+            Number.isInteger(sizeQuery) ||
+            typeof nameQuery === "string"
+          ) {
+            roomWs.send(
+              JSON.stringify({
+                command: "fetch_next_room_search_results",
+                name: nameQuery,
+                max_size: sizeQuery,
+              })
+            );
           }
         }}
       >

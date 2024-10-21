@@ -44,6 +44,7 @@ export default function RoomSearch({
         setSizeQuery={setSizeQuery}
         nameQuery={nameQuery}
         setNameQuery={setNameQuery}
+        roomWs={roomWs}
       ></SearchInput>
       <SearchResults
         roomSearchResults={roomSearchResults}

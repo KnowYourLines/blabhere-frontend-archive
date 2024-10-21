@@ -15,6 +15,8 @@ export default function SearchResults({
   setRoomSearchResults,
   roomWs,
   handleClose = null,
+  nameQuery,
+  sizeQuery,
 }) {
   return (
     <ConversationList
@@ -25,6 +27,8 @@ export default function SearchResults({
         roomWs.send(
           JSON.stringify({
             command: "fetch_next_room_search_results",
+            name: nameQuery,
+            max_size: sizeQuery,
           })
         );
       }}

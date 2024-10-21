@@ -106,10 +106,14 @@ export default function App() {
       } else if ("display_name_taken" in data) {
         alert(`Sorry! ${data.display_name_taken} is another room's name`);
       } else if ("room_search_results" in data) {
-        setRoomSearchResults((oldResults) => [
-          ...oldResults,
-          ...data.room_search_results,
-        ]);
+        if (data.page == 1) {
+          setRoomSearchResults(() => [...data.room_search_results]);
+        } else {
+          setRoomSearchResults((oldResults) => [
+            ...oldResults,
+            ...data.room_search_results,
+          ]);
+        }
       }
     };
     roomWs.onerror = (e) => {
