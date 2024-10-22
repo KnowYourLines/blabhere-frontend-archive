@@ -51,7 +51,11 @@ export default function SearchInput({
           label="Max Members"
           value={sizeQuery}
           onChange={(e) => {
-            setSizeQuery(Number(e.target.value));
+            if (!e.target.value) {
+              setSizeQuery("");
+            } else {
+              setSizeQuery(Number(e.target.value));
+            }
           }}
           onFocus={(event) => {
             event.target.select();
