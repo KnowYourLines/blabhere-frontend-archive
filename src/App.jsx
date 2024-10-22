@@ -112,8 +112,9 @@ export default function App() {
           setRoomSearchResults((oldResults) => {
             const newPage = data.room_search_results;
             if (
+              newPage.length > 0 &&
               oldResults[oldResults.length - 1].id ==
-              newPage[newPage.length - 1].id
+                newPage[newPage.length - 1].id
             ) {
               return [...oldResults];
             }
