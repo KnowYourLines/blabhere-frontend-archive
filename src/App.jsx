@@ -67,6 +67,7 @@ export default function App() {
     const roomWs = new WebSocket(path);
     roomWs.onopen = () => {
       console.log("Room WebSocket open");
+      setChatHistory([]);
       if (room) {
         roomWs.send(
           JSON.stringify({
@@ -88,18 +89,10 @@ export default function App() {
           data.new_message,
         ]);
       } else if ("messages" in data) {
-        setChatHistory((oldChatHistory) => {
-          const newMessages = data.messages;
-          if (
-            newMessages.length > 0 &&
-            oldChatHistory.length > 0 &&
-            oldChatHistory[oldChatHistory.length - 1].id ==
-              newMessages[newMessages.length - 1].id
-          ) {
-            return [...oldChatHistory];
-          }
-          return [...oldChatHistory, ...newMessages];
-        });
+        setChatHistory((oldChatHistory) => [
+          ...data.messages,
+          ...oldChatHistory,
+        ]);
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
       } else if ("is_room_full" in data) {
@@ -120,7 +113,6 @@ export default function App() {
             const newPage = data.room_search_results;
             if (
               newPage.length > 0 &&
-              oldResults.length > 0 &&
               oldResults[oldResults.length - 1].id ==
                 newPage[newPage.length - 1].id
             ) {
