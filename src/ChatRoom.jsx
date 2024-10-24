@@ -112,12 +112,16 @@ export default function ChatRoom({
                   fontSize: "16pt",
                 }}
               >
-                <Button
-                  icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  onClick={handleOpenRoomName}
-                >
-                  Room Name: {roomName}
-                </Button>{" "}
+                {isRoomCreator ? (
+                  <Button
+                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                    onClick={handleOpenRoomName}
+                  >
+                    Room Name: {roomName}
+                  </Button>
+                ) : (
+                  <Button>Room Name: {roomName}</Button>
+                )}{" "}
               </span>
               <span
                 style={{
