@@ -92,7 +92,7 @@ export default function HomeSearch({
               marginTop: "1%",
             }}
           >
-            Search Chats
+            BlabHere
           </span>
         </ConversationHeader.Content>
       </ConversationHeader>
