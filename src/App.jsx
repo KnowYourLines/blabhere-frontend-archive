@@ -311,6 +311,7 @@ export default function App() {
     );
   }
   if (room) {
+    console.log(room);
     return (
       <ChatRoom
         handleOpenConvos={handleOpenConvos}
