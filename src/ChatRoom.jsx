@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { auth } from "./firebase.js";
 import { signOut } from "firebase/auth";
@@ -41,7 +41,16 @@ export default function ChatRoom({
   isRoomCreator,
   roomWs,
   username,
+  room,
 }) {
+  useEffect(() => {
+    roomWs.send(
+      JSON.stringify({
+        command: "connect",
+        room: room,
+      })
+    );
+  }, [room]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>

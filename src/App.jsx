@@ -67,16 +67,7 @@ export default function App() {
     const roomWs = new WebSocket(path);
     roomWs.onopen = () => {
       console.log("Room WebSocket open");
-      console.log(room);
       setChatHistory([]);
-      if (room) {
-        roomWs.send(
-          JSON.stringify({
-            command: "connect",
-            room: room,
-          })
-        );
-      }
     };
     roomWs.onmessage = (message) => {
       const data = JSON.parse(message.data);
@@ -85,15 +76,28 @@ export default function App() {
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
       } else if ("new_message" in data) {
-        setChatHistory((oldChatHistory) => [
-          ...oldChatHistory,
-          data.new_message,
-        ]);
+        setChatHistory((oldChatHistory) => {
+          const newMessage = data.new_message;
+          if (
+            oldChatHistory.length > 0 &&
+            oldChatHistory[oldChatHistory.length - 1].id == newMessage.id
+          ) {
+            return [...oldChatHistory];
+          }
+          return [...oldChatHistory, newMessage];
+        });
       } else if ("messages" in data) {
-        setChatHistory((oldChatHistory) => [
-          ...data.messages,
-          ...oldChatHistory,
-        ]);
+        setChatHistory((oldChatHistory) => {
+          const prevMessages = data.messages;
+          if (
+            oldChatHistory.length > 0 &&
+            prevMessages.length > 0 &&
+            oldChatHistory[0].id == prevMessages[0].id
+          ) {
+            return [...oldChatHistory];
+          }
+          return [...prevMessages, ...oldChatHistory];
+        });
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
       } else if ("is_room_full" in data) {
@@ -310,8 +314,7 @@ export default function App() {
       ></ChatFull>
     );
   }
-  if (room) {
-    console.log(room);
+  if (room && roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <ChatRoom
         handleOpenConvos={handleOpenConvos}
@@ -329,10 +332,11 @@ export default function App() {
         isRoomCreator={isRoomCreator}
         username={username}
         roomWs={roomWs}
+        room={room}
       ></ChatRoom>
     );
   }
-  if (roomWs) {
+  if (roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <HomeSearch
         handleOpenConvos={handleOpenConvos}
