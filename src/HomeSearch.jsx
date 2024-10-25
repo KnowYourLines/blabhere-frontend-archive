@@ -1,5 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import { auth } from "./firebase.js";
+import { signOut } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

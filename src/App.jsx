@@ -18,6 +18,7 @@ export default function App() {
   const [leftRoom, setLeftRoom] = useState(false);
   const [isRoomFull, setIsRoomFull] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
+  const [isVerified, setIsVerified] = useState(true);
   const [isRoomCreator, setIsRoomCreator] = useState(false);
   const [memberLimit, setMemberLimit] = useState(null);
   const [roomName, setRoomName] = useState("");
@@ -183,6 +184,11 @@ export default function App() {
     }
   }, []);
   useEffect(() => {
+    if (!isVerified) {
+      console.log("unverified");
+    }
+  }, [isVerified, isAnonymous]);
+  useEffect(() => {
     if (!isOnline) {
       alert("No internet connection!");
     }
@@ -194,6 +200,7 @@ export default function App() {
         setToken(token);
         setUsername(user.uid);
         setIsAnonymous(user.isAnonymous);
+        setIsVerified(user.emailVerified);
       } else {
         signInAnonymously(auth);
       }
