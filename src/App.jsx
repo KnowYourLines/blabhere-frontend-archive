@@ -313,6 +313,7 @@ export default function App() {
         handleOpenRoomSearch={handleOpenRoomSearch}
         isAnonymous={isAnonymous}
         yourName={yourName}
+        isVerified={isVerified}
       ></ChatFull>
     );
   }
@@ -335,6 +336,7 @@ export default function App() {
         username={username}
         roomWs={roomWs}
         room={room}
+        isVerified={isVerified}
       ></ChatRoom>
     );
   }

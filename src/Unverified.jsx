@@ -52,7 +52,7 @@ export default function Unverified({
                 handleClose();
               } else {
                 const user = auth.currentUser;
-                sendEmailVerification(user)
+                sendEmailVerification(user, { url: window.location.href })
                   .then(() => {
                     setSent(true);
                   })

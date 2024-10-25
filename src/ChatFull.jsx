@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { auth } from "./firebase.js";
 import { signOut } from "firebase/auth";
@@ -17,6 +17,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import OutlinedCard from "./OutlinedCard.jsx";
+import Unverified from "./Unverified.jsx";
 
 export default function ChatFull({
   handleOpenConvos,
@@ -25,9 +26,18 @@ export default function ChatFull({
   handleOpenRoomSearch,
   isAnonymous,
   yourName,
+  isVerified,
 }) {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <Unverified
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        isAnonymous={isAnonymous}
+        handleOpenSignIn={handleOpenSignIn}
+      />
       <MainContainer>
         <ChatContainer>
           <ConversationHeader
@@ -100,10 +110,16 @@ export default function ChatFull({
                     <FontAwesomeIcon
                       icon={faCommentMedical}
                       onClick={() => {
-                        const newRoom = uuidv4();
-                        const url = new URL(window.location.href.split("?")[0]);
-                        url.searchParams.set("room", newRoom);
-                        window.open(url, "_blank");
+                        if (!isVerified) {
+                          handleOpenModal();
+                        } else {
+                          const newRoom = uuidv4();
+                          const url = new URL(
+                            window.location.href.split("?")[0]
+                          );
+                          url.searchParams.set("room", newRoom);
+                          window.open(url, "_blank");
+                        }
                       }}
                     />
                   }
