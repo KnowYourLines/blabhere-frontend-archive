@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { auth } from "./firebase.js";
 import { signOut } from "firebase/auth";
@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SearchInput from "./SearchInput.jsx";
 import SearchResults from "./SearchResults.jsx";
+import Unverified from "./Unverified.jsx";
 
 export default function HomeSearch({
   handleOpenConvos,
@@ -30,9 +31,18 @@ export default function HomeSearch({
   setSizeQuery,
   nameQuery,
   setNameQuery,
+  isVerified,
 }) {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <Unverified
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        isAnonymous={isAnonymous}
+        handleOpenSignIn={handleOpenSignIn}
+      />
       <ConversationHeader>
         <ConversationHeader.Content>
           <span
@@ -46,10 +56,14 @@ export default function HomeSearch({
                 <FontAwesomeIcon
                   icon={faCommentMedical}
                   onClick={() => {
-                    const newRoom = uuidv4();
-                    const url = new URL(window.location.href.split("?")[0]);
-                    url.searchParams.set("room", newRoom);
-                    window.open(url, "_blank");
+                    if (!isVerified) {
+                      handleOpenModal();
+                    } else {
+                      const newRoom = uuidv4();
+                      const url = new URL(window.location.href.split("?")[0]);
+                      url.searchParams.set("room", newRoom);
+                      window.open(url, "_blank");
+                    }
                   }}
                 />
               }

@@ -184,11 +184,6 @@ export default function App() {
     }
   }, []);
   useEffect(() => {
-    if (!isVerified) {
-      console.log("unverified");
-    }
-  }, [isVerified]);
-  useEffect(() => {
     if (!isOnline) {
       alert("No internet connection!");
     }
@@ -346,6 +341,7 @@ export default function App() {
   if (roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <HomeSearch
+        isVerified={isVerified}
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         isAnonymous={isAnonymous}
