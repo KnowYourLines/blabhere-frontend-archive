@@ -153,7 +153,7 @@ export default function SignIn({ setOpen }) {
             >
               {toggleSignUp
                 ? "Already have an account? Sign In"
-                : "Want a full account? Sign Up"}
+                : "Want an account? Sign Up"}
             </Button>
           )}
           {!toggleSignUp && (
