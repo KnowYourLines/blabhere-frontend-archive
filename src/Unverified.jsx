@@ -68,14 +68,14 @@ export default function Unverified({
               component="h2"
               align="center"
             >
-              Only verified users can create rooms
+              {isAnonymous ? "Please sign in" : "Verify your email"}
             </Typography>
             <Typography
               id="modal-modal-description"
               sx={{ mt: 2 }}
               align="center"
             >
-              {isAnonymous ? "Please sign in" : "Verify your email address"}
+              Only verified users can create rooms or send messages
             </Typography>
             <Button variant="contained" type="submit">
               {sent && !isAnonymous && "Resend verification email"}

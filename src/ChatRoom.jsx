@@ -55,6 +55,11 @@ export default function ChatRoom({
       })
     );
   }, [room]);
+  useEffect(() => {
+    if (!isVerified) {
+      handleOpenModal();
+    }
+  }, [isVerified]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <Unverified
@@ -250,12 +255,16 @@ export default function ChatRoom({
             fancyScroll={false}
             sendOnReturnDisabled={isMobile}
             onSend={(innerHtml, textContent, innerText, nodes) => {
-              roomWs.send(
-                JSON.stringify({
-                  command: "send_message",
-                  message: innerText,
-                })
-              );
+              if (!isVerified) {
+                handleOpenModal();
+              } else {
+                roomWs.send(
+                  JSON.stringify({
+                    command: "send_message",
+                    message: innerText,
+                  })
+                );
+              }
             }}
           />
         </ChatContainer>
