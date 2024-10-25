@@ -187,7 +187,7 @@ export default function App() {
     if (!isVerified) {
       console.log("unverified");
     }
-  }, [isVerified, isAnonymous]);
+  }, [isVerified]);
   useEffect(() => {
     if (!isOnline) {
       alert("No internet connection!");
