@@ -12,7 +12,6 @@ export default function SearchResults({
   setRoomName,
   setMembers,
   setChatHistory,
-  setRoomSearchResults,
   roomWs,
   handleClose = null,
 }) {
@@ -62,9 +61,6 @@ export default function SearchResults({
               setRoomName("");
               setMembers([]);
               setChatHistory([]);
-              setRoomSearchResults((roomSearchResults) =>
-                roomSearchResults.filter((result) => result.id !== room.id)
-              );
               roomWs.send(
                 JSON.stringify({
                   command: "connect",

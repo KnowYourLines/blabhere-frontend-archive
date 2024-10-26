@@ -294,7 +294,6 @@ export default function App() {
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
         sizeQuery={sizeQuery}
         setSizeQuery={setSizeQuery}
@@ -355,7 +354,6 @@ export default function App() {
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
         sizeQuery={sizeQuery}
         setSizeQuery={setSizeQuery}

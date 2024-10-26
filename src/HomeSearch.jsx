@@ -25,7 +25,6 @@ export default function HomeSearch({
   setRoomName,
   setMembers,
   setChatHistory,
-  setRoomSearchResults,
   roomWs,
   sizeQuery,
   setSizeQuery,
@@ -128,7 +127,6 @@ export default function HomeSearch({
         setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        setRoomSearchResults={setRoomSearchResults}
         roomWs={roomWs}
       ></SearchResults>
     </div>
