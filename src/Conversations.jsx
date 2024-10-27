@@ -20,6 +20,7 @@ export default function Conversations({
   setRoomName,
   setMembers,
   setChatHistory,
+  setRoomExists,
   roomWs,
   userWs,
   currentRoom,
@@ -77,6 +78,7 @@ export default function Conversations({
                 );
                 setRoom(newUrlParams.get("room"));
                 setIsRoomFull(false);
+                setRoomExists(true);
                 setIsRoomCreator(false);
                 setMemberLimit(null);
                 setRoomName("");
@@ -108,6 +110,7 @@ export default function Conversations({
                       );
                       if (currentRoom == convo.room__id) {
                         setIsRoomFull(false);
+                        setRoomExists(true);
                         setIsRoomCreator(false);
                         setMemberLimit(null);
                         setRoomName("");

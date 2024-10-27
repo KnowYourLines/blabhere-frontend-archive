@@ -20,6 +20,7 @@ export default function HomeSearch({
   roomSearchResults,
   setRoom,
   setIsRoomFull,
+  setRoomExists,
   setIsRoomCreator,
   setMemberLimit,
   setRoomName,
@@ -122,6 +123,7 @@ export default function HomeSearch({
         roomSearchResults={roomSearchResults}
         setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
         setIsRoomCreator={setIsRoomCreator}
         setMemberLimit={setMemberLimit}
         setRoomName={setRoomName}

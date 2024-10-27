@@ -12,10 +12,12 @@ import HomeSearch from "./HomeSearch.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import LeftChat from "./LeftChat.jsx";
 import ChatFull from "./ChatFull.jsx";
+import ChatDoesNotExist from "./ChatDoesNotExist.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
   const [leftRoom, setLeftRoom] = useState(false);
+  const [roomExists, setRoomExists] = useState(true);
   const [isRoomFull, setIsRoomFull] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [isVerified, setIsVerified] = useState(true);
@@ -103,6 +105,8 @@ export default function App() {
         setChatHistory(() => [...data.refreshed_messages]);
       } else if ("is_room_full" in data) {
         setIsRoomFull(data.is_room_full);
+      } else if ("room_exists" in data) {
+        setRoomExists(data.room_exists);
       } else if ("is_room_creator" in data) {
         setIsRoomCreator(data.is_room_creator);
       } else if ("member_limit" in data) {
@@ -271,6 +275,7 @@ export default function App() {
         conversations={conversations}
         setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
         setIsRoomCreator={setIsRoomCreator}
         setMemberLimit={setMemberLimit}
         setRoomName={setRoomName}
@@ -289,6 +294,7 @@ export default function App() {
         roomSearchResults={roomSearchResults}
         setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
         setIsRoomCreator={setIsRoomCreator}
         setMemberLimit={setMemberLimit}
         setRoomName={setRoomName}
@@ -314,6 +320,19 @@ export default function App() {
         yourName={yourName}
         isVerified={isVerified}
       ></ChatFull>
+    );
+  }
+  if (!roomExists) {
+    return (
+      <ChatDoesNotExist
+        handleOpenConvos={handleOpenConvos}
+        handleOpenSignIn={handleOpenSignIn}
+        handleOpenYourName={handleOpenYourName}
+        handleOpenRoomSearch={handleOpenRoomSearch}
+        isAnonymous={isAnonymous}
+        yourName={yourName}
+        isVerified={isVerified}
+      ></ChatDoesNotExist>
     );
   }
   if (room && roomWs && roomWs.readyState === WebSocket.OPEN) {
@@ -349,6 +368,7 @@ export default function App() {
         roomSearchResults={roomSearchResults}
         setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
         setIsRoomCreator={setIsRoomCreator}
         setMemberLimit={setMemberLimit}
         setRoomName={setRoomName}

@@ -12,6 +12,7 @@ export default function SearchResults({
   setRoomName,
   setMembers,
   setChatHistory,
+  setRoomExists,
   roomWs,
   handleClose = null,
 }) {
@@ -56,6 +57,7 @@ export default function SearchResults({
               const newUrlParams = new URLSearchParams(window.location.search);
               setRoom(newUrlParams.get("room"));
               setIsRoomFull(false);
+              setRoomExists(true);
               setIsRoomCreator(false);
               setMemberLimit(null);
               setRoomName("");
