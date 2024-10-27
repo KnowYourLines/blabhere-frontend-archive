@@ -55,6 +55,7 @@ export default function Unverified({
                 sendEmailVerification(user, { url: window.location.href })
                   .then(() => {
                     setSent(true);
+                    gtag_report_conversion();
                   })
                   .catch((error) => {
                     console.error(error.message);
