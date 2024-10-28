@@ -81,8 +81,8 @@ export default function Unverified({
                 : "Only verified users can create rooms or send messages"}
             </Typography>
             <Button variant="contained" type="submit">
-              {sent && !isAnonymous && "Resend verification email"}
-              {!sent && !isAnonymous && "Send Verification Email"}
+              {sent && !isAnonymous && "Email me again"}
+              {!sent && !isAnonymous && "Email me"}
               {isAnonymous && "Sign In"}
             </Button>
             <Button
