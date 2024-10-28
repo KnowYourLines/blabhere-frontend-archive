@@ -76,7 +76,9 @@ export default function Unverified({
               sx={{ mt: 2 }}
               align="center"
             >
-              Only verified users can create rooms or send messages
+              {sent
+                ? "Check your email inbox or spam"
+                : "Only verified users can create rooms or send messages"}
             </Typography>
             <Button variant="contained" type="submit">
               {sent && !isAnonymous && "Resend verification email"}
