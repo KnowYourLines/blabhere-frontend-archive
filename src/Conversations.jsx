@@ -45,7 +45,7 @@ export default function Conversations({
       </ConversationHeader>
       <ConversationList
         style={{
-          height: "100%",
+          height: "85%",
         }}
       >
         {conversations.map((convo, i) => (

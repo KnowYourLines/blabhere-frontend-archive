@@ -26,7 +26,7 @@ export default function Members({ setOpen, members }) {
       </ConversationHeader>
       <ConversationList
         style={{
-          height: "100%",
+          height: "85%",
         }}
       >
         {members.map((elt, i) => (
