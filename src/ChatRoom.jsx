@@ -38,6 +38,7 @@ export default function ChatRoom({
   isVerified,
   setMembers,
   setChatHistory,
+  chatPartner,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -99,7 +100,18 @@ export default function ChatRoom({
                   </Button>
                 )}
               </span>
-
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "#6ea9d7",
+                  marginTop: "1%",
+                  fontSize: "16pt",
+                }}
+              >
+                {chatPartner
+                  ? `Chatting With: ${chatPartner}`
+                  : "Waiting for chat partner..."}
+              </span>
               <span
                 style={{
                   alignSelf: "center",

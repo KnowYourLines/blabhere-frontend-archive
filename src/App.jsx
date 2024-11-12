@@ -19,6 +19,7 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
+  const [chatPartner, setChatPartner] = useState(null);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [openYourName, setOpenYourName] = useState(false);
@@ -138,6 +139,10 @@ export default function App() {
     setUserWs(userWs);
   };
   useEffect(() => {
+    const chatPartner = members.filter((member) => member != yourName)[0];
+    setChatPartner(chatPartner);
+  }, [members]);
+  useEffect(() => {
     updateNetworkStatus();
   }, []);
   useEffect(() => {
@@ -213,6 +218,7 @@ export default function App() {
         isOnline={isOnline}
         yourName={yourName}
         chatHistory={chatHistory}
+        chatPartner={chatPartner}
         username={username}
         roomWs={roomWs}
         room={room}
