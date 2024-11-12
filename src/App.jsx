@@ -7,16 +7,10 @@ import Members from "./Members.jsx";
 import EditName from "./EditName.jsx";
 import SignIn from "./SignIn.jsx";
 import ChatRoom from "./ChatRoom.jsx";
-import LeftChat from "./LeftChat.jsx";
-import ChatFull from "./ChatFull.jsx";
-import ChatDoesNotExist from "./ChatDoesNotExist.jsx";
 import Home from "./Home.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
-  const [leftRoom, setLeftRoom] = useState(false);
-  const [roomExists, setRoomExists] = useState(true);
-  const [isRoomFull, setIsRoomFull] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [isVerified, setIsVerified] = useState(true);
   const [conversations, setConversations] = useState([]);
@@ -89,12 +83,12 @@ export default function App() {
         });
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
-      } else if ("is_room_full" in data) {
-        setIsRoomFull(data.is_room_full);
-      } else if ("room_exists" in data) {
-        setRoomExists(data.room_exists);
       } else if ("user_left_room" in data) {
-        setLeftRoom(true);
+        setMembers([]);
+        setChatHistory([]);
+        setRoom("");
+      } else if ("room" in data) {
+        setRoom(data.room);
       }
     };
     roomWs.onerror = (e) => {
@@ -175,16 +169,6 @@ export default function App() {
     }
   }, [username, token, userWs]);
 
-  if (leftRoom) {
-    return (
-      <LeftChat
-        roomWs={roomWs}
-        setLeftRoom={setLeftRoom}
-        room={room}
-      ></LeftChat>
-    );
-  }
-
   if (openYourName) {
     return (
       <EditName
@@ -210,9 +194,6 @@ export default function App() {
         currentRoom={room}
         setOpen={setOpenConvos}
         conversations={conversations}
-        setRoom={setRoom}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
         roomWs={roomWs}
@@ -221,42 +202,6 @@ export default function App() {
     );
   }
 
-  if (isRoomFull) {
-    return (
-      <ChatFull
-        handleOpenConvos={handleOpenConvos}
-        handleOpenSignIn={handleOpenSignIn}
-        handleOpenYourName={handleOpenYourName}
-        isAnonymous={isAnonymous}
-        yourName={yourName}
-        isVerified={isVerified}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
-        setMembers={setMembers}
-        setChatHistory={setChatHistory}
-        setRoom={setRoom}
-        roomWs={roomWs}
-      ></ChatFull>
-    );
-  }
-  if (!roomExists) {
-    return (
-      <ChatDoesNotExist
-        handleOpenConvos={handleOpenConvos}
-        handleOpenSignIn={handleOpenSignIn}
-        handleOpenYourName={handleOpenYourName}
-        isAnonymous={isAnonymous}
-        yourName={yourName}
-        isVerified={isVerified}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
-        setMembers={setMembers}
-        setChatHistory={setChatHistory}
-        setRoom={setRoom}
-        roomWs={roomWs}
-      ></ChatDoesNotExist>
-    );
-  }
   if (room && roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <ChatRoom
@@ -272,11 +217,8 @@ export default function App() {
         roomWs={roomWs}
         room={room}
         isVerified={isVerified}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        setRoom={setRoom}
       ></ChatRoom>
     );
   }
@@ -288,11 +230,8 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         isAnonymous={isAnonymous}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
-        setRoom={setRoom}
         roomWs={roomWs}
       ></Home>
     );

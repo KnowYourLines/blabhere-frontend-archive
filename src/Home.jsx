@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { auth } from "./firebase.js";
 import { signOut } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
@@ -16,11 +15,8 @@ export default function Home({
   handleOpenSignIn,
   isAnonymous,
   isVerified,
-  setRoom,
-  setIsRoomFull,
   setMembers,
   setChatHistory,
-  setRoomExists,
   roomWs,
 }) {
   const [openModal, setOpenModal] = useState(false);
@@ -49,16 +45,11 @@ export default function Home({
                     if (!isVerified) {
                       handleOpenModal();
                     } else {
-                      const newRoom = uuidv4();
-                      setRoom(newRoom);
-                      setIsRoomFull(false);
-                      setRoomExists(true);
                       setMembers([]);
                       setChatHistory([]);
                       roomWs.send(
                         JSON.stringify({
                           command: "connect",
-                          room: newRoom,
                         })
                       );
                     }

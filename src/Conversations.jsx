@@ -13,11 +13,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function Conversations({
   setOpen,
   conversations,
-  setRoom,
-  setIsRoomFull,
   setMembers,
   setChatHistory,
-  setRoomExists,
   roomWs,
   userWs,
   currentRoom,
@@ -67,9 +64,6 @@ export default function Conversations({
               info={convo.latest_message__content}
               onClick={() => {
                 const newRoom = convo.room__id;
-                setRoom(newRoom);
-                setIsRoomFull(false);
-                setRoomExists(true);
                 setMembers([]);
                 setChatHistory([]);
                 roomWs.send(
@@ -97,8 +91,6 @@ export default function Conversations({
                         })
                       );
                       if (currentRoom == convo.room__id) {
-                        setIsRoomFull(false);
-                        setRoomExists(true);
                         setMembers([]);
                         setChatHistory([]);
                       }
