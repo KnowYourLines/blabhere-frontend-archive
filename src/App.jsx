@@ -10,6 +10,7 @@ import ChatRoom from "./ChatRoom.jsx";
 import LeftChat from "./LeftChat.jsx";
 import ChatFull from "./ChatFull.jsx";
 import ChatDoesNotExist from "./ChatDoesNotExist.jsx";
+import Home from "./Home.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -265,6 +266,23 @@ export default function App() {
         room={room}
         isVerified={isVerified}
       ></ChatRoom>
+    );
+  }
+
+  if (roomWs && roomWs.readyState === WebSocket.OPEN) {
+    return (
+      <Home
+        isVerified={isVerified}
+        handleOpenConvos={handleOpenConvos}
+        handleOpenSignIn={handleOpenSignIn}
+        isAnonymous={isAnonymous}
+        setRoom={setRoom}
+        setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        roomWs={roomWs}
+      ></Home>
     );
   }
 }
