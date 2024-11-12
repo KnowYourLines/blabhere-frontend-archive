@@ -14,7 +14,6 @@ import {
   faPenToSquare,
   faComments,
   faCommentMedical,
-  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import OutlinedCard from "./OutlinedCard.jsx";
 import Unverified from "./Unverified.jsx";
@@ -23,7 +22,6 @@ export default function ChatFull({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
-  handleOpenRoomSearch,
   isAnonymous,
   yourName,
   isVerified,
@@ -103,14 +101,6 @@ export default function ChatFull({
                   fontSize: "16pt",
                 }}
               >
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faMagnifyingGlass}
-                      onClick={handleOpenRoomSearch}
-                    />
-                  }
-                ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon
