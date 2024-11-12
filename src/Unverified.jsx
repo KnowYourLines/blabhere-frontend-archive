@@ -78,7 +78,7 @@ export default function Unverified({
             >
               {sent
                 ? "Check your email inbox or spam"
-                : "Only verified users can create rooms or send messages"}
+                : "Only verified users can join chats or send messages"}
             </Typography>
             <Button variant="contained" type="submit">
               {sent && !isAnonymous && "Email me again"}
