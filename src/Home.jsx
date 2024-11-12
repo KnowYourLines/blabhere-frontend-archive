@@ -16,6 +16,12 @@ export default function Home({
   handleOpenSignIn,
   isAnonymous,
   isVerified,
+  setRoom,
+  setIsRoomFull,
+  setMembers,
+  setChatHistory,
+  setRoomExists,
+  roomWs,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -44,9 +50,17 @@ export default function Home({
                       handleOpenModal();
                     } else {
                       const newRoom = uuidv4();
-                      const url = new URL(window.location.href.split("?")[0]);
-                      url.searchParams.set("room", newRoom);
-                      window.open(url, "_blank");
+                      setRoom(newRoom);
+                      setIsRoomFull(false);
+                      setRoomExists(true);
+                      setMembers([]);
+                      setChatHistory([]);
+                      roomWs.send(
+                        JSON.stringify({
+                          command: "connect",
+                          room: newRoom,
+                        })
+                      );
                     }
                   }}
                 />

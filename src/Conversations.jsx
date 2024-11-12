@@ -67,13 +67,7 @@ export default function Conversations({
               info={convo.latest_message__content}
               onClick={() => {
                 const newRoom = convo.room__id;
-                const url = new URL(window.location.href.split("?")[0]);
-                url.searchParams.set("room", newRoom);
-                window.history.replaceState("", "", url);
-                const newUrlParams = new URLSearchParams(
-                  window.location.search
-                );
-                setRoom(newUrlParams.get("room"));
+                setRoom(newRoom);
                 setIsRoomFull(false);
                 setRoomExists(true);
                 setMembers([]);

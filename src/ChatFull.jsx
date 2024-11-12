@@ -27,6 +27,12 @@ export default function ChatFull({
   isAnonymous,
   yourName,
   isVerified,
+  setRoom,
+  setIsRoomFull,
+  setMembers,
+  setChatHistory,
+  setRoomExists,
+  roomWs,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -114,11 +120,17 @@ export default function ChatFull({
                           handleOpenModal();
                         } else {
                           const newRoom = uuidv4();
-                          const url = new URL(
-                            window.location.href.split("?")[0]
+                          setRoom(newRoom);
+                          setIsRoomFull(false);
+                          setRoomExists(true);
+                          setMembers([]);
+                          setChatHistory([]);
+                          roomWs.send(
+                            JSON.stringify({
+                              command: "connect",
+                              room: newRoom,
+                            })
                           );
-                          url.searchParams.set("room", newRoom);
-                          window.open(url, "_blank");
                         }
                       }}
                     />

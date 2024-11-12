@@ -145,11 +145,6 @@ export default function App() {
   };
   useEffect(() => {
     updateNetworkStatus();
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentRoom = urlParams.get("room");
-    if (currentRoom) {
-      setRoom(currentRoom);
-    }
   }, []);
   useEffect(() => {
     if (!isOnline) {
@@ -235,6 +230,12 @@ export default function App() {
         isAnonymous={isAnonymous}
         yourName={yourName}
         isVerified={isVerified}
+        setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        setRoom={setRoom}
+        roomWs={roomWs}
       ></ChatFull>
     );
   }
@@ -247,6 +248,12 @@ export default function App() {
         isAnonymous={isAnonymous}
         yourName={yourName}
         isVerified={isVerified}
+        setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        setRoom={setRoom}
+        roomWs={roomWs}
       ></ChatDoesNotExist>
     );
   }
@@ -265,6 +272,11 @@ export default function App() {
         roomWs={roomWs}
         room={room}
         isVerified={isVerified}
+        setIsRoomFull={setIsRoomFull}
+        setRoomExists={setRoomExists}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        setRoom={setRoom}
       ></ChatRoom>
     );
   }
@@ -276,11 +288,11 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         isAnonymous={isAnonymous}
-        setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
         setRoomExists={setRoomExists}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
+        setRoom={setRoom}
         roomWs={roomWs}
       ></Home>
     );
