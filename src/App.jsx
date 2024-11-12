@@ -5,10 +5,7 @@ import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import Conversations from "./Conversations.jsx";
 import Members from "./Members.jsx";
 import EditName from "./EditName.jsx";
-import EditMemberLimit from "./EditMemberLimit.jsx";
 import SignIn from "./SignIn.jsx";
-import RoomSearch from "./RoomSearch.jsx";
-import HomeSearch from "./HomeSearch.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import LeftChat from "./LeftChat.jsx";
 import ChatFull from "./ChatFull.jsx";
@@ -21,11 +18,7 @@ export default function App() {
   const [isRoomFull, setIsRoomFull] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [isVerified, setIsVerified] = useState(true);
-  const [isRoomCreator, setIsRoomCreator] = useState(false);
-  const [memberLimit, setMemberLimit] = useState(null);
-  const [roomName, setRoomName] = useState("");
   const [conversations, setConversations] = useState([]);
-  const [roomSearchResults, setRoomSearchResults] = useState([]);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
@@ -33,20 +26,12 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
-  const [sizeQuery, setSizeQuery] = useState("");
-  const [nameQuery, setNameQuery] = useState("");
-  const [openRoomSearch, setOpenRoomSearch] = useState(false);
-  const handleOpenRoomSearch = () => setOpenRoomSearch(true);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
-  const [openRoomName, setOpenRoomName] = useState(false);
-  const handleOpenRoomName = () => setOpenRoomName(true);
   const [openMembers, setOpenMembers] = useState(false);
   const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
   const handleOpenConvos = () => setOpenConvos(true);
-  const [openMemberLimit, setOpenMemberLimit] = useState(false);
-  const handleOpenMemberLimit = () => setOpenMemberLimit(true);
   const [openSignIn, setOpenSignIn] = useState(false);
   const handleOpenSignIn = () => setOpenSignIn(true);
   const [isOnline, setOnline] = useState(true);
@@ -107,30 +92,8 @@ export default function App() {
         setIsRoomFull(data.is_room_full);
       } else if ("room_exists" in data) {
         setRoomExists(data.room_exists);
-      } else if ("is_room_creator" in data) {
-        setIsRoomCreator(data.is_room_creator);
-      } else if ("member_limit" in data) {
-        setMemberLimit(data.member_limit);
       } else if ("user_left_room" in data) {
         setLeftRoom(true);
-      } else if ("display_name_taken" in data) {
-        alert(`Sorry! ${data.display_name_taken} is another room's name`);
-      } else if ("room_search_results" in data) {
-        if (data.page == 1) {
-          setRoomSearchResults(() => [...data.room_search_results]);
-        } else {
-          setRoomSearchResults((oldResults) => {
-            const newPage = data.room_search_results;
-            if (
-              newPage.length > 0 &&
-              oldResults[oldResults.length - 1].id ==
-                newPage[newPage.length - 1].id
-            ) {
-              return [...oldResults];
-            }
-            return [...oldResults, ...newPage];
-          });
-        }
       }
     };
     roomWs.onerror = (e) => {
@@ -226,17 +189,6 @@ export default function App() {
     );
   }
 
-  if (openMemberLimit) {
-    return (
-      <EditMemberLimit
-        setOpen={setOpenMemberLimit}
-        oldLimit={memberLimit}
-        ws={roomWs}
-        numMembers={members.length}
-      ></EditMemberLimit>
-    );
-  }
-
   if (openYourName) {
     return (
       <EditName
@@ -244,17 +196,6 @@ export default function App() {
         oldName={yourName}
         ws={userWs}
         title={"Your New Name"}
-      ></EditName>
-    );
-  }
-
-  if (openRoomName) {
-    return (
-      <EditName
-        setOpen={setOpenRoomName}
-        oldName={roomName}
-        ws={roomWs}
-        title={"New Room Name"}
       ></EditName>
     );
   }
@@ -276,36 +217,11 @@ export default function App() {
         setRoom={setRoom}
         setIsRoomFull={setIsRoomFull}
         setRoomExists={setRoomExists}
-        setIsRoomCreator={setIsRoomCreator}
-        setMemberLimit={setMemberLimit}
-        setRoomName={setRoomName}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
         roomWs={roomWs}
         userWs={userWs}
       ></Conversations>
-    );
-  }
-
-  if (openRoomSearch) {
-    return (
-      <RoomSearch
-        setOpen={setOpenRoomSearch}
-        roomSearchResults={roomSearchResults}
-        setRoom={setRoom}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
-        setIsRoomCreator={setIsRoomCreator}
-        setMemberLimit={setMemberLimit}
-        setRoomName={setRoomName}
-        setMembers={setMembers}
-        setChatHistory={setChatHistory}
-        roomWs={roomWs}
-        sizeQuery={sizeQuery}
-        setSizeQuery={setSizeQuery}
-        nameQuery={nameQuery}
-        setNameQuery={setNameQuery}
-      ></RoomSearch>
     );
   }
 
@@ -315,7 +231,6 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
-        handleOpenRoomSearch={handleOpenRoomSearch}
         isAnonymous={isAnonymous}
         yourName={yourName}
         isVerified={isVerified}
@@ -328,7 +243,6 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
-        handleOpenRoomSearch={handleOpenRoomSearch}
         isAnonymous={isAnonymous}
         yourName={yourName}
         isVerified={isVerified}
@@ -341,45 +255,16 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
-        handleOpenRoomName={handleOpenRoomName}
-        handleOpenRoomSearch={handleOpenRoomSearch}
         handleOpenMembers={handleOpenMembers}
-        handleOpenMemberLimit={handleOpenMemberLimit}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}
-        roomName={roomName}
         chatHistory={chatHistory}
-        isRoomCreator={isRoomCreator}
         username={username}
         roomWs={roomWs}
         room={room}
         isVerified={isVerified}
       ></ChatRoom>
-    );
-  }
-  if (roomWs && roomWs.readyState === WebSocket.OPEN) {
-    return (
-      <HomeSearch
-        isVerified={isVerified}
-        handleOpenConvos={handleOpenConvos}
-        handleOpenSignIn={handleOpenSignIn}
-        isAnonymous={isAnonymous}
-        roomSearchResults={roomSearchResults}
-        setRoom={setRoom}
-        setIsRoomFull={setIsRoomFull}
-        setRoomExists={setRoomExists}
-        setIsRoomCreator={setIsRoomCreator}
-        setMemberLimit={setMemberLimit}
-        setRoomName={setRoomName}
-        setMembers={setMembers}
-        setChatHistory={setChatHistory}
-        roomWs={roomWs}
-        sizeQuery={sizeQuery}
-        setSizeQuery={setSizeQuery}
-        nameQuery={nameQuery}
-        setNameQuery={setNameQuery}
-      ></HomeSearch>
     );
   }
 }

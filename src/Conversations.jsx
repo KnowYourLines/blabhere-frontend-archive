@@ -15,9 +15,6 @@ export default function Conversations({
   conversations,
   setRoom,
   setIsRoomFull,
-  setIsRoomCreator,
-  setMemberLimit,
-  setRoomName,
   setMembers,
   setChatHistory,
   setRoomExists,
@@ -79,9 +76,6 @@ export default function Conversations({
                 setRoom(newUrlParams.get("room"));
                 setIsRoomFull(false);
                 setRoomExists(true);
-                setIsRoomCreator(false);
-                setMemberLimit(null);
-                setRoomName("");
                 setMembers([]);
                 setChatHistory([]);
                 roomWs.send(
@@ -111,9 +105,6 @@ export default function Conversations({
                       if (currentRoom == convo.room__id) {
                         setIsRoomFull(false);
                         setRoomExists(true);
-                        setIsRoomCreator(false);
-                        setMemberLimit(null);
-                        setRoomName("");
                         setMembers([]);
                         setChatHistory([]);
                       }

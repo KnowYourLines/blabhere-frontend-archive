@@ -18,8 +18,6 @@ import {
   faUserGroup,
   faComments,
   faCommentMedical,
-  faUserLock,
-  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
@@ -30,16 +28,11 @@ export default function ChatRoom({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
-  handleOpenRoomName,
-  handleOpenRoomSearch,
   handleOpenMembers,
-  handleOpenMemberLimit,
   isAnonymous,
   isOnline,
   yourName,
-  roomName,
   chatHistory,
-  isRoomCreator,
   roomWs,
   username,
   room,
@@ -123,35 +116,9 @@ export default function ChatRoom({
               <span
                 style={{
                   alignSelf: "center",
-                  color: "black",
                   fontSize: "16pt",
                 }}
               >
-                {isRoomCreator ? (
-                  <Button
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                    onClick={handleOpenRoomName}
-                  >
-                    Room Name: {roomName}
-                  </Button>
-                ) : (
-                  <Button>Room Name: {roomName}</Button>
-                )}{" "}
-              </span>
-              <span
-                style={{
-                  alignSelf: "center",
-                  fontSize: "16pt",
-                }}
-              >
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faMagnifyingGlass}
-                      onClick={handleOpenRoomSearch}
-                    />
-                  }
-                ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon
@@ -187,16 +154,6 @@ export default function ChatRoom({
                     />
                   }
                 ></Button>
-                {isRoomCreator && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserLock}
-                        onClick={handleOpenMemberLimit}
-                      />
-                    }
-                  ></Button>
-                )}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
