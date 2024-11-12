@@ -60,7 +60,11 @@ export default function Conversations({
           >
             <Conversation.Content
               lastSenderName={convo.latest_message__creator__display_name}
-              name={convo.other_members[0]}
+              name={
+                convo.other_members[0]
+                  ? convo.other_members[0]
+                  : "Waiting for chat partner..."
+              }
               info={convo.latest_message__content}
               onClick={() => {
                 const newRoom = convo.room__id;
