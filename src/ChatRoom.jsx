@@ -14,7 +14,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
-  faUserGroup,
   faComments,
   faCommentMedical,
 } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +32,6 @@ export default function ChatRoom({
   chatHistory,
   roomWs,
   username,
-  room,
   isVerified,
   setMembers,
   setChatHistory,
@@ -41,14 +39,6 @@ export default function ChatRoom({
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
-  useEffect(() => {
-    roomWs.send(
-      JSON.stringify({
-        command: "connect",
-        room: room,
-      })
-    );
-  }, [room]);
   useEffect(() => {
     if (!isVerified) {
       handleOpenModal();
@@ -131,26 +121,28 @@ export default function ChatRoom({
                   fontSize: "16pt",
                 }}
               >
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faCommentMedical}
-                      onClick={() => {
-                        if (!isVerified) {
-                          handleOpenModal();
-                        } else {
-                          setMembers([]);
-                          setChatHistory([]);
-                          roomWs.send(
-                            JSON.stringify({
-                              command: "connect",
-                            })
-                          );
-                        }
-                      }}
-                    />
-                  }
-                ></Button>
+                {chatPartner && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faCommentMedical}
+                        onClick={() => {
+                          if (!isVerified) {
+                            handleOpenModal();
+                          } else {
+                            setMembers([]);
+                            setChatHistory([]);
+                            roomWs.send(
+                              JSON.stringify({
+                                command: "connect",
+                              })
+                            );
+                          }
+                        }}
+                      />
+                    }
+                  ></Button>
+                )}
                 <Button
                   icon={
                     <FontAwesomeIcon

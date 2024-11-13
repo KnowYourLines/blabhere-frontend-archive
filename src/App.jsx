@@ -81,7 +81,7 @@ export default function App() {
         });
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
-      } else if ("user_left_room" in data) {
+      } else if ("user_left_room" == data.type) {
         setMembers([]);
         setChatHistory([]);
         setRoom("");
@@ -213,7 +213,6 @@ export default function App() {
         chatPartner={chatPartner}
         username={username}
         roomWs={roomWs}
-        room={room}
         isVerified={isVerified}
         setMembers={setMembers}
         setChatHistory={setChatHistory}

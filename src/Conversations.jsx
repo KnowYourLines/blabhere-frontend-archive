@@ -24,7 +24,22 @@ export default function Conversations({
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
-        <ConversationHeader.Back key="1" onClick={handleClose} />
+        <ConversationHeader.Back
+          key="1"
+          onClick={() => {
+            if (currentRoom) {
+              setMembers([]);
+              setChatHistory([]);
+              roomWs.send(
+                JSON.stringify({
+                  command: "connect",
+                  room: currentRoom,
+                })
+              );
+            }
+            handleClose();
+          }}
+        />
         <ConversationHeader.Content>
           <span
             style={{
