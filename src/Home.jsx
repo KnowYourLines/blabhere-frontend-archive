@@ -9,6 +9,7 @@ import {
   faCommentMedical,
 } from "@fortawesome/free-solid-svg-icons";
 import Unverified from "./Unverified.jsx";
+import OutlinedCard from "./OutlinedCard.jsx";
 
 export default function Home({
   handleOpenConvos,
@@ -29,34 +30,17 @@ export default function Home({
         isAnonymous={isAnonymous}
         handleOpenSignIn={handleOpenSignIn}
       />
-      <ConversationHeader>
+      <ConversationHeader
+        style={{ position: "fixed", height: "100%", width: "100%" }}
+      >
         <ConversationHeader.Content>
+          <OutlinedCard text={"BlabHere"}></OutlinedCard>
           <span
             style={{
               alignSelf: "center",
               fontSize: "16pt",
             }}
           >
-            <Button
-              icon={
-                <FontAwesomeIcon
-                  icon={faCommentMedical}
-                  onClick={() => {
-                    if (!isVerified) {
-                      handleOpenModal();
-                    } else {
-                      setMembers([]);
-                      setChatHistory([]);
-                      roomWs.send(
-                        JSON.stringify({
-                          command: "connect",
-                        })
-                      );
-                    }
-                  }}
-                />
-              }
-            ></Button>
             {isAnonymous ? (
               <Button
                 style={{
@@ -83,6 +67,13 @@ export default function Home({
                 Sign Out
               </Button>
             )}
+          </span>
+          <span
+            style={{
+              alignSelf: "center",
+              fontSize: "24pt",
+            }}
+          >
             <Button
               icon={
                 <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
@@ -92,13 +83,35 @@ export default function Home({
           <span
             style={{
               alignSelf: "center",
-              color: "black",
-              fontSize: "16pt",
-              marginTop: "1%",
+              fontSize: "24pt",
             }}
           >
-            BlabHere
+            <Button
+              icon={
+                <FontAwesomeIcon
+                  icon={faCommentMedical}
+                  onClick={() => {
+                    if (!isVerified) {
+                      handleOpenModal();
+                    } else {
+                      setMembers([]);
+                      setChatHistory([]);
+                      roomWs.send(
+                        JSON.stringify({
+                          command: "connect",
+                        })
+                      );
+                    }
+                  }}
+                />
+              }
+            ></Button>
           </span>
+          <OutlinedCard
+            text={
+              "Start 1-on-1 chats with people who chat a lot with people you chat a lot with"
+            }
+          ></OutlinedCard>
         </ConversationHeader.Content>
       </ConversationHeader>
     </div>
