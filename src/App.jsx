@@ -3,7 +3,6 @@ import { auth } from "./firebase.js";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import Conversations from "./Conversations.jsx";
-import Members from "./Members.jsx";
 import EditName from "./EditName.jsx";
 import SignIn from "./SignIn.jsx";
 import ChatRoom from "./ChatRoom.jsx";
@@ -24,8 +23,6 @@ export default function App() {
   const [userWs, setUserWs] = useState(null);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
-  const [openMembers, setOpenMembers] = useState(false);
-  const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
   const handleOpenConvos = () => setOpenConvos(true);
   const [openSignIn, setOpenSignIn] = useState(false);
@@ -185,10 +182,6 @@ export default function App() {
     );
   }
 
-  if (openMembers) {
-    return <Members setOpen={setOpenMembers} members={members}></Members>;
-  }
-
   if (openSignIn) {
     return <SignIn setOpen={setOpenSignIn}></SignIn>;
   }
@@ -213,7 +206,6 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
-        handleOpenMembers={handleOpenMembers}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}

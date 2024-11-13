@@ -27,7 +27,6 @@ export default function ChatRoom({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
-  handleOpenMembers,
   isAnonymous,
   isOnline,
   yourName,
@@ -157,14 +156,6 @@ export default function ChatRoom({
                     <FontAwesomeIcon
                       icon={faComments}
                       onClick={handleOpenConvos}
-                    />
-                  }
-                ></Button>
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faUserGroup}
-                      onClick={handleOpenMembers}
                     />
                   }
                 ></Button>
