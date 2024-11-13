@@ -109,7 +109,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Start 1-on-1 chats with people who chat a lot with people you chat a lot with"
+              "Start 1-on-1 chats with others who chat a lot with people you chat a lot with"
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
