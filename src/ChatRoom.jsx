@@ -97,9 +97,7 @@ export default function ChatRoom({
                   fontSize: "16pt",
                 }}
               >
-                {chatPartner
-                  ? `Chatting With: ${chatPartner}`
-                  : "Waiting for chat partner..."}
+                {chatPartner ? chatPartner : "Waiting for chat partner..."}
               </span>
               <span
                 style={{
