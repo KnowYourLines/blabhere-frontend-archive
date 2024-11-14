@@ -138,7 +138,7 @@ export default function App() {
   useEffect(() => {
     const chatPartner = members.filter((member) => member != yourName)[0];
     setChatPartner(chatPartner);
-  }, [members]);
+  }, [members, yourName]);
   useEffect(() => {
     updateNetworkStatus();
   }, []);
