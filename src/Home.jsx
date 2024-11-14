@@ -76,18 +76,6 @@ export default function Home({
           >
             <Button
               icon={
-                <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
-              }
-            ></Button>
-          </span>
-          <span
-            style={{
-              alignSelf: "center",
-              fontSize: "24pt",
-            }}
-          >
-            <Button
-              icon={
                 <FontAwesomeIcon
                   icon={faCommentMedical}
                   onClick={() => {
@@ -104,6 +92,11 @@ export default function Home({
                     }
                   }}
                 />
+              }
+            ></Button>
+            <Button
+              icon={
+                <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
               }
             ></Button>
           </span>
