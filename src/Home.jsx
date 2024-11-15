@@ -34,7 +34,7 @@ export default function Home({
         style={{ position: "fixed", height: "100%", width: "100%" }}
       >
         <ConversationHeader.Content>
-          <OutlinedCard text={"BlabHere"}></OutlinedCard>
+          <OutlinedCard text={"BlabHere - Find people you like to chat to"}></OutlinedCard>
           <span
             style={{
               alignSelf: "center",
