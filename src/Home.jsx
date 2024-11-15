@@ -34,7 +34,9 @@ export default function Home({
         style={{ position: "fixed", height: "100%", width: "100%" }}
       >
         <ConversationHeader.Content>
-          <OutlinedCard text={"BlabHere - Find people you like to chat to"}></OutlinedCard>
+          <OutlinedCard
+            text={"BlabHere - Find people you like to chat to"}
+          ></OutlinedCard>
           <span
             style={{
               alignSelf: "center",
@@ -102,7 +104,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Start 1-on-1 chats with strangers who chat a lot with those you chat a lot with"
+              "Start anonymous 1-on-1 chats with strangers who chat a lot with those you chat a lot with"
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
