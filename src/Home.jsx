@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComments,
   faCommentMedical,
+  faIcons,
 } from "@fortawesome/free-solid-svg-icons";
 import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
@@ -14,6 +15,7 @@ import OutlinedCard from "./OutlinedCard.jsx";
 export default function Home({
   handleOpenConvos,
   handleOpenSignIn,
+  handleOpenTopics,
   isAnonymous,
   isVerified,
   setMembers,
@@ -99,6 +101,11 @@ export default function Home({
             <Button
               icon={
                 <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
+              }
+            ></Button>
+            <Button
+              icon={
+                <FontAwesomeIcon icon={faIcons} onClick={handleOpenTopics} />
               }
             ></Button>
           </span>

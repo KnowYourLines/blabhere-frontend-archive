@@ -7,6 +7,7 @@ import EditName from "./EditName.jsx";
 import SignIn from "./SignIn.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import Home from "./Home.jsx";
+import EditTopics from "./EditTopics.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -21,6 +22,9 @@ export default function App() {
   const [chatPartner, setChatPartner] = useState(null);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [topics, setTopics] = useState([]);
+  const [openTopics, setOpenTopics] = useState(false);
+  const handleOpenTopics = () => setOpenTopics(true);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
   const [openConvos, setOpenConvos] = useState(false);
@@ -182,6 +186,16 @@ export default function App() {
     );
   }
 
+  if (openTopics) {
+    return (
+      <EditTopics
+        setOpen={setOpenTopics}
+        topics={topics}
+        userWs={userWs}
+      ></EditTopics>
+    );
+  }
+
   if (openSignIn) {
     return <SignIn setOpen={setOpenSignIn}></SignIn>;
   }
@@ -206,6 +220,7 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
+        handleOpenTopics={handleOpenTopics}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}
@@ -225,6 +240,7 @@ export default function App() {
       <Home
         isVerified={isVerified}
         handleOpenConvos={handleOpenConvos}
+        handleOpenTopics={handleOpenTopics}
         handleOpenSignIn={handleOpenSignIn}
         isAnonymous={isAnonymous}
         setMembers={setMembers}

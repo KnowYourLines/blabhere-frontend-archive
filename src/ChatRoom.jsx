@@ -16,6 +16,7 @@ import {
   faPenToSquare,
   faComments,
   faCommentMedical,
+  faIcons,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
@@ -26,6 +27,7 @@ export default function ChatRoom({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
+  handleOpenTopics,
   isAnonymous,
   isOnline,
   yourName,
@@ -146,6 +148,14 @@ export default function ChatRoom({
                     <FontAwesomeIcon
                       icon={faComments}
                       onClick={handleOpenConvos}
+                    />
+                  }
+                ></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faIcons}
+                      onClick={handleOpenTopics}
                     />
                   }
                 ></Button>
