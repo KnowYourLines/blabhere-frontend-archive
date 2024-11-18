@@ -128,6 +128,8 @@ export default function App() {
         setConversations(data.conversations);
       } else if ("display_name_taken" in data) {
         alert(`Sorry! ${data.display_name_taken} is another user's name`);
+      } else if ("topics" in data) {
+        setTopics(data.topics);
       }
     };
     userWs.onerror = (e) => {

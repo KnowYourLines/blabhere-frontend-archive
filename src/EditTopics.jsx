@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function EditTopics({ setOpen, topics, userWs }) {
+  console.log(topics);
   const [newTopic, setNewTopic] = useState(null);
   const [options, setOptions] = useState([]);
   const handleClose = () => setOpen(false);
@@ -78,7 +79,12 @@ export default function EditTopics({ setOpen, topics, userWs }) {
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
-            console.log(newTopic);
+            userWs.send(
+              JSON.stringify({
+                command: "add_topic",
+                topic: newTopic,
+              })
+            );
           }}
         >
           <Autocomplete
