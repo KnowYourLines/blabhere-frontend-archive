@@ -23,7 +23,7 @@ export default function EditTopics({ setOpen, topics, userWs }) {
     const controller = new AbortController();
     const signal = controller.signal;
     previousController.current = controller;
-    fetch("https://api.datamuse.com/sug?k=demo&v=enwiki&s=" + searchTerm, {
+    fetch("https://api.datamuse.com/sug?v=enwiki&s=" + searchTerm, {
       signal,
       headers: {
         "Content-Type": "application/json",
