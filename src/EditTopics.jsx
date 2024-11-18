@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function EditTopics({ setOpen, topics, userWs }) {
-  const [newTopics, setNewTopics] = useState(topics);
+  const [newTopic, setNewTopic] = useState(null);
   const [options, setOptions] = useState([]);
   const handleClose = () => setOpen(false);
   const previousController = useRef();
@@ -20,7 +20,7 @@ export default function EditTopics({ setOpen, topics, userWs }) {
     const controller = new AbortController();
     const signal = controller.signal;
     previousController.current = controller;
-    fetch("https://dummyjson.com/products/search?q=" + searchTerm, {
+    fetch("https://api.datamuse.com/sug?s=" + searchTerm, {
       signal,
       headers: {
         "Content-Type": "application/json",
@@ -31,12 +31,8 @@ export default function EditTopics({ setOpen, topics, userWs }) {
         return response.json();
       })
       .then(function (myJson) {
-        console.log(
-          "search term: " + searchTerm + ", results: ",
-          myJson.products
-        );
-        const updatedOptions = myJson.products.map((p) => {
-          return { title: p.title };
+        const updatedOptions = myJson.map((p) => {
+          return p.word;
         });
         setOptions(updatedOptions);
       })
@@ -82,14 +78,18 @@ export default function EditTopics({ setOpen, topics, userWs }) {
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
+            console.log(newTopic);
           }}
         >
           <Autocomplete
+            onChange={(event, newValue) => {
+              setNewTopic(newValue);
+            }}
             noOptionsText={"Enter a topic"}
             options={options}
             onInputChange={onInputChange}
             filterOptions={(options) => options}
-            getOptionLabel={(option) => option.title}
+            getOptionLabel={(option) => option}
             style={{ width: "100%" }}
             renderInput={(params) => (
               <TextField
@@ -100,7 +100,7 @@ export default function EditTopics({ setOpen, topics, userWs }) {
             )}
           />
           <Button variant="contained" type="submit">
-            Submit
+            Add
           </Button>
         </Stack>
       </Box>
