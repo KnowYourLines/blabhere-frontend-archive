@@ -111,7 +111,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Chat anonymously 1-on-1 with strangers who chat a lot with those you chat a lot with"
+              "Select your favourite topics and chat 1-on-1 with strangers who chat a lot with those you chat a lot with"
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
