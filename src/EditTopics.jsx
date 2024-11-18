@@ -6,9 +6,11 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import Chip from "@mui/material/Chip";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 export default function EditTopics({ setOpen, topics, userWs }) {
-  console.log(topics);
   const [newTopic, setNewTopic] = useState(null);
   const [options, setOptions] = useState([]);
   const handleClose = () => setOpen(false);
@@ -108,6 +110,24 @@ export default function EditTopics({ setOpen, topics, userWs }) {
           <Button variant="contained" type="submit">
             Add
           </Button>
+          <List style={{ maxHeight: "250px", overflow: "auto" }}>
+            {topics.map((topic, i) => (
+              <ListItem alignItems="flex-start">
+                <Chip
+                  label={topic}
+                  key={topic}
+                  onDelete={() => {
+                    userWs.send(
+                      JSON.stringify({
+                        command: "remove_topic",
+                        topic: topic,
+                      })
+                    );
+                  }}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Stack>
       </Box>
     </div>
