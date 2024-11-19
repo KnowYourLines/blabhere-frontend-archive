@@ -111,7 +111,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Select your favourite topics and chat 1-on-1 with strangers who chat a lot with those you chat a lot with"
+              "Set your favourite topics and get paired up 1-on-1 with strangers who chat a lot with those you chat a lot with"
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
