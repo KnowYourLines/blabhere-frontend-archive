@@ -112,10 +112,9 @@ export default function EditTopics({ setOpen, topics, userWs }) {
           </Button>
           <List style={{ maxHeight: "250px", overflow: "auto" }}>
             {topics.map((topic, i) => (
-              <ListItem alignItems="flex-start">
+              <ListItem alignItems="flex-start" key={topic}>
                 <Chip
                   label={topic}
-                  key={topic}
                   onDelete={() => {
                     userWs.send(
                       JSON.stringify({
