@@ -22,6 +22,7 @@ import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 import Unverified from "./Unverified.jsx";
+import AgreeTerms from "./AgreeTerms.jsx";
 
 export default function ChatRoom({
   handleOpenConvos,
@@ -38,16 +39,25 @@ export default function ChatRoom({
   setMembers,
   setChatHistory,
   chatPartner,
+  agreedTerms,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
+  const [openTerms, setOpenTerms] = useState(false);
+  const handleOpenTerms = () => setOpenTerms(true);
   useEffect(() => {
     if (!isVerified) {
       handleOpenModal();
     }
   }, [isVerified]);
+  useEffect(() => {
+    if (!agreedTerms) {
+      handleOpenTerms();
+    }
+  }, [agreedTerms]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <AgreeTerms openModal={openTerms} setOpenModal={setOpenTerms} />
       <Unverified
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -129,6 +139,8 @@ export default function ChatRoom({
                         onClick={() => {
                           if (!isVerified) {
                             handleOpenModal();
+                          } else if (!agreedTerms) {
+                            handleOpenTerms();
                           } else {
                             setMembers([]);
                             setChatHistory([]);
@@ -219,6 +231,8 @@ export default function ChatRoom({
             onSend={(innerHtml, textContent, innerText, nodes) => {
               if (!isVerified) {
                 handleOpenModal();
+              } else if (!agreedTerms) {
+                handleOpenTerms();
               } else {
                 roomWs.send(
                   JSON.stringify({

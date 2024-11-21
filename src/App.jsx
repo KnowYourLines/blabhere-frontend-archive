@@ -13,6 +13,7 @@ export default function App() {
   const [room, setRoom] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [isVerified, setIsVerified] = useState(true);
+  const [agreedTerms, setAgreedTerms] = useState(true);
   const [conversations, setConversations] = useState([]);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
@@ -130,6 +131,8 @@ export default function App() {
         alert(`Sorry! ${data.display_name_taken} is another user's name`);
       } else if ("topics" in data) {
         setTopics(data.topics);
+      } else if ("agreed_terms" in data) {
+        setAgreedTerms(data.agreed_terms);
       }
     };
     userWs.onerror = (e) => {
@@ -233,6 +236,7 @@ export default function App() {
         isVerified={isVerified}
         setMembers={setMembers}
         setChatHistory={setChatHistory}
+        agreedTerms={agreedTerms}
       ></ChatRoom>
     );
   }
@@ -241,6 +245,7 @@ export default function App() {
     return (
       <Home
         isVerified={isVerified}
+        agreedTerms={agreedTerms}
         handleOpenConvos={handleOpenConvos}
         handleOpenTopics={handleOpenTopics}
         handleOpenSignIn={handleOpenSignIn}

@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
+import AgreeTerms from "./AgreeTerms.jsx";
 
 export default function Home({
   handleOpenConvos,
@@ -21,11 +22,15 @@ export default function Home({
   setMembers,
   setChatHistory,
   roomWs,
+  agreedTerms,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
+  const [openTerms, setOpenTerms] = useState(false);
+  const handleOpenTerms = () => setOpenTerms(true);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
+      <AgreeTerms openModal={openTerms} setOpenModal={setOpenTerms} />
       <Unverified
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -85,6 +90,8 @@ export default function Home({
                   onClick={() => {
                     if (!isVerified) {
                       handleOpenModal();
+                    } else if (!agreedTerms) {
+                      handleOpenTerms();
                     } else {
                       setMembers([]);
                       setChatHistory([]);
