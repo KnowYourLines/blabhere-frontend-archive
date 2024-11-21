@@ -12,6 +12,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Link from "@mui/material/Link";
 
 export default function SignIn({ setOpen }) {
   const handleClose = () => setOpen(false);
@@ -20,6 +23,11 @@ export default function SignIn({ setOpen }) {
   const [toggleSignUp, setToggleSignUp] = useState(false);
   const [togglePasswordReset, setTogglePasswordReset] = useState(false);
   const [passwordResetSent, setPasswordResetSent] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
 
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -95,6 +103,11 @@ export default function SignIn({ setOpen }) {
               if (!password || !password.trim()) {
                 alert("Invalid: no password entered");
               }
+              if (!checked) {
+                alert(
+                  "You must agree to the terms & conditions and privacy policy"
+                );
+              }
               signUp();
             } else if (togglePasswordReset && !toggleSignUp) {
               resetPassword();
@@ -130,6 +143,37 @@ export default function SignIn({ setOpen }) {
               onFocus={(event) => {
                 event.target.select();
               }}
+            />
+          )}
+          {toggleSignUp && !togglePasswordReset && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={
+                <p>
+                  {"I agree to the "}
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    href="https://blabhere-backend.onrender.com/terms/"
+                  >
+                    terms & conditions
+                  </Link>
+                  {" and "}
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    href="https://blabhere-backend.onrender.com/privacy/"
+                  >
+                    privacy policy
+                  </Link>
+                </p>
+              }
             />
           )}
           <Button variant="contained" type="submit">
