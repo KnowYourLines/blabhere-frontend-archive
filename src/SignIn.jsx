@@ -15,8 +15,9 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
+import { faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
 
-export default function SignIn({ setOpen }) {
+export default function SignIn({ setOpen, userWs }) {
   const handleClose = () => setOpen(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -108,6 +109,11 @@ export default function SignIn({ setOpen }) {
                   "You must agree to the terms & conditions and privacy policy"
                 );
               }
+              userWs.send(
+                JSON.stringify({
+                  command: "agree_terms",
+                })
+              );
               signUp();
             } else if (togglePasswordReset && !toggleSignUp) {
               resetPassword();

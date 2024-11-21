@@ -18,7 +18,7 @@ const style = {
   p: 4,
 };
 
-export default function AgreeTerms({ openModal, setOpenModal }) {
+export default function AgreeTerms({ openModal, setOpenModal, userWs }) {
   const handleClose = () => {
     setOpenModal(false);
   };
@@ -39,6 +39,11 @@ export default function AgreeTerms({ openModal, setOpenModal }) {
             autoComplete="off"
             onSubmit={(event) => {
               event.preventDefault();
+              userWs.send(
+                JSON.stringify({
+                  command: "agree_terms",
+                })
+              );
               handleClose();
             }}
           >

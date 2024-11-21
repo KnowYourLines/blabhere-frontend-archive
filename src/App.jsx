@@ -201,8 +201,8 @@ export default function App() {
     );
   }
 
-  if (openSignIn) {
-    return <SignIn setOpen={setOpenSignIn}></SignIn>;
+  if (openSignIn && userWs && userWs.readyState === WebSocket.OPEN) {
+    return <SignIn setOpen={setOpenSignIn} userWs={userWs}></SignIn>;
   }
 
   if (openConvos) {
@@ -219,7 +219,13 @@ export default function App() {
     );
   }
 
-  if (room && roomWs && roomWs.readyState === WebSocket.OPEN) {
+  if (
+    room &&
+    roomWs &&
+    roomWs.readyState === WebSocket.OPEN &&
+    userWs &&
+    userWs.readyState === WebSocket.OPEN
+  ) {
     return (
       <ChatRoom
         handleOpenConvos={handleOpenConvos}
@@ -237,11 +243,17 @@ export default function App() {
         setMembers={setMembers}
         setChatHistory={setChatHistory}
         agreedTerms={agreedTerms}
+        userWs={userWs}
       ></ChatRoom>
     );
   }
 
-  if (roomWs && roomWs.readyState === WebSocket.OPEN) {
+  if (
+    roomWs &&
+    roomWs.readyState === WebSocket.OPEN &&
+    userWs &&
+    userWs.readyState === WebSocket.OPEN
+  ) {
     return (
       <Home
         isVerified={isVerified}
@@ -253,6 +265,7 @@ export default function App() {
         setMembers={setMembers}
         setChatHistory={setChatHistory}
         roomWs={roomWs}
+        userWs={userWs}
       ></Home>
     );
   }

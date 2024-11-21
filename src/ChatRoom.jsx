@@ -40,6 +40,7 @@ export default function ChatRoom({
   setChatHistory,
   chatPartner,
   agreedTerms,
+  userWs,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -57,7 +58,11 @@ export default function ChatRoom({
   }, [agreedTerms]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <AgreeTerms openModal={openTerms} setOpenModal={setOpenTerms} />
+      <AgreeTerms
+        openModal={openTerms}
+        setOpenModal={setOpenTerms}
+        userWs={userWs}
+      />
       <Unverified
         openModal={openModal}
         setOpenModal={setOpenModal}

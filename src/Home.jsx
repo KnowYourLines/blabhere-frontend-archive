@@ -23,6 +23,7 @@ export default function Home({
   setChatHistory,
   roomWs,
   agreedTerms,
+  userWs,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -30,7 +31,11 @@ export default function Home({
   const handleOpenTerms = () => setOpenTerms(true);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <AgreeTerms openModal={openTerms} setOpenModal={setOpenTerms} />
+      <AgreeTerms
+        openModal={openTerms}
+        setOpenModal={setOpenTerms}
+        userWs={userWs}
+      />
       <Unverified
         openModal={openModal}
         setOpenModal={setOpenModal}
