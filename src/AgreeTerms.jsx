@@ -53,7 +53,7 @@ export default function AgreeTerms({ openModal, setOpenModal, userWs }) {
               component="h2"
               align="center"
             >
-              {"To continue you must agree to our "}
+              {"To continue, confirm you have read and agree to our "}
               <Link
                 target="_blank"
                 rel="noopener"
@@ -71,7 +71,7 @@ export default function AgreeTerms({ openModal, setOpenModal, userWs }) {
               </Link>
             </Typography>
             <Button variant="contained" type="submit">
-              Agree
+              Confirm
             </Button>
             <Button
               variant="outlined"

@@ -106,7 +106,7 @@ export default function SignIn({ setOpen, userWs }) {
               }
               if (!checked) {
                 alert(
-                  "You must agree to the terms & conditions and privacy policy"
+                  "You must read and agree to the terms & conditions and privacy policy"
                 );
               }
               userWs.send(
@@ -162,7 +162,7 @@ export default function SignIn({ setOpen, userWs }) {
               }
               label={
                 <p>
-                  {"I agree to the "}
+                  {"I have read and agree to the "}
                   <Link
                     target="_blank"
                     rel="noopener"
