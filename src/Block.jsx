@@ -60,7 +60,7 @@ export default function Block({ openModal, setOpenModal, roomWs }) {
               align="center"
             >
               {
-                "You will stop receiving messages from each other and never match together again."
+                "This conversation will be deleted and you will never match together again."
               }
             </Typography>
             <Button variant="contained" type="submit">
