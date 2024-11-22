@@ -17,7 +17,7 @@ import {
   faComments,
   faCommentMedical,
   faIcons,
-  faBan,
+  faUserSlash,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
@@ -201,7 +201,10 @@ export default function ChatRoom({
                 ></Button>
                 <Button
                   icon={
-                    <FontAwesomeIcon icon={faBan} onClick={handleOpenBlock} />
+                    <FontAwesomeIcon
+                      icon={faUserSlash}
+                      onClick={handleOpenBlock}
+                    />
                   }
                 ></Button>
               </span>
