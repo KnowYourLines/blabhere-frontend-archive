@@ -8,6 +8,7 @@ import SignIn from "./SignIn.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import Home from "./Home.jsx";
 import EditTopics from "./EditTopics.jsx";
+import DeleteAccount from "./DeleteAccount.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -33,6 +34,8 @@ export default function App() {
   const [openSignIn, setOpenSignIn] = useState(false);
   const handleOpenSignIn = () => setOpenSignIn(true);
   const [isOnline, setOnline] = useState(true);
+  const [openDelete, setOpenDelete] = useState(false);
+  const handleOpenDelete = () => setOpenDelete(true);
   const updateNetworkStatus = () => {
     setOnline(navigator.onLine);
   };
@@ -201,6 +204,10 @@ export default function App() {
     );
   }
 
+  if (openDelete && userWs && userWs.readyState === WebSocket.OPEN) {
+    return <DeleteAccount setOpen={setOpenDelete} userWs={userWs} />;
+  }
+
   if (openSignIn && userWs && userWs.readyState === WebSocket.OPEN) {
     return <SignIn setOpen={setOpenSignIn} userWs={userWs}></SignIn>;
   }
@@ -261,6 +268,7 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenTopics={handleOpenTopics}
         handleOpenSignIn={handleOpenSignIn}
+        handleOpenDelete={handleOpenDelete}
         isAnonymous={isAnonymous}
         setMembers={setMembers}
         setChatHistory={setChatHistory}

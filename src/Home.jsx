@@ -13,12 +13,12 @@ import {
 import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import AgreeTerms from "./AgreeTerms.jsx";
-import DeleteAccount from "./DeleteAccount.jsx";
 
 export default function Home({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenTopics,
+  handleOpenDelete,
   isAnonymous,
   isVerified,
   setMembers,
@@ -31,15 +31,8 @@ export default function Home({
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);
   const handleOpenTerms = () => setOpenTerms(true);
-  const [openDelete, setOpenDelete] = useState(false);
-  const handleOpenDelete = () => setOpenDelete(true);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <DeleteAccount
-        openModal={openDelete}
-        setOpenModal={setOpenDelete}
-        userWs={userWs}
-      />
       <AgreeTerms
         openModal={openTerms}
         setOpenModal={setOpenTerms}
