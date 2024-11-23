@@ -55,19 +55,12 @@ export default function DeleteAccount({ setOpen, userWs }) {
             component="h2"
             align="center"
           >
-            {"Delete this account?"}
-          </Typography>
-          <Typography
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-            align="center"
-          >
             {
               "All your personal chats, messages and data will be erased. This cannot be undone."
             }
           </Typography>
           <Button variant="contained" type="submit">
-            Delete
+            Delete My Account
           </Button>
         </Stack>
       </Box>

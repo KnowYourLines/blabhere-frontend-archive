@@ -9,6 +9,8 @@ import ChatRoom from "./ChatRoom.jsx";
 import Home from "./Home.jsx";
 import EditTopics from "./EditTopics.jsx";
 import DeleteAccount from "./DeleteAccount.jsx";
+import Block from "./Block.jsx";
+import Report from "./Report.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -36,6 +38,10 @@ export default function App() {
   const [isOnline, setOnline] = useState(true);
   const [openDelete, setOpenDelete] = useState(false);
   const handleOpenDelete = () => setOpenDelete(true);
+  const [openBlock, setOpenBlock] = useState(false);
+  const handleOpenBlock = () => setOpenBlock(true);
+  const [openReport, setOpenReport] = useState(false);
+  const handleOpenReport = () => setOpenReport(true);
   const updateNetworkStatus = () => {
     setOnline(navigator.onLine);
   };
@@ -204,6 +210,14 @@ export default function App() {
     );
   }
 
+  if (openReport && roomWs && roomWs.readyState === WebSocket.OPEN) {
+    return <Report setOpen={setOpenReport} roomWs={roomWs} />;
+  }
+
+  if (openBlock && roomWs && roomWs.readyState === WebSocket.OPEN) {
+    return <Block setOpen={setOpenBlock} roomWs={roomWs} />;
+  }
+
   if (openDelete && userWs && userWs.readyState === WebSocket.OPEN) {
     return <DeleteAccount setOpen={setOpenDelete} userWs={userWs} />;
   }
@@ -239,6 +253,8 @@ export default function App() {
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
         handleOpenTopics={handleOpenTopics}
+        handleOpenBlock={handleOpenBlock}
+        handleOpenReport={handleOpenReport}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}

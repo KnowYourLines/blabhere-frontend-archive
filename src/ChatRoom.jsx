@@ -25,14 +25,14 @@ import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 import Unverified from "./Unverified.jsx";
 import AgreeTerms from "./AgreeTerms.jsx";
-import Block from "./Block.jsx";
-import Report from "./Report.jsx";
 
 export default function ChatRoom({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
   handleOpenTopics,
+  handleOpenBlock,
+  handleOpenReport,
   isAnonymous,
   isOnline,
   yourName,
@@ -50,10 +50,6 @@ export default function ChatRoom({
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);
   const handleOpenTerms = () => setOpenTerms(true);
-  const [openBlock, setOpenBlock] = useState(false);
-  const handleOpenBlock = () => setOpenBlock(true);
-  const [openReport, setOpenReport] = useState(false);
-  const handleOpenReport = () => setOpenReport(true);
   useEffect(() => {
     if (!isVerified) {
       handleOpenModal();
@@ -66,16 +62,6 @@ export default function ChatRoom({
   }, [agreedTerms]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <Block
-        openModal={openBlock}
-        setOpenModal={setOpenBlock}
-        roomWs={roomWs}
-      />
-      <Report
-        openModal={openReport}
-        setOpenModal={setOpenReport}
-        roomWs={roomWs}
-      />
       <AgreeTerms
         openModal={openTerms}
         setOpenModal={setOpenTerms}
@@ -194,19 +180,26 @@ export default function ChatRoom({
                     />
                   }
                 ></Button>
-                <Button
-                  icon={
-                    <FontAwesomeIcon icon={faFlag} onClick={handleOpenReport} />
-                  }
-                ></Button>
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faUserSlash}
-                      onClick={handleOpenBlock}
-                    />
-                  }
-                ></Button>
+                {chatPartner && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faFlag}
+                        onClick={handleOpenReport}
+                      />
+                    }
+                  ></Button>
+                )}
+                {chatPartner && (
+                  <Button
+                    icon={
+                      <FontAwesomeIcon
+                        icon={faUserSlash}
+                        onClick={handleOpenBlock}
+                      />
+                    }
+                  ></Button>
+                )}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
