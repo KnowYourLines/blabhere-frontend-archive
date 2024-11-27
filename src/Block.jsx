@@ -53,7 +53,7 @@ export default function Block({ setOpen, roomWs }) {
             align="center"
           >
             {
-              "This conversation will be deleted and you will never match together again."
+              "This conversation will be deleted and you will never be paired together again."
             }
           </Typography>
           <Button variant="contained" type="submit">
