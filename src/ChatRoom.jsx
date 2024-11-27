@@ -123,7 +123,8 @@ export default function ChatRoom({
                   style={{
                     color: chatPartnerOnline ? "limegreen" : "red",
                     fontSize: "16pt",
-                    overflow: "scroll",
+                    alignSelf: "center",
+                    marginTop: "1%",
                   }}
                 >
                   {chatPartnerOnline ? "(Online) " : "(Offline) "}
