@@ -118,6 +118,7 @@ export default function ChatRoom({
                   marginTop: "1%",
                   fontSize: "16pt",
                   overflow: "scroll",
+                  display: "inline",
                 }}
               >
                 <span
