@@ -24,6 +24,7 @@ export default function App() {
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [chatPartner, setChatPartner] = useState(null);
+  const [chatPartnerOnline, setChatPartnerOnline] = useState(false);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [topics, setTopics] = useState([]);
@@ -101,6 +102,8 @@ export default function App() {
         setRoom("");
       } else if ("room" in data) {
         setRoom(data.room);
+      } else if ("chat_partner_online" in data) {
+        setChatPartnerOnline(data.chat_partner_online);
       }
     };
     roomWs.onerror = (e) => {
@@ -260,6 +263,7 @@ export default function App() {
         yourName={yourName}
         chatHistory={chatHistory}
         chatPartner={chatPartner}
+        chatPartnerOnline={chatPartnerOnline}
         username={username}
         roomWs={roomWs}
         isVerified={isVerified}
