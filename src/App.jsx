@@ -15,6 +15,7 @@ import Members from "./Members.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
+  const [roomName, setRoomName] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [isVerified, setIsVerified] = useState(true);
   const [agreedTerms, setAgreedTerms] = useState(true);
@@ -101,6 +102,8 @@ export default function App() {
         setChatHistory(() => [...data.refreshed_messages]);
       } else if ("room" in data) {
         setRoom(data.room);
+      } else if ("display_name" in data) {
+        setRoomName(data.display_name);
       } else if ("chat_partner_online" in data) {
         setChatPartnerOnline(data.chat_partner_online);
       }
@@ -242,6 +245,7 @@ export default function App() {
         roomWs={roomWs}
         userWs={userWs}
         setRoom={setRoom}
+        setRoomName={setRoomName}
       ></Conversations>
     );
   }
@@ -275,6 +279,7 @@ export default function App() {
         setChatHistory={setChatHistory}
         agreedTerms={agreedTerms}
         userWs={userWs}
+        roomName={roomName}
       ></ChatRoom>
     );
   }

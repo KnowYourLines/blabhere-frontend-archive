@@ -48,6 +48,7 @@ export default function ChatRoom({
   agreedTerms,
   userWs,
   chatPartnerOnline,
+  roomName,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -119,21 +120,9 @@ export default function ChatRoom({
                   color: "#6ea9d7",
                   marginTop: "1%",
                   fontSize: "16pt",
-                  overflowX: "auto",
-                  overflowY: "hidden",
-                  whiteSpace: "nowrap",
                 }}
               >
-                <span
-                  style={{
-                    color: chatPartnerOnline ? "limegreen" : "red",
-                    fontSize: "16pt",
-                    display: "inline",
-                  }}
-                >
-                  {chatPartnerOnline ? "(Online) " : "(Offline) "}
-                </span>
-                {chatPartner ? chatPartner : "Waiting for chat partner..."}
+                {roomName}
               </span>
               <span
                 style={{
