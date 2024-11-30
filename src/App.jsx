@@ -11,6 +11,7 @@ import EditTopics from "./EditTopics.jsx";
 import DeleteAccount from "./DeleteAccount.jsx";
 import Block from "./Block.jsx";
 import Report from "./Report.jsx";
+import Members from "./Members.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -32,6 +33,8 @@ export default function App() {
   const handleOpenTopics = () => setOpenTopics(true);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
+  const [openMembers, setOpenMembers] = useState(false);
+  const handleOpenMembers = () => setOpenMembers(true);
   const [openConvos, setOpenConvos] = useState(false);
   const handleOpenConvos = () => setOpenConvos(true);
   const [openSignIn, setOpenSignIn] = useState(false);
@@ -96,10 +99,6 @@ export default function App() {
         });
       } else if ("refreshed_messages" in data) {
         setChatHistory(() => [...data.refreshed_messages]);
-      } else if ("user_left_room" == data.type) {
-        setMembers([]);
-        setChatHistory([]);
-        setRoom("");
       } else if ("room" in data) {
         setRoom(data.room);
       } else if ("chat_partner_online" in data) {
@@ -224,6 +223,9 @@ export default function App() {
   if (openDelete && userWs && userWs.readyState === WebSocket.OPEN) {
     return <DeleteAccount setOpen={setOpenDelete} userWs={userWs} />;
   }
+  if (openMembers) {
+    return <Members setOpen={setOpenMembers} members={members}></Members>;
+  }
 
   if (openSignIn && userWs && userWs.readyState === WebSocket.OPEN) {
     return <SignIn setOpen={setOpenSignIn} userWs={userWs}></SignIn>;
@@ -258,6 +260,7 @@ export default function App() {
         handleOpenTopics={handleOpenTopics}
         handleOpenBlock={handleOpenBlock}
         handleOpenReport={handleOpenReport}
+        handleOpenMembers={handleOpenMembers}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}
