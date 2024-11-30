@@ -18,6 +18,7 @@ export default function Conversations({
   roomWs,
   userWs,
   currentRoom,
+  setRoom,
 }) {
   const handleClose = () => setOpen(false);
 
@@ -129,6 +130,7 @@ export default function Conversations({
                       if (currentRoom == convo.room__id) {
                         setMembers([]);
                         setChatHistory([]);
+                        setRoom("");
                       }
                     }}
                   />

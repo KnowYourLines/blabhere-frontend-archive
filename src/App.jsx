@@ -241,6 +241,7 @@ export default function App() {
         setChatHistory={setChatHistory}
         roomWs={roomWs}
         userWs={userWs}
+        setRoom={setRoom}
       ></Conversations>
     );
   }
