@@ -9,6 +9,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Grid from "@mui/material/Grid2";
 
 export default function EditTopics({ setOpen, topics, userWs }) {
   const [newTopic, setNewTopic] = useState(null);
@@ -110,9 +111,14 @@ export default function EditTopics({ setOpen, topics, userWs }) {
           <Button variant="contained" type="submit">
             Add
           </Button>
-          <List style={{ maxHeight: "250px", overflow: "auto" }}>
+          <Grid
+            style={{ maxHeight: "250px", overflow: "auto" }}
+            container
+            spacing={{ xs: 1, md: 2 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
             {topics.map((topic, i) => (
-              <ListItem alignItems="flex-start" key={topic}>
+              <Grid size={{ xs: 2, sm: 4, md: 4 }} key={topic}>
                 <Chip
                   label={topic}
                   onDelete={() => {
@@ -124,9 +130,9 @@ export default function EditTopics({ setOpen, topics, userWs }) {
                     );
                   }}
                 />
-              </ListItem>
+              </Grid>
             ))}
-          </List>
+          </Grid>
         </Stack>
       </Box>
     </div>
