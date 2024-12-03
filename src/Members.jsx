@@ -6,7 +6,9 @@ import {
   ConversationList,
   Button,
 } from "@chatscope/chat-ui-kit-react";
-export default function Members({ setOpen, members }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
+export default function Members({ setOpen, members, handleOpenReport, setReportedUser }) {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -49,6 +51,17 @@ export default function Members({ setOpen, members }) {
                   Offline
                 </Button>
               )}
+              <Button
+                icon={
+                  <FontAwesomeIcon
+                    icon={faFlag}
+                    onClick={() => {
+                      handleOpenReport();
+                      setReportedUser(member);
+                    }}
+                  />
+                }
+              ></Button>
             </Conversation.Operations>
           </Conversation>
         ))}

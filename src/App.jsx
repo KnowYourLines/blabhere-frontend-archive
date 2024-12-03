@@ -20,6 +20,7 @@ export default function App() {
   const [isVerified, setIsVerified] = useState(true);
   const [agreedTerms, setAgreedTerms] = useState(true);
   const [conversations, setConversations] = useState([]);
+  const [reportedUser, setReportedUser] = useState(null);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
@@ -208,7 +209,14 @@ export default function App() {
   }
 
   if (openReport && roomWs && roomWs.readyState === WebSocket.OPEN) {
-    return <Report setOpen={setOpenReport} roomWs={roomWs} />;
+    return (
+      <Report
+        setOpen={setOpenReport}
+        roomWs={roomWs}
+        reportedUser={reportedUser}
+        setReportedUser={setReportedUser}
+      />
+    );
   }
 
   if (openBlock && roomWs && roomWs.readyState === WebSocket.OPEN) {
@@ -219,7 +227,14 @@ export default function App() {
     return <DeleteAccount setOpen={setOpenDelete} userWs={userWs} />;
   }
   if (openMembers) {
-    return <Members setOpen={setOpenMembers} members={members}></Members>;
+    return (
+      <Members
+        setOpen={setOpenMembers}
+        members={members}
+        handleOpenReport={handleOpenReport}
+        setReportedUser={setReportedUser}
+      ></Members>
+    );
   }
 
   if (openSignIn && userWs && userWs.readyState === WebSocket.OPEN) {
@@ -256,7 +271,6 @@ export default function App() {
         handleOpenYourName={handleOpenYourName}
         handleOpenTopics={handleOpenTopics}
         handleOpenBlock={handleOpenBlock}
-        handleOpenReport={handleOpenReport}
         handleOpenMembers={handleOpenMembers}
         isAnonymous={isAnonymous}
         isOnline={isOnline}

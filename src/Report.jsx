@@ -7,12 +7,23 @@ import Typography from "@mui/material/Typography";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader } from "@chatscope/chat-ui-kit-react";
 
-export default function Report({ setOpen, roomWs }) {
+export default function Report({
+  setOpen,
+  roomWs,
+  reportedUser,
+  setReportedUser,
+}) {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
-        <ConversationHeader.Back key="1" onClick={handleClose} />
+        <ConversationHeader.Back
+          key="1"
+          onClick={() => {
+            handleClose();
+            setReportedUser(null);
+          }}
+        />
         <ConversationHeader.Content>
           <span
             style={{
@@ -41,10 +52,12 @@ export default function Report({ setOpen, roomWs }) {
             event.preventDefault();
             roomWs.send(
               JSON.stringify({
-                command: "report_other_user",
+                command: "report_user",
+                username: reportedUser.username,
               })
             );
             handleClose();
+            setReportedUser(null);
           }}
         >
           <Typography
