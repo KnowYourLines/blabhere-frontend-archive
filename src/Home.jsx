@@ -144,7 +144,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Set your favourite topics. Get put in group chats with those who chat lots with those you chat lots with and have common interests."
+              "Set your favourite topics. Get put in group chats with those who chat lots with those you chat lots with and have shared interests."
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
