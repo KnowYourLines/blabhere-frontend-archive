@@ -105,7 +105,7 @@ export default function Home({
                         .catch((error) => {
                           console.error(error.message);
                         });
-                        handleOpenModal();
+                      handleOpenModal();
                     } else if (!agreedTerms) {
                       handleOpenTerms();
                     } else {
@@ -144,7 +144,7 @@ export default function Home({
           </span>
           <OutlinedCard
             text={
-              "Set your favourite topics and get paired up 1-on-1 with strangers who chat a lot with those you chat a lot with"
+              "Set your favourite topics and get put in group chats with those who share your interests and chat a lot with those you chat a lot with"
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
