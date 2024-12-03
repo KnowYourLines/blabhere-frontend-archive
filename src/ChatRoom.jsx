@@ -44,10 +44,9 @@ export default function ChatRoom({
   isVerified,
   setMembers,
   setChatHistory,
-  chatPartner,
+  members,
   agreedTerms,
   userWs,
-  chatPartnerOnline,
   roomName,
 }) {
   const [openModal, setOpenModal] = useState(false);
@@ -153,7 +152,7 @@ export default function ChatRoom({
                   fontSize: "16pt",
                 }}
               >
-                {chatPartner && (
+                {members.length > 1 && (
                   <Button
                     icon={
                       <FontAwesomeIcon
@@ -201,26 +200,19 @@ export default function ChatRoom({
                     />
                   }
                 ></Button>
-                {chatPartner && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faFlag}
-                        onClick={handleOpenReport}
-                      />
-                    }
-                  ></Button>
-                )}
-                {chatPartner && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faUserSlash}
-                        onClick={handleOpenBlock}
-                      />
-                    }
-                  ></Button>
-                )}
+                <Button
+                  icon={
+                    <FontAwesomeIcon icon={faFlag} onClick={handleOpenReport} />
+                  }
+                ></Button>
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserSlash}
+                      onClick={handleOpenBlock}
+                    />
+                  }
+                ></Button>
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>

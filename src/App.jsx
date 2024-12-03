@@ -25,8 +25,6 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
-  const [chatPartner, setChatPartner] = useState(null);
-  const [chatPartnerOnline, setChatPartnerOnline] = useState(false);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [topics, setTopics] = useState([]);
@@ -104,8 +102,6 @@ export default function App() {
         setRoom(data.room);
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
-      } else if ("chat_partner_online" in data) {
-        setChatPartnerOnline(data.chat_partner_online);
       }
     };
     roomWs.onerror = (e) => {
@@ -158,10 +154,6 @@ export default function App() {
     };
     setUserWs(userWs);
   };
-  useEffect(() => {
-    const chatPartner = members.filter((member) => member != yourName)[0];
-    setChatPartner(chatPartner);
-  }, [members, yourName]);
   useEffect(() => {
     updateNetworkStatus();
   }, []);
@@ -270,8 +262,7 @@ export default function App() {
         isOnline={isOnline}
         yourName={yourName}
         chatHistory={chatHistory}
-        chatPartner={chatPartner}
-        chatPartnerOnline={chatPartnerOnline}
+        members={members}
         username={username}
         roomWs={roomWs}
         isVerified={isVerified}

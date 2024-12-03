@@ -93,23 +93,6 @@ export default function Conversations({
               }}
             />
             <Conversation.Operations visible>
-              {convo.is_online[0] ? (
-                <Button
-                  style={{
-                    color: "limegreen",
-                  }}
-                >
-                  Online
-                </Button>
-              ) : (
-                <Button
-                  style={{
-                    color: "red",
-                  }}
-                >
-                  Offline
-                </Button>
-              )}
               <Button
                 style={{
                   color: "red",

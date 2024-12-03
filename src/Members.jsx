@@ -4,6 +4,7 @@ import {
   ConversationHeader,
   Conversation,
   ConversationList,
+  Button,
 } from "@chatscope/chat-ui-kit-react";
 export default function Members({ setOpen, members }) {
   const handleClose = () => setOpen(false);
@@ -28,8 +29,28 @@ export default function Members({ setOpen, members }) {
           height: "85%",
         }}
       >
-        {members.map((elt, i) => (
-          <Conversation name={elt} key={i}></Conversation>
+        {members.map((member, i) => (
+          <Conversation name={member.name} key={i}>
+            <Conversation.Operations visible>
+              {member.is_online ? (
+                <Button
+                  style={{
+                    color: "limegreen",
+                  }}
+                >
+                  Online
+                </Button>
+              ) : (
+                <Button
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  Offline
+                </Button>
+              )}
+            </Conversation.Operations>
+          </Conversation>
         ))}
       </ConversationList>
     </div>

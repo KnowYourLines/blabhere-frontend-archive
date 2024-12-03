@@ -76,24 +76,26 @@ export default function Unverified({
               sx={{ mt: 2 }}
               align="center"
             >
-              {
-                "Check your email inbox or spam. Only users with verified emails can join chats."
-              }
+              {isAnonymous
+                ? "Only users with verified emails can join chats"
+                : "Check your email inbox or spam"}
             </Typography>
             <Button variant="contained" type="submit">
               {sent && !isAnonymous && "Email me again"}
               {!sent && !isAnonymous && "Email me"}
               {isAnonymous && "Sign In"}
             </Button>
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              I have verified
-            </Button>
+            {!isAnonymous && (
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                I have verified
+              </Button>
+            )}
             <Button
               variant="outlined"
               onClick={() => {
