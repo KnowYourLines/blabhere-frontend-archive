@@ -15,7 +15,6 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
-import { faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignIn({ setOpen, userWs }) {
   const handleClose = () => setOpen(false);
@@ -196,7 +195,8 @@ export default function SignIn({ setOpen, userWs }) {
           </Button>
           {!togglePasswordReset && (
             <Button
-              variant="outlined"
+              color="secondary"
+              variant="contained"
               onClick={() => {
                 setToggleSignUp(!toggleSignUp);
               }}

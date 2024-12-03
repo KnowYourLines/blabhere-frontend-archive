@@ -76,9 +76,9 @@ export default function Unverified({
               sx={{ mt: 2 }}
               align="center"
             >
-              {sent
-                ? "Check your email inbox or spam"
-                : "Only users with verified emails can join chats"}
+              {
+                "Check your email inbox or spam. Only users with verified emails can join chats."
+              }
             </Typography>
             <Button variant="contained" type="submit">
               {sent && !isAnonymous && "Email me again"}

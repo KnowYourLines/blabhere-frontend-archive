@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "./firebase.js";
-import { signOut } from "firebase/auth";
+import { signOut, sendEmailVerification } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -96,7 +96,16 @@ export default function Home({
                   icon={faCommentMedical}
                   onClick={() => {
                     if (!isVerified) {
-                      handleOpenModal();
+                      const user = auth.currentUser;
+                      sendEmailVerification(user, { url: window.location.href })
+                        .then(() => {
+                          setSent(true);
+                          gtag_report_conversion();
+                        })
+                        .catch((error) => {
+                          console.error(error.message);
+                        });
+                        handleOpenModal();
                     } else if (!agreedTerms) {
                       handleOpenTerms();
                     } else {
