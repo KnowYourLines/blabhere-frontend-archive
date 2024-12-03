@@ -188,16 +188,16 @@ export default function ChatRoom({
                 <Button
                   icon={
                     <FontAwesomeIcon
-                      icon={faUserGroup}
-                      onClick={handleOpenMembers}
+                      icon={faIcons}
+                      onClick={handleOpenTopics}
                     />
                   }
                 ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon
-                      icon={faIcons}
-                      onClick={handleOpenTopics}
+                      icon={faUserGroup}
+                      onClick={handleOpenMembers}
                     />
                   }
                 ></Button>

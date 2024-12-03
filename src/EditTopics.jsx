@@ -7,8 +7,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Grid from "@mui/material/Grid2";
 
 export default function EditTopics({ setOpen, topics, userWs }) {
