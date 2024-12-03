@@ -233,6 +233,7 @@ export default function App() {
         members={members}
         handleOpenReport={handleOpenReport}
         setReportedUser={setReportedUser}
+        username={username}
       ></Members>
     );
   }
