@@ -86,6 +86,15 @@ export default function Unverified({
               {isAnonymous && "Sign In"}
             </Button>
             <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              I have verified
+            </Button>
+            <Button
               variant="outlined"
               onClick={() => {
                 handleClose();
