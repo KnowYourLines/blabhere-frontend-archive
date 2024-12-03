@@ -21,6 +21,7 @@ export default function App() {
   const [agreedTerms, setAgreedTerms] = useState(true);
   const [conversations, setConversations] = useState([]);
   const [reportedUser, setReportedUser] = useState(null);
+  const [blockedUser, setBlockedUser] = useState(null);
   const [yourName, setYourName] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
@@ -220,7 +221,14 @@ export default function App() {
   }
 
   if (openBlock && roomWs && roomWs.readyState === WebSocket.OPEN) {
-    return <Block setOpen={setOpenBlock} roomWs={roomWs} />;
+    return (
+      <Block
+        setOpen={setOpenBlock}
+        roomWs={roomWs}
+        blockedUser={blockedUser}
+        setBlockedUser={setBlockedUser}
+      />
+    );
   }
 
   if (openDelete && userWs && userWs.readyState === WebSocket.OPEN) {
@@ -232,7 +240,9 @@ export default function App() {
         setOpen={setOpenMembers}
         members={members}
         handleOpenReport={handleOpenReport}
+        handleOpenBlock={handleOpenBlock}
         setReportedUser={setReportedUser}
+        setBlockedUser={setBlockedUser}
         username={username}
       ></Members>
     );

@@ -7,12 +7,14 @@ import {
   Button,
 } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 export default function Members({
   setOpen,
   members,
   handleOpenReport,
+  handleOpenBlock,
   setReportedUser,
+  setBlockedUser,
   username,
 }) {
   const handleClose = () => setOpen(false);
@@ -65,6 +67,19 @@ export default function Members({
                       onClick={() => {
                         handleOpenReport();
                         setReportedUser(member);
+                      }}
+                    />
+                  }
+                ></Button>
+              )}
+              {username != member.username && (
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserSlash}
+                      onClick={() => {
+                        handleOpenBlock();
+                        setBlockedUser(member);
                       }}
                     />
                   }

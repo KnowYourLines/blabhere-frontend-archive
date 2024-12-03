@@ -6,12 +6,23 @@ import Typography from "@mui/material/Typography";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader } from "@chatscope/chat-ui-kit-react";
 
-export default function Block({ setOpen, roomWs }) {
+export default function Block({
+  setOpen,
+  roomWs,
+  blockedUser,
+  setBlockedUser,
+}) {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
-        <ConversationHeader.Back key="1" onClick={handleClose} />
+        <ConversationHeader.Back
+          key="1"
+          onClick={() => {
+            handleClose();
+            setBlockedUser(null);
+          }}
+        />
         <ConversationHeader.Content>
           <span
             style={{
@@ -40,10 +51,12 @@ export default function Block({ setOpen, roomWs }) {
             event.preventDefault();
             roomWs.send(
               JSON.stringify({
-                command: "block_other_user",
+                command: "block_user",
+                username: blockedUser.username,
               })
             );
             handleClose();
+            setBlockedUser(null);
           }}
         >
           <Typography
@@ -53,7 +66,7 @@ export default function Block({ setOpen, roomWs }) {
             align="center"
           >
             {
-              "This conversation will be deleted and you will never be paired together again."
+              "You will stop seeing each other's messages and you will never be put in the same group again."
             }
           </Typography>
           <Button variant="contained" type="submit">
