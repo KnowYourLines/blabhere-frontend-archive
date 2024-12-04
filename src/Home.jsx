@@ -49,7 +49,7 @@ export default function Home({
       >
         <ConversationHeader.Content>
           <OutlinedCard
-            text={"BlabHere - Find people you like to chat to"}
+            text={"BlabHere - Find people you like to chat freely to"}
           ></OutlinedCard>
           <span
             style={{
