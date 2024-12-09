@@ -12,6 +12,7 @@ import DeleteAccount from "./DeleteAccount.jsx";
 import Block from "./Block.jsx";
 import Report from "./Report.jsx";
 import Members from "./Members.jsx";
+import MemberTopics from "./MemberTopics.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -29,6 +30,9 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [memberTopics, setMemberTopics] = useState([]);
+  const [openMemberTopics, setOpenMemberTopics] = useState(false);
+  const handleOpenMemberTopics = () => setOpenMemberTopics(true);
   const [topics, setTopics] = useState([]);
   const [openTopics, setOpenTopics] = useState(false);
   const handleOpenTopics = () => setOpenTopics(true);
@@ -209,6 +213,15 @@ export default function App() {
     );
   }
 
+  if (openMemberTopics) {
+    return (
+      <MemberTopics
+        setOpen={setOpenMemberTopics}
+        topics={memberTopics}
+      ></MemberTopics>
+    );
+  }
+
   if (openReport && roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <Report
@@ -241,6 +254,8 @@ export default function App() {
         members={members}
         handleOpenReport={handleOpenReport}
         handleOpenBlock={handleOpenBlock}
+        handleOpenMemberTopics={handleOpenMemberTopics}
+        setMemberTopics={setMemberTopics}
         setReportedUser={setReportedUser}
         setBlockedUser={setBlockedUser}
         username={username}
