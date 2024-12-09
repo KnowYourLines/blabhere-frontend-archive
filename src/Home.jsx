@@ -13,6 +13,7 @@ import {
 import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import AgreeTerms from "./AgreeTerms.jsx";
+import Typography from "@mui/material/Typography";
 
 export default function Home({
   handleOpenConvos,
@@ -49,7 +50,11 @@ export default function Home({
       >
         <ConversationHeader.Content>
           <OutlinedCard
-            text={"BlabHere - Find people you like to chat freely to"}
+            cardContent={
+              <Typography variant="h5" component="div">
+                {"BlabHere - Find people you like to chat freely to"}
+              </Typography>
+            }
           ></OutlinedCard>
           <span
             style={{
@@ -143,8 +148,55 @@ export default function Home({
             )}
           </span>
           <OutlinedCard
-            text={
-              "Set your favourite topics. Get put in small groups of anonymous strangers with shared interests who chat lots with those you chat lots with."
+            cardContent={
+              <span
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                <Button onClick={handleOpenTopics}>
+                  Set your favourite topics so others can see your interests.
+                </Button>
+              </span>
+            }
+          ></OutlinedCard>
+          <OutlinedCard
+            cardContent={
+              <span
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                <Button
+                  onClick={() => {
+                    if (!isVerified) {
+                      const user = auth.currentUser;
+                      sendEmailVerification(user, { url: window.location.href })
+                        .then(() => {
+                          setSent(true);
+                          gtag_report_conversion();
+                        })
+                        .catch((error) => {
+                          console.error(error.message);
+                        });
+                      handleOpenModal();
+                    } else if (!agreedTerms) {
+                      handleOpenTerms();
+                    } else {
+                      setMembers([]);
+                      setChatHistory([]);
+                      roomWs.send(
+                        JSON.stringify({
+                          command: "connect",
+                        })
+                      );
+                    }
+                  }}
+                >
+                  Get put in small groups of anonymous strangers with shared
+                  interests who chat lots with those you chat lots with.
+                </Button>{" "}
+              </span>
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
