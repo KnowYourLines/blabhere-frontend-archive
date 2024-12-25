@@ -52,7 +52,7 @@ export default function Home({
           <OutlinedCard
             cardContent={
               <Typography variant="h5" component="div">
-                {"BlabHere - Find people you like to chat freely to"}
+                {"BlabHere - Find people you like to tell the truth to"}
               </Typography>
             }
           ></OutlinedCard>
