@@ -193,8 +193,7 @@ export default function Home({
                     }
                   }}
                 >
-                  Get put in small groups of anonymous strangers with shared
-                  interests who chat lots with those you chat lots with.
+                  Get put in small groups of anonymous strangers you like to talk to.
                 </Button>{" "}
               </span>
             }
