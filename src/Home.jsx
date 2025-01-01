@@ -49,13 +49,6 @@ export default function Home({
         style={{ position: "fixed", height: "100%", width: "100%" }}
       >
         <ConversationHeader.Content>
-          <OutlinedCard
-            cardContent={
-              <Typography variant="h5" component="div">
-                {"BlabHere - Find people you like to tell the truth to"}
-              </Typography>
-            }
-          ></OutlinedCard>
           <span
             style={{
               alignSelf: "center",
@@ -149,12 +142,23 @@ export default function Home({
           </span>
           <OutlinedCard
             cardContent={
+              <Typography variant="h5" component="div">
+                {"BlabHere - Find people you like to tell the truth to"}
+              </Typography>
+            }
+          ></OutlinedCard>
+
+          <OutlinedCard
+            cardContent={
               <span
                 style={{
                   fontSize: "1.5rem",
                 }}
               >
-                <Button onClick={handleOpenTopics}>
+                <Button
+                  icon={<FontAwesomeIcon icon={faIcons} />}
+                  onClick={handleOpenTopics}
+                >
                   Set your favourite topics so others can see your interests.
                 </Button>
               </span>
@@ -168,6 +172,7 @@ export default function Home({
                 }}
               >
                 <Button
+                  icon={<FontAwesomeIcon icon={faCommentMedical} />}
                   onClick={() => {
                     if (!isVerified) {
                       const user = auth.currentUser;
@@ -193,7 +198,8 @@ export default function Home({
                     }
                   }}
                 >
-                  Get put in small groups of anonymous strangers you like to talk to.
+                  Get put in small groups of anonymous strangers you like to
+                  talk to.
                 </Button>{" "}
               </span>
             }
