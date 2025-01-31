@@ -29,20 +29,27 @@ export default function SearchResults({
             </span>
           }
           key={room.pk}
+          onClick={() => {
+            setMembers([]);
+            setChatHistory([]);
+            roomWs.send(
+              JSON.stringify({
+                command: "connect",
+                room: room.pk,
+              })
+            );
+          }}
         >
-          <Conversation.Content
-            name={room.display_name}
-            onClick={() => {
-              setMembers([]);
-              setChatHistory([]);
-              roomWs.send(
-                JSON.stringify({
-                  command: "connect",
-                  room: room.pk,
-                })
-              );
-            }}
-          />
+          <Conversation.Content>
+            <span
+              style={{
+                marginLeft: "7%",
+                color: "blue",
+              }}
+            >
+              {room.display_name}
+            </span>
+          </Conversation.Content>
         </Conversation>
       ))}
     </ConversationList>
