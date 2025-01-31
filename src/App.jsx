@@ -28,6 +28,7 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [memberTopics, setMemberTopics] = useState([]);
@@ -76,7 +77,7 @@ export default function App() {
     roomWs.onmessage = (message) => {
       const data = JSON.parse(message.data);
       if ("search_results" in data) {
-        console.log(data);
+        setSearchResults(data.search_results);
       } else if ("members" in data) {
         setMembers(data.members);
       } else if ("display_name" in data) {
@@ -336,6 +337,7 @@ export default function App() {
         setChatHistory={setChatHistory}
         roomWs={roomWs}
         userWs={userWs}
+        searchResults={searchResults}
       ></Home>
     );
   }

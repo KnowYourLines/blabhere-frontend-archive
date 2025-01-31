@@ -9,7 +9,8 @@ import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import AgreeTerms from "./AgreeTerms.jsx";
 import Typography from "@mui/material/Typography";
-import SearchRooms from "./SearchRooms.jsx";
+import SearchInput from "./SearchInput.jsx";
+import SearchResults from "./SearchResults.jsx";
 
 export default function Home({
   handleOpenConvos,
@@ -22,6 +23,8 @@ export default function Home({
   roomWs,
   agreedTerms,
   userWs,
+  searchResults,
+  setSearchResults
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -104,13 +107,19 @@ export default function Home({
                 <Typography variant="h1" component="div">
                   {"BlabHere"}
                 </Typography>
-                <SearchRooms
+                <SearchInput
                   handleOpenModal={handleOpenModal}
                   handleOpenTerms={handleOpenTerms}
                   agreedTerms={agreedTerms}
                   isVerified={isVerified}
                   roomWs={roomWs}
-                ></SearchRooms>
+                ></SearchInput>
+                <SearchResults
+                  roomWs={roomWs}
+                  setMembers={setMembers}
+                  setChatHistory={setChatHistory}
+                  searchResults={searchResults}
+                ></SearchResults>
               </div>
             }
           ></OutlinedCard>
