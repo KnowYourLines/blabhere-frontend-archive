@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "./firebase.js";
 import { signOut, sendEmailVerification } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faComments,
-  faCommentMedical,
-  faIcons,
-  faUserXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faComments, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import Unverified from "./Unverified.jsx";
 import OutlinedCard from "./OutlinedCard.jsx";
 import AgreeTerms from "./AgreeTerms.jsx";
@@ -18,7 +13,6 @@ import Typography from "@mui/material/Typography";
 export default function Home({
   handleOpenConvos,
   handleOpenSignIn,
-  handleOpenTopics,
   handleOpenDelete,
   isAnonymous,
   isVerified,
@@ -32,6 +26,25 @@ export default function Home({
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);
   const handleOpenTerms = () => setOpenTerms(true);
+  useEffect(() => {
+    if (!isVerified && !isAnonymous) {
+      const user = auth.currentUser;
+      sendEmailVerification(user, { url: window.location.href })
+        .then(() => {
+          setSent(true);
+          gtag_report_conversion();
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+      handleOpenModal();
+    }
+  }, [isVerified]);
+  useEffect(() => {
+    if (!agreedTerms) {
+      handleOpenTerms();
+    }
+  }, [agreedTerms]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <AgreeTerms
@@ -90,43 +103,7 @@ export default function Home({
           >
             <Button
               icon={
-                <FontAwesomeIcon
-                  icon={faCommentMedical}
-                  onClick={() => {
-                    if (!isVerified) {
-                      const user = auth.currentUser;
-                      sendEmailVerification(user, { url: window.location.href })
-                        .then(() => {
-                          setSent(true);
-                          gtag_report_conversion();
-                        })
-                        .catch((error) => {
-                          console.error(error.message);
-                        });
-                      handleOpenModal();
-                    } else if (!agreedTerms) {
-                      handleOpenTerms();
-                    } else {
-                      setMembers([]);
-                      setChatHistory([]);
-                      roomWs.send(
-                        JSON.stringify({
-                          command: "connect",
-                        })
-                      );
-                    }
-                  }}
-                />
-              }
-            ></Button>
-            <Button
-              icon={
                 <FontAwesomeIcon icon={faComments} onClick={handleOpenConvos} />
-              }
-            ></Button>
-            <Button
-              icon={
-                <FontAwesomeIcon icon={faIcons} onClick={handleOpenTopics} />
               }
             ></Button>
             {!isAnonymous && (
@@ -145,63 +122,6 @@ export default function Home({
               <Typography variant="h5" component="div">
                 {"BlabHere - Find people you like to tell the truth to"}
               </Typography>
-            }
-          ></OutlinedCard>
-
-          <OutlinedCard
-            cardContent={
-              <span
-                style={{
-                  fontSize: "1.5rem",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faIcons} />}
-                  onClick={handleOpenTopics}
-                >
-                  Set your favourite topics so others can see your interests.
-                </Button>
-              </span>
-            }
-          ></OutlinedCard>
-          <OutlinedCard
-            cardContent={
-              <span
-                style={{
-                  fontSize: "1.5rem",
-                }}
-              >
-                <Button
-                  icon={<FontAwesomeIcon icon={faCommentMedical} />}
-                  onClick={() => {
-                    if (!isVerified) {
-                      const user = auth.currentUser;
-                      sendEmailVerification(user, { url: window.location.href })
-                        .then(() => {
-                          setSent(true);
-                          gtag_report_conversion();
-                        })
-                        .catch((error) => {
-                          console.error(error.message);
-                        });
-                      handleOpenModal();
-                    } else if (!agreedTerms) {
-                      handleOpenTerms();
-                    } else {
-                      setMembers([]);
-                      setChatHistory([]);
-                      roomWs.send(
-                        JSON.stringify({
-                          command: "connect",
-                        })
-                      );
-                    }
-                  }}
-                >
-                  Get put in small groups of anonymous strangers you like to
-                  talk to.
-                </Button>{" "}
-              </span>
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
