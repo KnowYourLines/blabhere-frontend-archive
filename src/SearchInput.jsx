@@ -72,15 +72,10 @@ export default function SearchInput({
     }
   };
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="25vh"
-    >
+    <Box justifyContent="center" alignItems="center">
       <Stack
         component="form"
-        sx={{ width: "50%", marginTop: "5%" }}
+        sx={{ width: "50%" }}
         spacing={2}
         noValidate
         autoComplete="off"

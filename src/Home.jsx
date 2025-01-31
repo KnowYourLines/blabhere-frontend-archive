@@ -24,7 +24,7 @@ export default function Home({
   agreedTerms,
   userWs,
   searchResults,
-  setSearchResults
+  setSearchResults,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -114,15 +114,21 @@ export default function Home({
                   isVerified={isVerified}
                   roomWs={roomWs}
                 ></SearchInput>
+              </div>
+            }
+          ></OutlinedCard>
+          {searchResults.length > 0 && (
+            <OutlinedCard
+              cardContent={
                 <SearchResults
                   roomWs={roomWs}
                   setMembers={setMembers}
                   setChatHistory={setChatHistory}
                   searchResults={searchResults}
                 ></SearchResults>
-              </div>
-            }
-          ></OutlinedCard>
+              }
+            ></OutlinedCard>
+          )}
         </ConversationHeader.Content>
       </ConversationHeader>
     </div>

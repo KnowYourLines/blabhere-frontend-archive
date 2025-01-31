@@ -11,8 +11,6 @@ export default function SearchResults({
   return (
     <ConversationList
       style={{
-        height: "50%",
-        display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
