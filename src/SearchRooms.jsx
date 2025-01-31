@@ -98,6 +98,7 @@ export default function SearchRooms({
           onChange={(event, newValue) => {
             setNewTopic(newValue);
           }}
+          value={newTopic}
           noOptionsText={"No topics found"}
           options={options}
           onInputChange={onInputChange}
