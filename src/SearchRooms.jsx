@@ -98,14 +98,18 @@ export default function SearchRooms({
           onChange={(event, newValue) => {
             setNewTopic(newValue);
           }}
-          noOptionsText={"Enter a topic"}
+          noOptionsText={"No topics found"}
           options={options}
           onInputChange={onInputChange}
           filterOptions={(options) => options}
           getOptionLabel={(option) => option}
           style={{ width: "100%" }}
           renderInput={(params) => (
-            <TextField {...params} label="New chat topic" variant="outlined" />
+            <TextField
+              {...params}
+              label="Enter chat topic"
+              variant="outlined"
+            />
           )}
         />
         <Button variant="contained" type="submit">

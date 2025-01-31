@@ -75,7 +75,9 @@ export default function App() {
     };
     roomWs.onmessage = (message) => {
       const data = JSON.parse(message.data);
-      if ("members" in data) {
+      if ("search_results" in data) {
+        console.log(data);
+      } else if ("members" in data) {
         setMembers(data.members);
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
