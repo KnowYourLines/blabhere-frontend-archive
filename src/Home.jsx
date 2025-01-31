@@ -24,7 +24,6 @@ export default function Home({
   agreedTerms,
   userWs,
   searchResults,
-  setSearchResults,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -50,56 +49,73 @@ export default function Home({
           <span
             style={{
               alignSelf: "center",
-              fontSize: "20pt",
               marginBottom: "1%",
             }}
           >
-            {!isAnonymous && (
-              <Button
-                icon={
-                  <FontAwesomeIcon
-                    icon={faComments}
-                    onClick={handleOpenConvos}
-                  />
-                }
-              ></Button>
-            )}
-            {isAnonymous ? (
-              <Button
-                style={{
-                  border: "2px solid #6ea9d7",
-                  backgroundColor: "#6ea9d7",
-                  color: "#f6fbff",
-                }}
-                onClick={handleOpenSignIn}
-              >
-                Sign In
-              </Button>
-            ) : (
-              <Button
-                style={{
-                  border: "2px solid #6ea9d7",
-                  backgroundColor: "#6ea9d7",
-                  color: "#f6fbff",
-                }}
-                onClick={() => {
-                  signOut(auth);
-                  window.location.reload();
-                }}
-              >
-                Sign Out
-              </Button>
-            )}
-            {!isAnonymous && (
-              <Button
-                icon={
-                  <FontAwesomeIcon
-                    icon={faUserXmark}
-                    onClick={handleOpenDelete}
-                  />
-                }
-              ></Button>
-            )}
+            <span
+              style={{
+                fontSize: "24pt",
+              }}
+            >
+              {!isAnonymous && (
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faComments}
+                      onClick={handleOpenConvos}
+                    />
+                  }
+                ></Button>
+              )}
+            </span>
+            <span
+              style={{
+                fontSize: "16pt",
+              }}
+            >
+              {isAnonymous ? (
+                <Button
+                  style={{
+                    border: "2px solid #6ea9d7",
+                    backgroundColor: "#6ea9d7",
+                    color: "#f6fbff",
+                  }}
+                  onClick={handleOpenSignIn}
+                >
+                  Sign In
+                </Button>
+              ) : (
+                <Button
+                  style={{
+                    border: "2px solid #6ea9d7",
+                    backgroundColor: "#6ea9d7",
+                    color: "#f6fbff",
+                  }}
+                  onClick={() => {
+                    signOut(auth);
+                    window.location.reload();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              )}
+            </span>
+            <span
+              style={{
+                fontSize: "24pt",
+              }}
+            >
+              {!isAnonymous && (
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faUserXmark}
+                      onClick={handleOpenDelete}
+                    />
+                  }
+                ></Button>
+              )}
+            </span>
           </span>
           <OutlinedCard
             cardContent={
