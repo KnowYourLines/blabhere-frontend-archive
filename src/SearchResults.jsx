@@ -24,6 +24,9 @@ export default function SearchResults({
                 marginRight: "1em",
               }}
             >
+              <span>
+                {room.latest_message_timestamp ? "Active " : "Created "}
+              </span>
               <Moment unix fromNow>
                 {room.latest_message_timestamp || room.created_at}
               </Moment>
