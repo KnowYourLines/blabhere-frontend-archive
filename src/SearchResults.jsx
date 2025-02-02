@@ -7,6 +7,7 @@ export default function SearchResults({
   setMembers,
   setChatHistory,
   roomWs,
+  setSearchResults,
 }) {
   return (
     <ConversationList
@@ -32,6 +33,7 @@ export default function SearchResults({
           onClick={() => {
             setMembers([]);
             setChatHistory([]);
+            setSearchResults([]);
             roomWs.send(
               JSON.stringify({
                 command: "connect",

@@ -24,6 +24,7 @@ export default function Home({
   agreedTerms,
   userWs,
   searchResults,
+  setSearchResults,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -154,6 +155,7 @@ export default function Home({
                   roomWs={roomWs}
                   setMembers={setMembers}
                   setChatHistory={setChatHistory}
+                  setSearchResults={setSearchResults}
                   searchResults={searchResults}
                 ></SearchResults>
               }

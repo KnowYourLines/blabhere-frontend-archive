@@ -305,6 +305,7 @@ export default function App() {
         roomWs={roomWs}
         userWs={userWs}
         searchResults={searchResults}
+        setSearchResults={setSearchResults}
       ></Home>
     );
   }
