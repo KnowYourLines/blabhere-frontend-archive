@@ -148,7 +148,9 @@ export default function ChatRoom({
                   icon={
                     <FontAwesomeIcon
                       icon={faHome}
-                      onClick={() => setRoom("")}
+                      onClick={() => {
+                        setRoom("");
+                      }}
                     />
                   }
                 ></Button>

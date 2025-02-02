@@ -56,6 +56,14 @@ export default function Home({
     }
   }, [agreedTerms]);
 
+  useEffect(() => {
+    roomWs.send(
+      JSON.stringify({
+        command: "find_popular_topics",
+      })
+    );
+  }, []);
+
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <AgreeTerms
