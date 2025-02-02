@@ -171,22 +171,11 @@ export default function Home({
                   fontSize: "16pt",
                 }}
               >
-                Popular Topics
+                {searchResults.length > 0 ? "Chats Found" : "Popular Topics"}
               </span>
             </ConversationHeader.Content>
           </ConversationHeader>
-          <ConversationList
-            style={{
-              height: "50%",
-            }}
-          >
-            {popularTopics.map((topic, i) => (
-              <Conversation key={topic.id}>
-                <Conversation.Content name={topic.name} onClick={() => {}} />
-              </Conversation>
-            ))}
-          </ConversationList>
-          {searchResults.length > 0 && (
+          {searchResults.length > 0 ? (
             <OutlinedCard
               cardContent={
                 <SearchResults
@@ -196,6 +185,25 @@ export default function Home({
                   setSearchResults={setSearchResults}
                   searchResults={searchResults}
                 ></SearchResults>
+              }
+            ></OutlinedCard>
+          ) : (
+            <OutlinedCard
+              cardContent={
+                <ConversationList
+                  style={{
+                    height: "50%",
+                  }}
+                >
+                  {popularTopics.map((topic, i) => (
+                    <Conversation key={topic.id}>
+                      <Conversation.Content
+                        name={topic.name}
+                        onClick={() => {}}
+                      />
+                    </Conversation>
+                  ))}
+                </ConversationList>
               }
             ></OutlinedCard>
           )}
