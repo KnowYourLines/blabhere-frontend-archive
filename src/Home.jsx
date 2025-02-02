@@ -77,9 +77,7 @@ export default function Home({
         isAnonymous={isAnonymous}
         handleOpenSignIn={handleOpenSignIn}
       />
-      <ConversationHeader
-        style={{ position: "fixed", height: "100%", width: "100%" }}
-      >
+      <ConversationHeader>
         <ConversationHeader.Content>
           <span
             style={{
@@ -162,6 +160,7 @@ export default function Home({
               </div>
             }
           ></OutlinedCard>
+
           <ConversationHeader>
             <ConversationHeader.Content>
               <span
@@ -176,36 +175,25 @@ export default function Home({
             </ConversationHeader.Content>
           </ConversationHeader>
           {searchResults.length > 0 ? (
-            <OutlinedCard
-              cardContent={
-                <SearchResults
-                  roomWs={roomWs}
-                  setMembers={setMembers}
-                  setChatHistory={setChatHistory}
-                  setSearchResults={setSearchResults}
-                  searchResults={searchResults}
-                ></SearchResults>
-              }
-            ></OutlinedCard>
+            <SearchResults
+              roomWs={roomWs}
+              setMembers={setMembers}
+              setChatHistory={setChatHistory}
+              setSearchResults={setSearchResults}
+              searchResults={searchResults}
+            ></SearchResults>
           ) : (
-            <OutlinedCard
-              cardContent={
-                <ConversationList
-                  style={{
-                    height: "50%",
-                  }}
-                >
-                  {popularTopics.map((topic, i) => (
-                    <Conversation key={topic.id}>
-                      <Conversation.Content
-                        name={topic.name}
-                        onClick={() => {}}
-                      />
-                    </Conversation>
-                  ))}
-                </ConversationList>
-              }
-            ></OutlinedCard>
+            <ConversationList
+              style={{
+                height: "40%",
+              }}
+            >
+              {popularTopics.map((topic, i) => (
+                <Conversation key={topic.id}>
+                  <Conversation.Content name={topic.name} onClick={() => {}} />
+                </Conversation>
+              ))}
+            </ConversationList>
           )}
         </ConversationHeader.Content>
       </ConversationHeader>
