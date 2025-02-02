@@ -160,43 +160,52 @@ export default function Home({
               </div>
             }
           ></OutlinedCard>
-
-          <ConversationHeader>
-            <ConversationHeader.Content>
-              <span
-                style={{
-                  alignSelf: "center",
-                  color: "black",
-                  fontSize: "16pt",
-                }}
-              >
-                {searchResults.length > 0 ? "Chats Found" : "Popular Topics"}
-              </span>
-            </ConversationHeader.Content>
-          </ConversationHeader>
-          {searchResults.length > 0 ? (
-            <SearchResults
-              roomWs={roomWs}
-              setMembers={setMembers}
-              setChatHistory={setChatHistory}
-              setSearchResults={setSearchResults}
-              searchResults={searchResults}
-            ></SearchResults>
-          ) : (
-            <ConversationList
-              style={{
-                height: "30%",
-              }}
-            >
-              {popularTopics.map((topic, i) => (
-                <Conversation key={topic.id}>
-                  <Conversation.Content name={topic.name} onClick={() => {}} />
-                </Conversation>
-              ))}
-            </ConversationList>
-          )}
         </ConversationHeader.Content>
       </ConversationHeader>
+
+      {searchResults.length > 0 ? (
+        <SearchResults
+          roomWs={roomWs}
+          setMembers={setMembers}
+          setChatHistory={setChatHistory}
+          setSearchResults={setSearchResults}
+          searchResults={searchResults}
+        ></SearchResults>
+      ) : (
+        <ConversationList
+          style={{
+            height: "30%",
+          }}
+        >
+          <span
+            style={{
+              color: "black",
+              fontSize: "16pt",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {"Popular Topics"}
+          </span>
+          {popularTopics.map((topic, i) => (
+            <Conversation key={topic.id} onClick={() => {}}>
+              <Conversation.Content>
+                <span
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "blue",
+                  }}
+                >
+                  {topic.name}
+                </span>
+              </Conversation.Content>
+            </Conversation>
+          ))}
+        </ConversationList>
+      )}
     </div>
   );
 }

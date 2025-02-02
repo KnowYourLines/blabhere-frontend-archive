@@ -16,6 +16,17 @@ export default function SearchResults({
         alignItems: "center",
       }}
     >
+      <span
+        style={{
+          color: "black",
+          fontSize: "16pt",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {"Chats Found"}
+      </span>
       {searchResults.map((room, i) => (
         <Conversation
           lastActivityTime={
@@ -48,7 +59,6 @@ export default function SearchResults({
           <Conversation.Content>
             <span
               style={{
-                marginLeft: "7%",
                 color: "blue",
               }}
             >
