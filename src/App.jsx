@@ -27,6 +27,7 @@ export default function App() {
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [popularTopics, setPopularTopics] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [openYourName, setOpenYourName] = useState(false);
@@ -68,7 +69,9 @@ export default function App() {
     };
     roomWs.onmessage = (message) => {
       const data = JSON.parse(message.data);
-      if ("search_results" in data) {
+      if ("popular_topics" in data) {
+        setPopularTopics(data.popular_topics);
+      } else if ("search_results" in data) {
         setSearchResults(data.search_results);
       } else if ("members" in data) {
         setMembers(data.members);
@@ -306,6 +309,7 @@ export default function App() {
         userWs={userWs}
         searchResults={searchResults}
         setSearchResults={setSearchResults}
+        popularTopics={popularTopics}
       ></Home>
     );
   }

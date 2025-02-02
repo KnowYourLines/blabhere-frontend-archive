@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { auth } from "./firebase.js";
 import { signOut, sendEmailVerification } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
+import {
+  ConversationHeader,
+  ConversationList,
+  Conversation,
+  Button,
+} from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import Unverified from "./Unverified.jsx";
@@ -25,6 +30,7 @@ export default function Home({
   userWs,
   searchResults,
   setSearchResults,
+  popularTopics,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -148,6 +154,30 @@ export default function Home({
               </div>
             }
           ></OutlinedCard>
+          <ConversationHeader>
+            <ConversationHeader.Content>
+              <span
+                style={{
+                  alignSelf: "center",
+                  color: "black",
+                  fontSize: "16pt",
+                }}
+              >
+                Popular Topics
+              </span>
+            </ConversationHeader.Content>
+          </ConversationHeader>
+          <ConversationList
+            style={{
+              height: "50%",
+            }}
+          >
+            {popularTopics.map((topic, i) => (
+              <Conversation key={topic.id}>
+                <Conversation.Content name={topic.name} onClick={() => {}} />
+              </Conversation>
+            ))}
+          </ConversationList>
           {searchResults.length > 0 && (
             <OutlinedCard
               cardContent={
