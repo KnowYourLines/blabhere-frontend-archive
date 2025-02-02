@@ -5,8 +5,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function SearchInput({ roomWs }) {
-  const [newTopic, setNewTopic] = useState(null);
+export default function SearchInput({ roomWs, setSearchInput, searchInput }) {
   const [options, setOptions] = useState([]);
   const previousController = useRef();
 
@@ -58,16 +57,16 @@ export default function SearchInput({ roomWs }) {
           roomWs.send(
             JSON.stringify({
               command: "find_rooms",
-              topic: newTopic,
+              topic: searchInput,
             })
           );
         }}
       >
         <Autocomplete
           onChange={(event, newValue) => {
-            setNewTopic(newValue);
+            setSearchInput(newValue);
           }}
-          value={newTopic}
+          value={searchInput}
           noOptionsText={"No topics found"}
           options={options}
           onInputChange={onInputChange}

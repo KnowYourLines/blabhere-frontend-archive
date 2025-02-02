@@ -32,6 +32,7 @@ export default function Home({
   setSearchResults,
   popularTopics,
 }) {
+  const [searchInput, setSearchInput] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);
@@ -156,7 +157,11 @@ export default function Home({
                 <Typography variant="h1" component="div">
                   {"BlabHere"}
                 </Typography>
-                <SearchInput roomWs={roomWs}></SearchInput>
+                <SearchInput
+                  roomWs={roomWs}
+                  searchInput={searchInput}
+                  setSearchInput={setSearchInput}
+                ></SearchInput>
               </div>
             }
           ></OutlinedCard>
@@ -189,7 +194,18 @@ export default function Home({
             {"Popular Topics"}
           </span>
           {popularTopics.map((topic, i) => (
-            <Conversation key={topic.id} onClick={() => {}}>
+            <Conversation
+              key={topic.id}
+              onClick={() => {
+                setSearchInput(topic.name);
+                roomWs.send(
+                  JSON.stringify({
+                    command: "find_rooms",
+                    topic: topic.name,
+                  })
+                );
+              }}
+            >
               <Conversation.Content>
                 <span
                   style={{
