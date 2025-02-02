@@ -185,7 +185,7 @@ export default function Home({
           ) : (
             <ConversationList
               style={{
-                height: "40%",
+                height: "30%",
               }}
             >
               {popularTopics.map((topic, i) => (
