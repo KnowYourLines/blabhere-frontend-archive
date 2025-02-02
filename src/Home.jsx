@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "./firebase.js";
-import { signOut } from "firebase/auth";
+import { signOut, sendEmailVerification } from "firebase/auth";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader, Button } from "@chatscope/chat-ui-kit-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,6 +29,26 @@ export default function Home({
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);
   const handleOpenTerms = () => setOpenTerms(true);
+
+  useEffect(() => {
+    if (!isVerified) {
+      const user = auth.currentUser;
+      sendEmailVerification(user, { url: window.location.href })
+        .then(() => {
+          gtag_report_conversion();
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+      handleOpenModal();
+    }
+  }, [isVerified]);
+  useEffect(() => {
+    if (!agreedTerms) {
+      handleOpenTerms();
+    }
+  }, [agreedTerms]);
+
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <AgreeTerms
@@ -123,13 +143,7 @@ export default function Home({
                 <Typography variant="h1" component="div">
                   {"BlabHere"}
                 </Typography>
-                <SearchInput
-                  handleOpenModal={handleOpenModal}
-                  handleOpenTerms={handleOpenTerms}
-                  agreedTerms={agreedTerms}
-                  isVerified={isVerified}
-                  roomWs={roomWs}
-                ></SearchInput>
+                <SearchInput roomWs={roomWs}></SearchInput>
               </div>
             }
           ></OutlinedCard>

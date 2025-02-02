@@ -281,6 +281,7 @@ export default function App() {
         agreedTerms={agreedTerms}
         userWs={userWs}
         roomName={roomName}
+        setRoom={setRoom}
       ></ChatRoom>
     );
   }

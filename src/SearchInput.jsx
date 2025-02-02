@@ -1,40 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { auth } from "./firebase.js";
-import { sendEmailVerification } from "firebase/auth";
+import React, { useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function SearchInput({
-  handleOpenModal,
-  handleOpenTerms,
-  isVerified,
-  agreedTerms,
-  roomWs,
-}) {
+export default function SearchInput({ roomWs }) {
   const [newTopic, setNewTopic] = useState(null);
   const [options, setOptions] = useState([]);
   const previousController = useRef();
-  useEffect(() => {
-    if (!isVerified) {
-      const user = auth.currentUser;
-      sendEmailVerification(user, { url: window.location.href })
-        .then(() => {
-          gtag_report_conversion();
-        })
-        .catch((error) => {
-          console.error(error.message);
-        });
-      handleOpenModal();
-    }
-  }, [isVerified]);
-  useEffect(() => {
-    if (!agreedTerms) {
-      handleOpenTerms();
-    }
-  }, [agreedTerms]);
 
   const getData = (searchTerm) => {
     if (previousController.current) {

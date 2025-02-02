@@ -16,6 +16,7 @@ import {
   faPenToSquare,
   faComments,
   faUserGroup,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
@@ -38,6 +39,7 @@ export default function ChatRoom({
   agreedTerms,
   userWs,
   roomName,
+  setRoom,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -139,9 +141,17 @@ export default function ChatRoom({
               <span
                 style={{
                   alignSelf: "center",
-                  fontSize: "16pt",
+                  fontSize: "18pt",
                 }}
               >
+                <Button
+                  icon={
+                    <FontAwesomeIcon
+                      icon={faMagnifyingGlass}
+                      onClick={() => setRoom("")}
+                    />
+                  }
+                ></Button>
                 <Button
                   icon={
                     <FontAwesomeIcon
