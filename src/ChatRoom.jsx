@@ -16,7 +16,7 @@ import {
   faPenToSquare,
   faComments,
   faUserGroup,
-  faMagnifyingGlass,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Linkify from "react-linkify";
@@ -147,7 +147,7 @@ export default function ChatRoom({
                 <Button
                   icon={
                     <FontAwesomeIcon
-                      icon={faMagnifyingGlass}
+                      icon={faHome}
                       onClick={() => setRoom("")}
                     />
                   }
