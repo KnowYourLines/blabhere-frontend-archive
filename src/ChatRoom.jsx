@@ -15,8 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faComments,
-  faCommentMedical,
-  faIcons,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
@@ -29,7 +27,6 @@ export default function ChatRoom({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenYourName,
-  handleOpenTopics,
   handleOpenMembers,
   isAnonymous,
   isOnline,
@@ -38,9 +35,6 @@ export default function ChatRoom({
   roomWs,
   username,
   isVerified,
-  setMembers,
-  setChatHistory,
-  members,
   agreedTerms,
   userWs,
   roomName,
@@ -148,43 +142,11 @@ export default function ChatRoom({
                   fontSize: "16pt",
                 }}
               >
-                {members.length > 1 && (
-                  <Button
-                    icon={
-                      <FontAwesomeIcon
-                        icon={faCommentMedical}
-                        onClick={() => {
-                          if (!isVerified) {
-                            handleOpenModal();
-                          } else if (!agreedTerms) {
-                            handleOpenTerms();
-                          } else {
-                            setMembers([]);
-                            setChatHistory([]);
-                            roomWs.send(
-                              JSON.stringify({
-                                command: "connect",
-                              })
-                            );
-                          }
-                        }}
-                      />
-                    }
-                  ></Button>
-                )}
                 <Button
                   icon={
                     <FontAwesomeIcon
                       icon={faComments}
                       onClick={handleOpenConvos}
-                    />
-                  }
-                ></Button>
-                <Button
-                  icon={
-                    <FontAwesomeIcon
-                      icon={faIcons}
-                      onClick={handleOpenTopics}
                     />
                   }
                 ></Button>

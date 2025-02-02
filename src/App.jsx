@@ -7,12 +7,10 @@ import EditName from "./EditName.jsx";
 import SignIn from "./SignIn.jsx";
 import ChatRoom from "./ChatRoom.jsx";
 import Home from "./Home.jsx";
-import EditTopics from "./EditTopics.jsx";
 import DeleteAccount from "./DeleteAccount.jsx";
 import Block from "./Block.jsx";
 import Report from "./Report.jsx";
 import Members from "./Members.jsx";
-import MemberTopics from "./MemberTopics.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -31,12 +29,6 @@ export default function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
-  const [memberTopics, setMemberTopics] = useState([]);
-  const [openMemberTopics, setOpenMemberTopics] = useState(false);
-  const handleOpenMemberTopics = () => setOpenMemberTopics(true);
-  const [topics, setTopics] = useState([]);
-  const [openTopics, setOpenTopics] = useState(false);
-  const handleOpenTopics = () => setOpenTopics(true);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
   const [openMembers, setOpenMembers] = useState(false);
@@ -206,25 +198,6 @@ export default function App() {
     );
   }
 
-  if (openTopics) {
-    return (
-      <EditTopics
-        setOpen={setOpenTopics}
-        topics={topics}
-        userWs={userWs}
-      ></EditTopics>
-    );
-  }
-
-  if (openMemberTopics) {
-    return (
-      <MemberTopics
-        setOpen={setOpenMemberTopics}
-        topics={memberTopics}
-      ></MemberTopics>
-    );
-  }
-
   if (openReport && roomWs && roomWs.readyState === WebSocket.OPEN) {
     return (
       <Report
@@ -257,8 +230,6 @@ export default function App() {
         members={members}
         handleOpenReport={handleOpenReport}
         handleOpenBlock={handleOpenBlock}
-        handleOpenMemberTopics={handleOpenMemberTopics}
-        setMemberTopics={setMemberTopics}
         setReportedUser={setReportedUser}
         setBlockedUser={setBlockedUser}
         username={username}
@@ -298,19 +269,15 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
-        handleOpenTopics={handleOpenTopics}
         handleOpenBlock={handleOpenBlock}
         handleOpenMembers={handleOpenMembers}
         isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}
         chatHistory={chatHistory}
-        members={members}
         username={username}
         roomWs={roomWs}
         isVerified={isVerified}
-        setMembers={setMembers}
-        setChatHistory={setChatHistory}
         agreedTerms={agreedTerms}
         userWs={userWs}
         roomName={roomName}
@@ -329,7 +296,6 @@ export default function App() {
         isVerified={isVerified}
         agreedTerms={agreedTerms}
         handleOpenConvos={handleOpenConvos}
-        handleOpenTopics={handleOpenTopics}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenDelete={handleOpenDelete}
         isAnonymous={isAnonymous}
