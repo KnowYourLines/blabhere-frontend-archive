@@ -14,6 +14,7 @@ export default function SearchResults({
       style={{
         justifyContent: "center",
         alignItems: "center",
+        height: "50%",
       }}
     >
       <span

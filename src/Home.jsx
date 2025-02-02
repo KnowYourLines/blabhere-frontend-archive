@@ -174,7 +174,7 @@ export default function Home({
       ) : (
         <ConversationList
           style={{
-            height: "30%",
+            height: "50%",
           }}
         >
           <span
