@@ -270,19 +270,14 @@ export default function App() {
     return (
       <ChatRoom
         handleOpenConvos={handleOpenConvos}
-        handleOpenSignIn={handleOpenSignIn}
         handleOpenYourName={handleOpenYourName}
         handleOpenBlock={handleOpenBlock}
         handleOpenMembers={handleOpenMembers}
-        isAnonymous={isAnonymous}
         isOnline={isOnline}
         yourName={yourName}
         chatHistory={chatHistory}
         username={username}
         roomWs={roomWs}
-        isVerified={isVerified}
-        agreedTerms={agreedTerms}
-        userWs={userWs}
         roomName={roomName}
         setRoom={setRoom}
       ></ChatRoom>

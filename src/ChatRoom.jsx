@@ -21,99 +21,25 @@ import {
 import Moment from "react-moment";
 import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
-import Unverified from "./Unverified.jsx";
-import AgreeTerms from "./AgreeTerms.jsx";
 
 export default function ChatRoom({
   handleOpenConvos,
-  handleOpenSignIn,
   handleOpenYourName,
   handleOpenMembers,
-  isAnonymous,
   isOnline,
   yourName,
   chatHistory,
   roomWs,
   username,
-  isVerified,
-  agreedTerms,
-  userWs,
   roomName,
   setRoom,
 }) {
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const [openTerms, setOpenTerms] = useState(false);
-  const handleOpenTerms = () => setOpenTerms(true);
-  useEffect(() => {
-    if (!isVerified) {
-      const user = auth.currentUser;
-      sendEmailVerification(user, { url: window.location.href })
-        .then(() => {
-          setSent(true);
-          gtag_report_conversion();
-        })
-        .catch((error) => {
-          console.error(error.message);
-        });
-      handleOpenModal();
-    }
-  }, [isVerified]);
-  useEffect(() => {
-    if (!agreedTerms) {
-      handleOpenTerms();
-    }
-  }, [agreedTerms]);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
-      <AgreeTerms
-        openModal={openTerms}
-        setOpenModal={setOpenTerms}
-        userWs={userWs}
-      />
-      <Unverified
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        isAnonymous={isAnonymous}
-        handleOpenSignIn={handleOpenSignIn}
-      />
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>
             <ConversationHeader.Content>
-              <span
-                style={{
-                  alignSelf: "center",
-                  fontSize: "16pt",
-                }}
-              >
-                {isAnonymous ? (
-                  <Button
-                    style={{
-                      border: "2px solid #6ea9d7",
-                      backgroundColor: "#6ea9d7",
-                      color: "#f6fbff",
-                    }}
-                    onClick={handleOpenSignIn}
-                  >
-                    Sign In
-                  </Button>
-                ) : (
-                  <Button
-                    style={{
-                      border: "2px solid #6ea9d7",
-                      backgroundColor: "#6ea9d7",
-                      color: "#f6fbff",
-                    }}
-                    onClick={() => {
-                      signOut(auth);
-                      window.location.reload();
-                    }}
-                  >
-                    Sign Out
-                  </Button>
-                )}
-              </span>
               <span
                 style={{
                   alignSelf: "center",
@@ -228,18 +154,12 @@ export default function ChatRoom({
             fancyScroll={false}
             sendOnReturnDisabled={isMobile}
             onSend={(innerHtml, textContent, innerText, nodes) => {
-              if (!isVerified) {
-                handleOpenModal();
-              } else if (!agreedTerms) {
-                handleOpenTerms();
-              } else {
-                roomWs.send(
-                  JSON.stringify({
-                    command: "send_message",
-                    message: innerText,
-                  })
-                );
-              }
+              roomWs.send(
+                JSON.stringify({
+                  command: "send_message",
+                  message: innerText,
+                })
+              );
             }}
           />
         </ChatContainer>
