@@ -16,6 +16,10 @@ export default function CreateChat({
 }) {
   const [options, setOptions] = useState([]);
   const [question, setQuestion] = useState("");
+  const [questionError, setQuestionError] = useState(false);
+  const [questionErrorText, setQuestionErrorText] = useState("");
+  const [topicError, setTopicError] = useState(false);
+  const [topicErrorText, setTopicErrorText] = useState("");
   const previousController = useRef();
   const handleClose = () => setOpen(false);
 
@@ -80,12 +84,20 @@ export default function CreateChat({
           onSubmit={(event) => {
             event.preventDefault();
             if (!searchInput) {
-              alert("Invalid: no chat topic");
+              setTopicError(true);
+              setTopicErrorText("No chat topic");
+            } else {
+              setTopicError(false);
+              setTopicErrorText("");
             }
             const containsSingleQuestion =
               nlp(question).questions().data().length === 1;
             if (!containsSingleQuestion) {
-              alert("Invalid: ask a single question about the topic");
+              setQuestionError(true);
+              setQuestionErrorText("Ask a single question only");
+            } else {
+              setQuestionError(false);
+              setQuestionErrorText("");
             }
           }}
         >
@@ -105,6 +117,8 @@ export default function CreateChat({
                 {...params}
                 label="Enter chat topic"
                 variant="outlined"
+                error={topicError}
+                helperText={topicErrorText}
               />
             )}
           />
@@ -112,6 +126,8 @@ export default function CreateChat({
             required
             label="Ask a question"
             value={question}
+            error={questionError}
+            helperText={questionErrorText}
             onChange={(e) => {
               setQuestion(e.target.value);
             }}
