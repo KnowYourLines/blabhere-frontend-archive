@@ -7,6 +7,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader } from "@chatscope/chat-ui-kit-react";
 import nlp from "compromise";
+import {
+  RegExpMatcher,
+  englishDataset,
+  englishRecommendedTransformers,
+} from "obscenity";
 
 export default function CreateChat({
   roomWs,
@@ -24,6 +29,11 @@ export default function CreateChat({
   const [topicErrorText, setTopicErrorText] = useState("");
   const previousController = useRef();
   const handleClose = () => setOpen(false);
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers,
+  });
 
   const getData = (searchTerm) => {
     if (previousController.current) {
@@ -97,11 +107,18 @@ export default function CreateChat({
             if (!containsSingleQuestion) {
               setQuestionError(true);
               setQuestionErrorText("Ask a single question only");
+            } else if (matcher.hasMatch(question)) {
+              setQuestionError(true);
+              setQuestionErrorText("Questions cannot contain profanities");
             } else {
               setQuestionError(false);
               setQuestionErrorText("");
             }
-            if (containsSingleQuestion && searchInput) {
+            if (
+              containsSingleQuestion &&
+              searchInput &&
+              !matcher.hasMatch(question)
+            ) {
               setMembers([]);
               setChatHistory([]);
               roomWs.send(
