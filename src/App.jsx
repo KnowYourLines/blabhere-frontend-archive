@@ -11,6 +11,7 @@ import DeleteAccount from "./DeleteAccount.jsx";
 import Block from "./Block.jsx";
 import Report from "./Report.jsx";
 import Members from "./Members.jsx";
+import CreateChat from "./CreateChat.jsx";
 
 export default function App() {
   const [room, setRoom] = useState("");
@@ -46,6 +47,8 @@ export default function App() {
   const handleOpenBlock = () => setOpenBlock(true);
   const [openReport, setOpenReport] = useState(false);
   const handleOpenReport = () => setOpenReport(true);
+  const [openCreateChat, setOpenCreateChat] = useState(false);
+  const handleOpenCreateChat = () => setOpenCreateChat(true);
   const updateNetworkStatus = () => {
     setOnline(navigator.onLine);
   };
@@ -261,6 +264,19 @@ export default function App() {
     );
   }
 
+  if (openCreateChat) {
+    return (
+      <CreateChat
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        setOpen={setOpenCreateChat}
+        setMembers={setMembers}
+        setChatHistory={setChatHistory}
+        roomWs={roomWs}
+      ></CreateChat>
+    );
+  }
+
   if (
     room &&
     roomWs &&
@@ -298,6 +314,7 @@ export default function App() {
         handleOpenConvos={handleOpenConvos}
         handleOpenSignIn={handleOpenSignIn}
         handleOpenDelete={handleOpenDelete}
+        handleOpenCreateChat={handleOpenCreateChat}
         isAnonymous={isAnonymous}
         setMembers={setMembers}
         setChatHistory={setChatHistory}

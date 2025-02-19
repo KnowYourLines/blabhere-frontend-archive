@@ -5,7 +5,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function SearchInput({ roomWs, setSearchInput, searchInput }) {
+export default function SearchInput({
+  roomWs,
+  setSearchInput,
+  searchInput,
+  handleOpenCreateChat,
+}) {
   const [options, setOptions] = useState([]);
   const previousController = useRef();
 
@@ -89,7 +94,7 @@ export default function SearchInput({ roomWs, setSearchInput, searchInput }) {
             color="secondary"
             variant="contained"
             onClick={() => {
-              console.log("hello world");
+              handleOpenCreateChat();
             }}
           >
             Create Chat

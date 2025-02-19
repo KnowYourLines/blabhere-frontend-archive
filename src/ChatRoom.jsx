@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "./firebase.js";
-import { signOut, sendEmailVerification } from "firebase/auth";
+import React from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,

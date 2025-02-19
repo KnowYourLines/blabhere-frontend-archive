@@ -21,6 +21,7 @@ export default function Home({
   handleOpenConvos,
   handleOpenSignIn,
   handleOpenDelete,
+  handleOpenCreateChat,
   isAnonymous,
   isVerified,
   setMembers,
@@ -162,6 +163,7 @@ export default function Home({
                   roomWs={roomWs}
                   searchInput={searchInput}
                   setSearchInput={setSearchInput}
+                  handleOpenCreateChat={handleOpenCreateChat}
                 ></SearchInput>
                 {searchResults !== null && searchResults.length == 0 && (
                   <span
