@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { ConversationHeader } from "@chatscope/chat-ui-kit-react";
+import nlp from "compromise";
 
 export default function CreateChat({
   roomWs,
@@ -14,6 +15,7 @@ export default function CreateChat({
   setOpen,
 }) {
   const [options, setOptions] = useState([]);
+  const [question, setQuestion] = useState("");
   const previousController = useRef();
   const handleClose = () => setOpen(false);
 
@@ -77,6 +79,14 @@ export default function CreateChat({
           autoComplete="off"
           onSubmit={(event) => {
             event.preventDefault();
+            if (!searchInput) {
+              alert("Invalid: no chat topic");
+            }
+            const containsSingleQuestion =
+              nlp(question).questions().data().length === 1;
+            if (!containsSingleQuestion) {
+              alert("Invalid: ask a single question about the topic");
+            }
           }}
         >
           <Autocomplete
@@ -97,6 +107,17 @@ export default function CreateChat({
                 variant="outlined"
               />
             )}
+          />
+          <TextField
+            required
+            label="Ask a question"
+            value={question}
+            onChange={(e) => {
+              setQuestion(e.target.value);
+            }}
+            onFocus={(event) => {
+              event.target.select();
+            }}
           />
           <Button variant="contained" type="submit">
             Start New Chat
