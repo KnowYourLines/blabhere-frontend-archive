@@ -163,13 +163,27 @@ export default function Home({
                   searchInput={searchInput}
                   setSearchInput={setSearchInput}
                 ></SearchInput>
+                {searchResults !== null && searchResults.length == 0 && (
+                  <span
+                    style={{
+                      marginTop: "1%",
+                      color: "black",
+                      fontSize: "16pt",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {"No Chats Found!"}
+                  </span>
+                )}
               </div>
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
       </ConversationHeader>
 
-      {searchResults.length > 0 ? (
+      {searchResults !== null && searchResults.length > 0 ? (
         <SearchResults
           roomWs={roomWs}
           setMembers={setMembers}
