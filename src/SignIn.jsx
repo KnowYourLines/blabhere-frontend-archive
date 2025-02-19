@@ -19,7 +19,11 @@ import Link from "@mui/material/Link";
 export default function SignIn({ setOpen, userWs }) {
   const handleClose = () => setOpen(false);
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorText, setEmailErrorText] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorText, setPasswordErrorText] = useState("");
   const [toggleSignUp, setToggleSignUp] = useState(false);
   const [togglePasswordReset, setTogglePasswordReset] = useState(false);
   const [passwordResetSent, setPasswordResetSent] = useState(false);
@@ -92,16 +96,28 @@ export default function SignIn({ setOpen, userWs }) {
           onSubmit={(event) => {
             event.preventDefault();
             if (!email || !email.trim()) {
-              alert("Invalid: no email entered");
+              setEmailErrorText("No email entered");
+              setEmailError(true);
+            } else {
+              setEmailError(false);
+              setEmailErrorText("");
             }
             if (!toggleSignUp && !togglePasswordReset) {
               if (!password || !password.trim()) {
-                alert("Invalid: no password entered");
+                setPasswordErrorText("No password entered");
+                setPasswordError(true);
+              } else {
+                setPasswordError(false);
+                setPasswordErrorText("");
               }
               signIn();
             } else if (toggleSignUp && !togglePasswordReset) {
               if (!password || !password.trim()) {
-                alert("Invalid: no password entered");
+                setPasswordErrorText("No password entered");
+                setPasswordError(true);
+              } else {
+                setPasswordError(false);
+                setPasswordErrorText("");
               }
               if (!checked) {
                 alert(
@@ -129,11 +145,14 @@ export default function SignIn({ setOpen, userWs }) {
             onFocus={(event) => {
               event.target.select();
             }}
-            error={togglePasswordReset && !toggleSignUp && passwordResetSent}
+            error={
+              (togglePasswordReset && !toggleSignUp && passwordResetSent) ||
+              emailError
+            }
             helperText={
               togglePasswordReset && !toggleSignUp && passwordResetSent
                 ? "Check your email inbox or spam to reset your password."
-                : ""
+                : emailErrorText
             }
           />
           {!togglePasswordReset && (
@@ -142,6 +161,8 @@ export default function SignIn({ setOpen, userWs }) {
               label="Password"
               type="password"
               value={password}
+              error={passwordError}
+              helperText={passwordErrorText}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}

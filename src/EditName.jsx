@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 
 export default function EditName({ setOpen, oldName, ws, title }) {
   const [newName, setNewName] = useState(oldName);
+  const [nameError, setNameError] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -40,7 +42,8 @@ export default function EditName({ setOpen, oldName, ws, title }) {
           onSubmit={(event) => {
             event.preventDefault();
             if (!newName || !newName.trim()) {
-              alert("Invalid: no name entered");
+              setNameError(true);
+              setErrorText("No name entered");
             } else {
               ws.send(
                 JSON.stringify({
@@ -54,6 +57,8 @@ export default function EditName({ setOpen, oldName, ws, title }) {
         >
           <TextField
             required
+            error={nameError}
+            helperText={errorText}
             id="outlined-required"
             label="Required"
             value={newName}
