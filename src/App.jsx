@@ -30,6 +30,7 @@ export default function App() {
   const [popularTopics, setPopularTopics] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
+  const [searchInput, setSearchInput] = useState(null);
   const [openYourName, setOpenYourName] = useState(false);
   const handleOpenYourName = () => setOpenYourName(true);
   const [openMembers, setOpenMembers] = useState(false);
@@ -72,6 +73,9 @@ export default function App() {
       if ("popular_topics" in data) {
         setPopularTopics(data.popular_topics);
       } else if ("search_results" in data) {
+        if (data.search_results.length == 0) {
+          alert("No chats found");
+        }
         setSearchResults(data.search_results);
       } else if ("members" in data) {
         setMembers(data.members);
@@ -305,6 +309,8 @@ export default function App() {
         searchResults={searchResults}
         setSearchResults={setSearchResults}
         popularTopics={popularTopics}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
       ></Home>
     );
   }

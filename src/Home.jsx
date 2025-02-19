@@ -31,8 +31,9 @@ export default function Home({
   searchResults,
   setSearchResults,
   popularTopics,
+  searchInput,
+  setSearchInput,
 }) {
-  const [searchInput, setSearchInput] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const [openTerms, setOpenTerms] = useState(false);

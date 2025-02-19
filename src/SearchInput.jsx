@@ -81,9 +81,20 @@ export default function SearchInput({ roomWs, setSearchInput, searchInput }) {
             />
           )}
         />
-        <Button variant="contained" type="submit">
-          Search Chats
-        </Button>
+        <Stack justifyContent="center" spacing="2%" direction="row">
+          <Button variant="contained" type="submit">
+            Search Chats
+          </Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => {
+              console.log("hello world");
+            }}
+          >
+            Create Chat
+          </Button>
+        </Stack>
       </Stack>
     </Box>
   );
