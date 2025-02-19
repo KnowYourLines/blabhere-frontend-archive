@@ -156,7 +156,7 @@ export default function Home({
           <OutlinedCard
             cardContent={
               <div>
-                <Typography variant="h2" component="div">
+                <Typography variant="h3" component="div">
                   {"BlabHere"}
                 </Typography>
                 <SearchInput
