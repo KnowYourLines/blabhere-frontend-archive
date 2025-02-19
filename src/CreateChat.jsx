@@ -13,6 +13,8 @@ export default function CreateChat({
   setSearchInput,
   searchInput,
   setOpen,
+  setMembers,
+  setChatHistory,
 }) {
   const [options, setOptions] = useState([]);
   const [question, setQuestion] = useState("");
@@ -98,6 +100,18 @@ export default function CreateChat({
             } else {
               setQuestionError(false);
               setQuestionErrorText("");
+            }
+            if (containsSingleQuestion && searchInput) {
+              setMembers([]);
+              setChatHistory([]);
+              roomWs.send(
+                JSON.stringify({
+                  command: "create_room",
+                  question: question,
+                  topic: searchInput,
+                })
+              );
+              handleClose();
             }
           }}
         >
