@@ -75,8 +75,8 @@ export default function App() {
         setSearchResults(data.search_results);
       } else if ("members" in data) {
         setMembers(data.members);
-      } else if ("display_name" in data) {
-        setRoomName(data.display_name);
+      } else if ("question" in data) {
+        setRoomName(data.question);
       } else if ("new_message" in data) {
         setChatHistory((oldChatHistory) => {
           const newMessage = data.new_message;

@@ -77,7 +77,7 @@ export default function Conversations({
           >
             <Conversation.Content
               lastSenderName={convo.latest_message__creator__display_name}
-              name={convo.room__display_name}
+              name={convo.room__question}
               info={convo.latest_message__content}
               onClick={() => {
                 const newRoom = convo.room__id;

@@ -63,7 +63,7 @@ export default function SearchResults({
                 color: "blue",
               }}
             >
-              {room.display_name}
+              {room.question}
             </span>
           </Conversation.Content>
         </Conversation>
