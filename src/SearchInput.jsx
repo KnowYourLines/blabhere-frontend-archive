@@ -10,6 +10,10 @@ export default function SearchInput({
   setSearchInput,
   searchInput,
   handleOpenCreateChat,
+  searchResultsError,
+  searchResultsErrorText,
+  setSearchResultsError,
+  setSearchResultsErrorText,
 }) {
   const [options, setOptions] = useState([]);
   const previousController = useRef();
@@ -59,6 +63,13 @@ export default function SearchInput({
         autoComplete="off"
         onSubmit={(event) => {
           event.preventDefault();
+          if (!searchInput) {
+            setSearchResultsError(true);
+            setSearchResultsErrorText("No chat topic");
+          } else {
+            setSearchResultsError(false);
+            setSearchResultsErrorText("");
+          }
           roomWs.send(
             JSON.stringify({
               command: "find_rooms",
@@ -83,6 +94,8 @@ export default function SearchInput({
               {...params}
               label="Enter chat topic"
               variant="outlined"
+              error={searchResultsError}
+              helperText={searchResultsErrorText}
             />
           )}
         />

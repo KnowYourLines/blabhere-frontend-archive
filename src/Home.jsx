@@ -34,6 +34,10 @@ export default function Home({
   popularTopics,
   searchInput,
   setSearchInput,
+  searchResultsError,
+  searchResultsErrorText,
+  setSearchResultsError,
+  setSearchResultsErrorText,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -164,28 +168,18 @@ export default function Home({
                   searchInput={searchInput}
                   setSearchInput={setSearchInput}
                   handleOpenCreateChat={handleOpenCreateChat}
+                  searchResultsError={searchResultsError}
+                  searchResultsErrorText={searchResultsErrorText}
+                  setSearchResultsError={setSearchResultsError}
+                  setSearchResultsErrorText={setSearchResultsErrorText}
                 ></SearchInput>
-                {searchResults !== null && searchResults.length == 0 && (
-                  <span
-                    style={{
-                      marginTop: "1%",
-                      color: "black",
-                      fontSize: "16pt",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {"No Chats Found!"}
-                  </span>
-                )}
               </div>
             }
           ></OutlinedCard>
         </ConversationHeader.Content>
       </ConversationHeader>
 
-      {searchResults !== null && searchResults.length > 0 ? (
+      {searchResults.length > 0 ? (
         <SearchResults
           roomWs={roomWs}
           setMembers={setMembers}
@@ -214,6 +208,8 @@ export default function Home({
             <Conversation
               key={topic.id}
               onClick={() => {
+                setSearchResultsError(false);
+                setSearchResultsErrorText("");
                 setSearchInput(topic.name);
                 roomWs.send(
                   JSON.stringify({

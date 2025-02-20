@@ -27,7 +27,9 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [members, setMembers] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchResultsError, setSearchResultsError] = useState(false);
+  const [searchResultsErrorText, setSearchResultsErrorText] = useState("");
   const [popularTopics, setPopularTopics] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
@@ -76,6 +78,13 @@ export default function App() {
       if ("popular_topics" in data) {
         setPopularTopics(data.popular_topics);
       } else if ("search_results" in data) {
+        if (data.search_results.length == 0) {
+          setSearchResultsError(true);
+          setSearchResultsErrorText("No chats found");
+        } else {
+          setSearchResultsError(false);
+          setSearchResultsError("");
+        }
         setSearchResults(data.search_results);
       } else if ("members" in data) {
         setMembers(data.members);
@@ -322,6 +331,10 @@ export default function App() {
         userWs={userWs}
         searchResults={searchResults}
         setSearchResults={setSearchResults}
+        searchResultsError={searchResultsError}
+        searchResultsErrorText={searchResultsErrorText}
+        setSearchResultsError={setSearchResultsError}
+        setSearchResultsErrorText={setSearchResultsErrorText}
         popularTopics={popularTopics}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
