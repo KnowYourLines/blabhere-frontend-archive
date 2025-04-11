@@ -14,6 +14,7 @@ export default function SearchInput({
   searchResultsErrorText,
   setSearchResultsError,
   setSearchResultsErrorText,
+  setSearchResults,
 }) {
   const [options, setOptions] = useState([]);
   const previousController = useRef();
@@ -66,6 +67,7 @@ export default function SearchInput({
           if (!searchInput) {
             setSearchResultsError(true);
             setSearchResultsErrorText("No chat topic");
+            setSearchResults([]);
           } else {
             setSearchResultsError(false);
             setSearchResultsErrorText("");

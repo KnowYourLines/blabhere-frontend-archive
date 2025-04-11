@@ -172,6 +172,7 @@ export default function Home({
                   searchResultsErrorText={searchResultsErrorText}
                   setSearchResultsError={setSearchResultsError}
                   setSearchResultsErrorText={setSearchResultsErrorText}
+                  setSearchResults={setSearchResults}
                 ></SearchInput>
               </div>
             }
