@@ -17,7 +17,6 @@ import {
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
-import Linkify from "react-linkify";
 import { isMobile } from "react-device-detect";
 
 export default function ChatRoom({
@@ -112,27 +111,12 @@ export default function ChatRoom({
               <Message
                 key={msg.id}
                 model={{
+                  message: msg.content,
                   position: "last",
                   direction:
                     username == msg.creator_username ? "outgoing" : "incoming",
                 }}
               >
-                <Message.CustomContent>
-                  <Linkify
-                    componentDecorator={(decoratedHref, decoratedText, key) => (
-                      <a
-                        target="blank"
-                        rel="noopener"
-                        href={decoratedHref}
-                        key={key}
-                      >
-                        {decoratedText}
-                      </a>
-                    )}
-                  >
-                    {msg.content}
-                  </Linkify>
-                </Message.CustomContent>
                 <Message.Header>
                   <b>{msg.creator_display_name}</b>
                 </Message.Header>
