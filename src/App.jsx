@@ -306,6 +306,7 @@ export default function App() {
         roomWs={roomWs}
         roomName={roomName}
         setRoom={setRoom}
+        setSearchResults={setSearchResults}
       ></ChatRoom>
     );
   }

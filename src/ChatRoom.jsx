@@ -30,6 +30,7 @@ export default function ChatRoom({
   username,
   roomName,
   setRoom,
+  setSearchResults,
 }) {
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
@@ -73,6 +74,7 @@ export default function ChatRoom({
                       icon={faHome}
                       onClick={() => {
                         setRoom("");
+                        setSearchResults([]);
                       }}
                     />
                   }
