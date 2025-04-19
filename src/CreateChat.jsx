@@ -21,13 +21,8 @@ export default function CreateChat({
   setMembers,
   setChatHistory,
 }) {
-  const [options, setOptions] = useState([]);
-  const [question, setQuestion] = useState("");
   const [questionError, setQuestionError] = useState(false);
   const [questionErrorText, setQuestionErrorText] = useState("");
-  const [topicError, setTopicError] = useState(false);
-  const [topicErrorText, setTopicErrorText] = useState("");
-  const previousController = useRef();
   const handleClose = () => setOpen(false);
 
   const matcher = new RegExpMatcher({
@@ -35,41 +30,6 @@ export default function CreateChat({
     ...englishRecommendedTransformers,
   });
 
-  const getData = (searchTerm) => {
-    if (previousController.current) {
-      previousController.current.abort();
-    }
-    const controller = new AbortController();
-    const signal = controller.signal;
-    previousController.current = controller;
-    fetch("https://api.datamuse.com/sug?v=enwiki&s=" + searchTerm, {
-      signal,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (myJson) {
-        const updatedOptions = myJson.map((p) => {
-          return p.word;
-        });
-        setOptions(updatedOptions);
-      })
-      .catch(function (e) {
-        console.log(e.message);
-      });
-  };
-
-  const onInputChange = (event, value, reason) => {
-    if (value && reason === "input") {
-      getData(value);
-    } else {
-      setOptions([]);
-    }
-  };
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
@@ -96,18 +56,18 @@ export default function CreateChat({
           onSubmit={(event) => {
             event.preventDefault();
             if (!searchInput) {
-              setTopicError(true);
-              setTopicErrorText("No chat topic");
+              setQuestionError(true);
+              setQuestionErrorText("No chat question");
             } else {
-              setTopicError(false);
-              setTopicErrorText("");
+              setQuestionError(false);
+              setQuestionErrorText("");
             }
             const containsSingleQuestion =
-              nlp(question).questions().data().length === 1;
+              nlp(searchInput).questions().data().length === 1;
             if (!containsSingleQuestion) {
               setQuestionError(true);
               setQuestionErrorText("Ask a single question only");
-            } else if (matcher.hasMatch(question)) {
+            } else if (matcher.hasMatch(searchInput)) {
               setQuestionError(true);
               setQuestionErrorText("Questions cannot contain profanities");
             } else {
@@ -117,50 +77,28 @@ export default function CreateChat({
             if (
               containsSingleQuestion &&
               searchInput &&
-              !matcher.hasMatch(question)
+              !matcher.hasMatch(searchInput)
             ) {
               setMembers([]);
               setChatHistory([]);
               roomWs.send(
                 JSON.stringify({
                   command: "create_room",
-                  question: question,
-                  topic: searchInput,
+                  question: searchInput,
                 })
               );
               handleClose();
             }
           }}
         >
-          <Autocomplete
-            onChange={(event, newValue) => {
-              setSearchInput(newValue);
-            }}
-            value={searchInput}
-            noOptionsText={"No topics found"}
-            options={options}
-            onInputChange={onInputChange}
-            filterOptions={(options) => options}
-            getOptionLabel={(option) => option}
-            style={{ width: "100%" }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Enter chat topic"
-                variant="outlined"
-                error={topicError}
-                helperText={topicErrorText}
-              />
-            )}
-          />
           <TextField
             required
             label="Ask a question"
-            value={question}
+            value={searchInput}
             error={questionError}
             helperText={questionErrorText}
             onChange={(e) => {
-              setQuestion(e.target.value);
+              setSearchInput(e.target.value);
             }}
             onFocus={(event) => {
               event.target.select();

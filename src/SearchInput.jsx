@@ -66,7 +66,7 @@ export default function SearchInput({
           event.preventDefault();
           if (!searchInput) {
             setSearchResultsError(true);
-            setSearchResultsErrorText("No chat topic");
+            setSearchResultsErrorText("No chat question");
             setSearchResults([]);
           } else {
             setSearchResultsError(false);
@@ -75,7 +75,7 @@ export default function SearchInput({
           roomWs.send(
             JSON.stringify({
               command: "find_rooms",
-              topic: searchInput,
+              question: searchInput,
             })
           );
         }}
@@ -85,7 +85,7 @@ export default function SearchInput({
             setSearchInput(newValue);
           }}
           value={searchInput}
-          noOptionsText={"No topics found"}
+          noOptionsText={"No questions found"}
           options={options}
           onInputChange={onInputChange}
           filterOptions={(options) => options}
@@ -94,7 +94,7 @@ export default function SearchInput({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Enter chat topic"
+              label="Ask a question"
               variant="outlined"
               error={searchResultsError}
               helperText={searchResultsErrorText}
