@@ -30,7 +30,7 @@ export default function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [searchResultsError, setSearchResultsError] = useState(false);
   const [searchResultsErrorText, setSearchResultsErrorText] = useState("");
-  const [popularTopics, setPopularTopics] = useState([]);
+  const [activeQuestions, setActiveQuestions] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [searchInput, setSearchInput] = useState(null);
@@ -75,8 +75,8 @@ export default function App() {
     };
     roomWs.onmessage = (message) => {
       const data = JSON.parse(message.data);
-      if ("popular_topics" in data) {
-        setPopularTopics(data.popular_topics);
+      if ("active_questions" in data) {
+        setActiveQuestions(data.active_questions);
       } else if ("search_results" in data) {
         if (data.search_results.length == 0) {
           setSearchResultsError(true);
@@ -336,7 +336,7 @@ export default function App() {
         searchResultsErrorText={searchResultsErrorText}
         setSearchResultsError={setSearchResultsError}
         setSearchResultsErrorText={setSearchResultsErrorText}
-        popularTopics={popularTopics}
+        activeQuestions={activeQuestions}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       ></Home>

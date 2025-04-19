@@ -31,7 +31,7 @@ export default function Home({
   userWs,
   searchResults,
   setSearchResults,
-  popularTopics,
+  activeQuestions,
   searchInput,
   setSearchInput,
   searchResultsError,
@@ -66,7 +66,7 @@ export default function Home({
   useEffect(() => {
     roomWs.send(
       JSON.stringify({
-        command: "find_popular_topics",
+        command: "find_active_questions",
       })
     );
   }, []);
@@ -203,19 +203,22 @@ export default function Home({
               alignItems: "center",
             }}
           >
-            {"Active Topics"}
+            {"Active Questions"}
           </span>
-          {popularTopics.map((topic, i) => (
+          {activeQuestions.map((room, i) => (
             <Conversation
-              key={topic.id}
+              key={room.id}
               onClick={() => {
                 setSearchResultsError(false);
                 setSearchResultsErrorText("");
-                setSearchInput(topic.name);
+                setSearchInput("");
+                setMembers([]);
+                setChatHistory([]);
+                setSearchResults([]);
                 roomWs.send(
                   JSON.stringify({
-                    command: "find_rooms",
-                    topic: topic.name,
+                    command: "connect",
+                    room: room.id,
                   })
                 );
               }}
@@ -229,7 +232,7 @@ export default function Home({
                     color: "blue",
                   }}
                 >
-                  {topic.name}
+                  {room.question}
                 </span>
               </Conversation.Content>
             </Conversation>
