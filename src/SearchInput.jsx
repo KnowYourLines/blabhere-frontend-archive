@@ -28,7 +28,6 @@ export default function SearchInput({
   };
 
   const onInputChange = (event, value, reason) => {
-    setSuggestedQuestions([]);
     if (value && reason === "input") {
       setSearchInput(value);
       getData(value);

@@ -121,7 +121,6 @@ export default function App() {
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
       } else if ("suggested_questions" in data) {
-        console.log(data)
         setSuggestedQuestions(data.suggested_questions);
       }
     };
