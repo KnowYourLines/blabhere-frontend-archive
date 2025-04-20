@@ -38,6 +38,8 @@ export default function Home({
   searchResultsErrorText,
   setSearchResultsError,
   setSearchResultsErrorText,
+  suggestedQuestions,
+  setSuggestedQuestions,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -173,6 +175,8 @@ export default function Home({
                   setSearchResultsError={setSearchResultsError}
                   setSearchResultsErrorText={setSearchResultsErrorText}
                   setSearchResults={setSearchResults}
+                  suggestedQuestions={suggestedQuestions}
+                  setSuggestedQuestions={setSuggestedQuestions}
                 ></SearchInput>
               </div>
             }

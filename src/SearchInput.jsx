@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -15,44 +15,23 @@ export default function SearchInput({
   setSearchResultsError,
   setSearchResultsErrorText,
   setSearchResults,
+  suggestedQuestions,
+  setSuggestedQuestions,
 }) {
-  const [options, setOptions] = useState([]);
-  const previousController = useRef();
-
   const getData = (searchTerm) => {
-    if (previousController.current) {
-      previousController.current.abort();
-    }
-    const controller = new AbortController();
-    const signal = controller.signal;
-    previousController.current = controller;
-    fetch("https://api.datamuse.com/sug?v=enwiki&s=" + searchTerm, {
-      signal,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        return response.json();
+    roomWs.send(
+      JSON.stringify({
+        command: "suggest_questions",
+        question: searchTerm,
       })
-      .then(function (myJson) {
-        const updatedOptions = myJson.map((p) => {
-          return p.word;
-        });
-        setOptions(updatedOptions);
-      })
-      .catch(function (e) {
-        console.log(e.message);
-      });
+    );
   };
 
   const onInputChange = (event, value, reason) => {
+    setSuggestedQuestions([]);
     if (value && reason === "input") {
       setSearchInput(value);
       getData(value);
-    } else {
-      setOptions([]);
     }
   };
   return (
@@ -88,7 +67,7 @@ export default function SearchInput({
           }}
           value={searchInput}
           noOptionsText={"No questions found"}
-          options={options}
+          options={suggestedQuestions}
           onInputChange={onInputChange}
           filterOptions={(options) => options}
           getOptionLabel={(option) => option}

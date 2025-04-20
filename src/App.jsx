@@ -31,6 +31,7 @@ export default function App() {
   const [searchResultsError, setSearchResultsError] = useState(false);
   const [searchResultsErrorText, setSearchResultsErrorText] = useState("");
   const [activeQuestions, setActiveQuestions] = useState([]);
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]);
   const [roomWs, setRoomWs] = useState(null);
   const [userWs, setUserWs] = useState(null);
   const [searchInput, setSearchInput] = useState(null);
@@ -119,6 +120,9 @@ export default function App() {
         setRoom(data.room);
       } else if ("display_name" in data) {
         setRoomName(data.display_name);
+      } else if ("suggested_questions" in data) {
+        console.log(data)
+        setSuggestedQuestions(data.suggested_questions);
       }
     };
     roomWs.onerror = (e) => {
@@ -337,6 +341,8 @@ export default function App() {
         activeQuestions={activeQuestions}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
+        setSuggestedQuestions={setSuggestedQuestions}
+        suggestedQuestions={suggestedQuestions}
       ></Home>
     );
   }
