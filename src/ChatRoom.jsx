@@ -41,6 +41,7 @@ export default function ChatRoom({
               <span
                 style={{
                   alignSelf: "center",
+                  textAlign: "center",
                   color: "#6ea9d7",
                   marginTop: "1%",
                   fontSize: "16pt",

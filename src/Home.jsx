@@ -234,6 +234,7 @@ export default function Home({
                     justifyContent: "center",
                     alignItems: "center",
                     color: "blue",
+                    textAlign: "center",
                   }}
                 >
                   {room.question}

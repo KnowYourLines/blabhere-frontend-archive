@@ -6,11 +6,22 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function EditName({ setOpen, oldName, ws, title }) {
+export default function EditName({
+  setOpen,
+  oldName,
+  ws,
+  title,
+  nameError,
+  errorText,
+  setNameError,
+  setErrorText,
+}) {
   const [newName, setNewName] = useState(oldName);
-  const [nameError, setNameError] = useState(false);
-  const [errorText, setErrorText] = useState("");
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setNameError(false);
+    setErrorText("");
+    setOpen(false);
+  };
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <ConversationHeader>
@@ -44,6 +55,9 @@ export default function EditName({ setOpen, oldName, ws, title }) {
             if (!newName || !newName.trim()) {
               setNameError(true);
               setErrorText("No name entered");
+            } else if (newName.length >= 35) {
+              setNameError(true);
+              setErrorText("New name must be 35 characters or less");
             } else {
               ws.send(
                 JSON.stringify({
@@ -51,7 +65,6 @@ export default function EditName({ setOpen, oldName, ws, title }) {
                   new_display_name: newName,
                 })
               );
-              handleClose();
             }
           }}
         >

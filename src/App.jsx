@@ -36,6 +36,8 @@ export default function App() {
   const [userWs, setUserWs] = useState(null);
   const [searchInput, setSearchInput] = useState(null);
   const [openYourName, setOpenYourName] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [nameErrorText, setNameErrorText] = useState("");
   const handleOpenYourName = () => setOpenYourName(true);
   const [openMembers, setOpenMembers] = useState(false);
   const handleOpenMembers = () => setOpenMembers(true);
@@ -155,10 +157,16 @@ export default function App() {
       const data = JSON.parse(message.data);
       if ("display_name" in data) {
         setYourName(data.display_name);
+        setNameError(false);
+        setNameErrorText("");
+        setOpenYourName(false);
       } else if ("conversations" in data) {
         setConversations(data.conversations);
       } else if ("display_name_taken" in data) {
-        alert(`Sorry! ${data.display_name_taken} is another user's name`);
+        setNameError(true);
+        setNameErrorText(
+          `Sorry! ${data.display_name_taken} is another user's name`
+        );
       } else if ("agreed_terms" in data) {
         setAgreedTerms(data.agreed_terms);
       }
@@ -211,6 +219,10 @@ export default function App() {
         oldName={yourName}
         ws={userWs}
         title={"Your New Name"}
+        nameError={nameError}
+        setNameError={setNameError}
+        errorText={nameErrorText}
+        setErrorText={setNameErrorText}
       ></EditName>
     );
   }
