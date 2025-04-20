@@ -49,6 +49,7 @@ export default function SearchInput({
 
   const onInputChange = (event, value, reason) => {
     if (value && reason === "input") {
+      setSearchInput(value);
       getData(value);
     } else {
       setOptions([]);
@@ -81,6 +82,7 @@ export default function SearchInput({
         }}
       >
         <Autocomplete
+          freeSolo
           onChange={(event, newValue) => {
             setSearchInput(newValue);
           }}
