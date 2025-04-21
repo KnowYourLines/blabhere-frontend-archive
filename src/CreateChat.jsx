@@ -66,7 +66,7 @@ export default function CreateChat({
               nlp(searchInput).questions().data().length === 1;
             if (!containsSingleQuestion) {
               setQuestionError(true);
-              setQuestionErrorText("Ask a single question only");
+              setQuestionErrorText("Ask one question only to start");
             } else if (matcher.hasMatch(searchInput)) {
               setQuestionError(true);
               setQuestionErrorText("Questions cannot contain profanities");

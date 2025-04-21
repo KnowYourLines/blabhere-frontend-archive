@@ -31,6 +31,8 @@ export default function SearchInput({
     if (value && reason === "input") {
       setSearchInput(value);
       getData(value);
+    } else {
+      setSuggestedQuestions([]);
     }
   };
   return (
@@ -74,7 +76,7 @@ export default function SearchInput({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Find chats about"
+              label="Chat about"
               variant="outlined"
               error={searchResultsError}
               helperText={searchResultsErrorText}
