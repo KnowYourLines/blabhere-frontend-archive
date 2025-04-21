@@ -45,7 +45,7 @@ export default function SearchInput({
           event.preventDefault();
           if (!searchInput) {
             setSearchResultsError(true);
-            setSearchResultsErrorText("No chat question");
+            setSearchResultsErrorText("Enter your query");
             setSearchResults([]);
           } else {
             setSearchResultsError(false);
@@ -74,7 +74,7 @@ export default function SearchInput({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Find questions about"
+              label="Find chats questioning"
               variant="outlined"
               error={searchResultsError}
               helperText={searchResultsErrorText}
