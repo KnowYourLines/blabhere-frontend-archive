@@ -74,7 +74,7 @@ export default function SearchInput({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Ask a question"
+              label="Find questions about"
               variant="outlined"
               error={searchResultsError}
               helperText={searchResultsErrorText}
