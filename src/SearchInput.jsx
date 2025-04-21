@@ -47,7 +47,7 @@ export default function SearchInput({
           event.preventDefault();
           if (!searchInput) {
             setSearchResultsError(true);
-            setSearchResultsErrorText("Enter your query");
+            setSearchResultsErrorText("No query entered");
             setSearchResults([]);
           } else {
             setSearchResultsError(false);
