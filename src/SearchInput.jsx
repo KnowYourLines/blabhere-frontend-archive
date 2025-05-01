@@ -17,6 +17,7 @@ export default function SearchInput({
   setSearchResults,
   suggestedQuestions,
   setSuggestedQuestions,
+  isVerified,
 }) {
   const getData = (searchTerm) => {
     roomWs.send(
@@ -87,15 +88,17 @@ export default function SearchInput({
           <Button variant="contained" type="submit">
             Search Chats
           </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={() => {
-              handleOpenCreateChat();
-            }}
-          >
-            Create Chat
-          </Button>
+          {isVerified && (
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => {
+                handleOpenCreateChat();
+              }}
+            >
+              Create Chat
+            </Button>
+          )}
         </Stack>
       </Stack>
     </Box>

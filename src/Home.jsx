@@ -177,6 +177,7 @@ export default function Home({
                   setSearchResults={setSearchResults}
                   suggestedQuestions={suggestedQuestions}
                   setSuggestedQuestions={setSuggestedQuestions}
+                  isVerified={isVerified}
                 ></SearchInput>
               </div>
             }
