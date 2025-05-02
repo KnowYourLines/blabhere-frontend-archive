@@ -60,12 +60,10 @@ export default function Home({
       }
       handleOpenModal();
     }
-  }, [isVerified]);
-  useEffect(() => {
-    if (!agreedTerms) {
+    if (!agreedTerms && isVerified) {
       handleOpenTerms();
     }
-  }, [agreedTerms]);
+  }, [agreedTerms, isVerified]);
 
   useEffect(() => {
     roomWs.send(
