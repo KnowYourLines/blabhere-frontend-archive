@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
+import { Typography } from "@mui/material";
 
 export default function SignIn({ setOpen, userWs }) {
   const handleClose = () => setOpen(false);
@@ -28,6 +29,7 @@ export default function SignIn({ setOpen, userWs }) {
   const [togglePasswordReset, setTogglePasswordReset] = useState(false);
   const [passwordResetSent, setPasswordResetSent] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [checkedColour, setCheckedColour] = useState(undefined);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -39,7 +41,7 @@ export default function SignIn({ setOpen, userWs }) {
         window.location.reload();
       })
       .catch((error) => {
-        alert(error.message);
+        console.error(error.message);
       });
   };
 
@@ -51,7 +53,7 @@ export default function SignIn({ setOpen, userWs }) {
         window.location.reload();
       })
       .catch((error) => {
-        alert(error.message);
+        console.error(error.message);
       });
   };
   const resetPassword = () => {
@@ -60,7 +62,7 @@ export default function SignIn({ setOpen, userWs }) {
         setPasswordResetSent(true);
       })
       .catch((error) => {
-        alert(error.message);
+        console.error(error.message);
       });
   };
   return (
@@ -109,8 +111,8 @@ export default function SignIn({ setOpen, userWs }) {
               } else {
                 setPasswordError(false);
                 setPasswordErrorText("");
+                signIn();
               }
-              signIn();
             } else if (toggleSignUp && !togglePasswordReset) {
               if (!password || !password.trim()) {
                 setPasswordErrorText("No password entered");
@@ -120,16 +122,16 @@ export default function SignIn({ setOpen, userWs }) {
                 setPasswordErrorText("");
               }
               if (!checked) {
-                alert(
-                  "You must read and agree to the terms & conditions and privacy policy"
+                setCheckedColour("error");
+              } else {
+                setCheckedColour(undefined);
+                userWs.send(
+                  JSON.stringify({
+                    command: "agree_terms",
+                  })
                 );
+                signUp();
               }
-              userWs.send(
-                JSON.stringify({
-                  command: "agree_terms",
-                })
-              );
-              signUp();
             } else if (togglePasswordReset && !toggleSignUp) {
               resetPassword();
             }
@@ -178,12 +180,16 @@ export default function SignIn({ setOpen, userWs }) {
                   checked={checked}
                   onChange={handleChange}
                   inputProps={{ "aria-label": "controlled" }}
+                  sx={{
+                    color: checkedColour && "red",
+                  }}
                 />
               }
               label={
-                <p>
+                <Typography color={checkedColour}>
                   {"I have read and agree to the "}
                   <Link
+                    color={checkedColour}
                     target="_blank"
                     rel="noopener"
                     href="https://blabhere-backend.onrender.com/terms/"
@@ -192,13 +198,14 @@ export default function SignIn({ setOpen, userWs }) {
                   </Link>
                   {" and "}
                   <Link
+                    color={checkedColour}
                     target="_blank"
                     rel="noopener"
                     href="https://blabhere-backend.onrender.com/privacy/"
                   >
                     privacy policy
                   </Link>
-                </p>
+                </Typography>
               }
             />
           )}
