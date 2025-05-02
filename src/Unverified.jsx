@@ -77,7 +77,7 @@ export default function Unverified({
               align="center"
             >
               {isAnonymous
-                ? "Only users with verified emails can join chats"
+                ? "Only users with verified emails can create and join chats"
                 : "Check your email inbox or spam"}
             </Typography>
             <Button variant="contained" type="submit">
