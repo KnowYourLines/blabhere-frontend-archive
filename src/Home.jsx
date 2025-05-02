@@ -49,13 +49,15 @@ export default function Home({
   useEffect(() => {
     if (!isVerified) {
       const user = auth.currentUser;
-      sendEmailVerification(user, { url: window.location.href })
-        .then(() => {
-          gtag_report_conversion();
-        })
-        .catch((error) => {
-          console.error(error.message);
-        });
+      if (user.email) {
+        sendEmailVerification(user, { url: window.location.href })
+          .then(() => {
+            gtag_report_conversion();
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      }
       handleOpenModal();
     }
   }, [isVerified]);
