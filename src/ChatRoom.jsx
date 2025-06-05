@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import { isMobile } from "react-device-detect";
+import nlp from "compromise";
 
 export default function ChatRoom({
   handleOpenConvos,
@@ -32,6 +33,8 @@ export default function ChatRoom({
   setRoom,
   setSearchResults,
 }) {
+  const [msgError, setMsgError] = useState(false);
+  const [msgErrorText, setMsgErrorText] = useState("");
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>
@@ -132,19 +135,31 @@ export default function ChatRoom({
             ))}
           </MessageList>
           <MessageInput
-            style={{ fontSize: "18px" }}
+            style={{
+              fontSize: "18px",
+              backgroundColor: msgError ? "red" : null,
+            }}
             disabled={!isOnline}
-            placeholder="Type message here"
+            placeholder={msgError ? msgErrorText : "Type message here"}
             attachButton={false}
             fancyScroll={false}
             sendOnReturnDisabled={isMobile}
             onSend={(innerHtml, textContent, innerText, nodes) => {
-              roomWs.send(
-                JSON.stringify({
-                  command: "send_message",
-                  message: innerText,
-                })
-              );
+              const containsSingleQuestion =
+                nlp(innerText).questions().data().length === 1;
+              if (!containsSingleQuestion) {
+                setMsgError(true);
+                setMsgErrorText("Messages can only be a single question");
+              } else {
+                setMsgError(false);
+                setMsgErrorText("");
+                roomWs.send(
+                  JSON.stringify({
+                    command: "send_message",
+                    message: innerText,
+                  })
+                );
+              }
             }}
           />
         </ChatContainer>
