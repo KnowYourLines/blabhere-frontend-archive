@@ -62,7 +62,8 @@ export default function CreateChat({
               setQuestionErrorText("");
             }
             const containsSingleQuestion =
-              nlp(searchInput).questions().data().length === 1;
+              nlp(searchInput).questions().data().length === 1 &&
+              nlp(searchInput).length === 1;
             if (!containsSingleQuestion) {
               setQuestionError(true);
               setQuestionErrorText("Ask one question only to start");

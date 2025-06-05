@@ -146,10 +146,11 @@ export default function ChatRoom({
             sendOnReturnDisabled={isMobile}
             onSend={(innerHtml, textContent, innerText, nodes) => {
               const containsSingleQuestion =
-                nlp(innerText).questions().data().length === 1;
+                nlp(innerText).questions().data().length === 1 &&
+                nlp(innerText).length === 1;
               if (!containsSingleQuestion) {
                 setMsgError(true);
-                setMsgErrorText("Message must contain a single question");
+                setMsgErrorText("Message must be a single question");
               } else {
                 setMsgError(false);
                 setMsgErrorText("");
