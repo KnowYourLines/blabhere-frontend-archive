@@ -149,7 +149,7 @@ export default function ChatRoom({
                 nlp(innerText).questions().data().length === 1;
               if (!containsSingleQuestion) {
                 setMsgError(true);
-                setMsgErrorText("Messages can only be a single question");
+                setMsgErrorText("Messages must be a single question");
               } else {
                 setMsgError(false);
                 setMsgErrorText("");
