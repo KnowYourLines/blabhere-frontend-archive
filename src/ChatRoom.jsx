@@ -19,6 +19,11 @@ import {
 import Moment from "react-moment";
 import { isMobile } from "react-device-detect";
 import nlp from "compromise";
+import {
+  RegExpMatcher,
+  englishDataset,
+  englishRecommendedTransformers,
+} from "obscenity";
 
 export default function ChatRoom({
   handleOpenConvos,
@@ -35,6 +40,12 @@ export default function ChatRoom({
 }) {
   const [msgError, setMsgError] = useState(false);
   const [msgErrorText, setMsgErrorText] = useState("");
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers,
+  });
+
   return (
     <div style={{ position: "fixed", height: "100%", width: "100%" }}>
       <MainContainer>
@@ -151,6 +162,9 @@ export default function ChatRoom({
               if (!containsSingleQuestion) {
                 setMsgError(true);
                 setMsgErrorText("Message must be a single question");
+              } else if (matcher.hasMatch(searchInput)) {
+                setMsgError(true);
+                setMsgErrorText("Questions cannot contain profanities");
               } else {
                 setMsgError(false);
                 setMsgErrorText("");
