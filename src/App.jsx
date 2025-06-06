@@ -83,7 +83,7 @@ export default function App() {
       } else if ("search_results" in data) {
         if (data.search_results.length == 0) {
           setSearchResultsError(true);
-          setSearchResultsErrorText("No chats found");
+          setSearchResultsErrorText("No questions found");
         } else {
           setSearchResultsError(false);
           setSearchResultsError("");
